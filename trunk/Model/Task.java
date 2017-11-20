@@ -1,5 +1,6 @@
-public class Task {
-    private String t_name;
-    private String description;
+public interface Task {
+    String create(String S);
+    String update(String S);
+    String delete(String S);
     
 }

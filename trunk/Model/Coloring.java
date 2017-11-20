@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
-
-public class Coloring {
+public interface Coloring {
+    String create(String S);
+    String update(String S);
+    String delete(String S);
 }
