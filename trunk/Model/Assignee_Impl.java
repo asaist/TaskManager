@@ -1,4 +1,6 @@
- public class Assignee_Impl implements Assignee {
+package Model;
+
+public class Assignee_Impl implements Assignee {
 
         private String name;
         private String lastname;
@@ -17,7 +19,17 @@
         public String update(String S){
             return S;
         }
-      
+
+    @Override
+    public void setName(String name) {
+        this.name=name;
+
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 
 
 }

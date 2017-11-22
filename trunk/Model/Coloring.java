@@ -1,3 +1,5 @@
+package Model;
+
 public interface Coloring {
     String create(String S);
     String update(String S);

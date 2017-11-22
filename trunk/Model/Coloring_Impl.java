@@ -1,3 +1,7 @@
+package Model;
+
+
+
 public class Coloring_Impl implements Coloring {
     private String color;
 
