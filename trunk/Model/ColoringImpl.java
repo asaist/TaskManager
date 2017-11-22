@@ -1,11 +1,11 @@
-package Model;
+package model;
 
 
 
-public class Coloring_Impl implements Coloring {
+public class ColoringImpl implements Coloring {
     private String color;
 
-    Coloring_Impl(String color){
+    ColoringImpl(String color){
         this.color=color;
     }
     @Override

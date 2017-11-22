@@ -1,8 +1,7 @@
-package View;
+package view;
 
-import Controller.TaskManagerControllerImpl;
-import Model.Assignee_Impl;
-import Model.Task_Impl;
+import controller.TaskManagerControllerImpl;
+import model.AssigneeImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,7 @@ import java.util.Scanner;
 public class ConsoleInputImpl implements ConsoleInput, Observer{
 
     private  final TaskManagerControllerImpl controller;
-    private  final Assignee_Impl model;
+    private  final AssigneeImpl model;
 
     private  final JPanel viewPanel;
     private  final JFrame viewFrame;
@@ -49,11 +48,11 @@ public class ConsoleInputImpl implements ConsoleInput, Observer{
     }
 
 
-    public ConsoleInputImpl(TaskManagerControllerImpl controller, Assignee_Impl model) {
+    public ConsoleInputImpl(TaskManagerControllerImpl controller, AssigneeImpl model) {
         this.controller = controller;
         this.model = model;
 
-        String textViewFrame = "View";
+        String textViewFrame = "view";
         String textViewButton = "Ok";
         String textName = "Name";
         String textLastName = "Last Name";

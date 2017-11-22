@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public interface Coloring {
     String create(String S);

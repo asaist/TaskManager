@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-public class Task_Impl implements Task {
+public class TaskImpl implements Task {
     private String t_name;
     private String description;
     private String deadline;
@@ -9,7 +9,7 @@ public class Task_Impl implements Task {
     private String subtask;
 
 
-    Task_Impl(String t_name,String description,String deadline,String priority,String status,String subtask){
+    TaskImpl(String t_name, String description, String deadline, String priority, String status, String subtask){
         this.t_name=t_name;
         this.description=description;
         this.deadline=deadline;

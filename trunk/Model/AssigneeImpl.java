@@ -1,12 +1,12 @@
-package Model;
+package model;
 
-public class Assignee_Impl implements Assignee {
+public class AssigneeImpl implements Assignee {
 
         private String name;
         private String lastname;
         private String post;
 
-        public Assignee_Impl(String name, String lastname, String post){
+        public AssigneeImpl(String name, String lastname, String post){
             this.name=name;
             this.lastname=lastname;
             this.post=post;

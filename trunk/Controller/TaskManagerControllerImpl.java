@@ -1,14 +1,14 @@
-package Controller;
+package controller;
 
-import Model.Assignee_Impl;
-import View.ConsoleInputImpl;
+import model.AssigneeImpl;
+import view.ConsoleInputImpl;
 
 
 public class TaskManagerControllerImpl implements TaskManagerController {
-    Assignee_Impl model;
+    AssigneeImpl model;
     ConsoleInputImpl view;
 
-    public TaskManagerControllerImpl (Assignee_Impl model) {
+    public TaskManagerControllerImpl (AssigneeImpl model) {
         this.model = model;
         view = new ConsoleInputImpl(this, model);
 

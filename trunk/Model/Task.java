@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public interface Task {
     String create(String S);

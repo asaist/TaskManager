@@ -1,15 +1,15 @@
-package Main;
+package main;
 
-import Controller.TaskManagerControllerImpl;
-import Model.Assignee_Impl;
-import Model.Assignee_store_Impl;
-import View.ConsoleInputImpl;
+import controller.TaskManagerControllerImpl;
+import model.AssigneeImpl;
+import model.AssigneeStoreImpl;
+import view.ConsoleInputImpl;
 
 public class TaskManager {
     public static void main (String[]args) {
-        Assignee_Impl model = new Assignee_Impl("name","lastname","post");
+        AssigneeImpl model = new AssigneeImpl("name","lastname","post");
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
-        Assignee_store_Impl assignee_store_ = new Assignee_store_Impl();
+        AssigneeStoreImpl assignee_store_ = new AssigneeStoreImpl();
         ConsoleInputImpl newInput = new ConsoleInputImpl(controller,model);
         newInput.createView();
         assignee_store_.addObserver(newInput);
