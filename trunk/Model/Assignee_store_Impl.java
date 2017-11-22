@@ -10,4 +10,8 @@ public class Assignee_store_Impl extends Observable implements Assignee_store {
     public void create(){
         System.out.println("Запись добавлена.");
     }
+     public void addTask(String t_name,String description,String deadline,String priority,String status,String subtask){
+        //
+         notifyObservers();
+     }
 }

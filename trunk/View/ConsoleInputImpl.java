@@ -8,27 +8,57 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
-public class ConsoleInputImpl implements ConsoleInput{
+public class ConsoleInputImpl implements ConsoleInput, Observer{
 
-    TaskManagerControllerImpl controller;
-    Task_Impl model;
+    private  final TaskManagerControllerImpl controller;
+    private  final Assignee_Impl model;
 
-    JPanel viewPanel;
-    JFrame viewFrame;
-    JTextField viewTextName;
-    JTextField viewTextLastName;
-    JTextField viewTextPost;
-    JButton viewButton;
+    private  final JPanel viewPanel;
+    private  final JFrame viewFrame;
+    private  final JTextField viewTextName;
+    private  final JTextField viewTextLastName;
+    private  final JTextField viewTextPost;
+    private  final JButton viewButton;
 
 
     public void createView () {
+
+
+
+
+        viewPanel.add(viewTextName);
+        viewPanel.add(viewTextLastName);
+        viewPanel.add(viewTextPost);
+        viewPanel.add(viewButton);
+
+        viewFrame.add(viewPanel);
+
+        viewFrame.pack();
+        viewFrame.setVisible(true);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        viewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.assigneeImplSetName(String.valueOf(viewTextName.getText()));
+            }
+        });
+    }
+
+
+    public ConsoleInputImpl(TaskManagerControllerImpl controller, Assignee_Impl model) {
+        this.controller = controller;
+        this.model = model;
 
         String textViewFrame = "View";
         String textViewButton = "Ok";
         String textName = "Name";
         String textLastName = "Last Name";
         String textPost = "Post";
+
 
         viewFrame = new JFrame(textViewFrame);
         viewFrame.setSize(new Dimension(700, 700));
@@ -45,37 +75,6 @@ public class ConsoleInputImpl implements ConsoleInput{
         viewTextLastName.setSize(new Dimension(100, 100));
         viewTextPost = new JTextField(textPost);
         viewTextPost.setSize(new Dimension(100, 100));
-
-        viewPanel.add(viewTextName);
-        viewPanel.add(viewTextLastName);
-        viewPanel.add(viewTextPost);
-        viewPanel.add(viewButton);
-
-        viewFrame.add(viewPanel);
-
-        viewFrame.pack();
-        viewFrame.setVisible(true);
-        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-        viewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                controller.assigneeImplSetName(String.valueOf(viewTextName));
-            }
-        });
-    }
-
-    public ConsoleInputImpl () {
-
-    }
-
-    public ConsoleInputImpl(TaskManagerControllerImpl controller, Assignee_Impl model){
-
-    }
-
-    public ConsoleInputImpl(TaskManagerControllerImpl controller, Task_Impl model) {
-        this.controller = controller;
-        this.model = model;
     }
 
     Scanner scanner = new Scanner(System.in);
@@ -95,4 +94,8 @@ public class ConsoleInputImpl implements ConsoleInput{
         return postInput;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
 }

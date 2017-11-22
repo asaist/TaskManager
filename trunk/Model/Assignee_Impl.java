@@ -6,7 +6,7 @@ public class Assignee_Impl implements Assignee {
         private String lastname;
         private String post;
 
-        Assignee_Impl(String name,String lastname,String post){
+        public Assignee_Impl(String name, String lastname, String post){
             this.name=name;
             this.lastname=lastname;
             this.post=post;
