@@ -9,8 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Scanner;
-public class ConsoleInputImpl implements ConsoleInput, Observer{
+
+public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     private  final TaskManagerControllerImpl controller;
     private  final AssigneeImpl model;
@@ -20,6 +20,7 @@ public class ConsoleInputImpl implements ConsoleInput, Observer{
     private  final JTextField viewTextName;
     private  final JTextField viewTextLastName;
     private  final JTextField viewTextPost;
+    private  final JTextField viewTextConsole;
     private  final JButton viewButton;
 
 
@@ -31,6 +32,7 @@ public class ConsoleInputImpl implements ConsoleInput, Observer{
         viewPanel.add(viewTextName);
         viewPanel.add(viewTextLastName);
         viewPanel.add(viewTextPost);
+        viewPanel.add(viewTextConsole);
         viewPanel.add(viewButton);
 
         viewFrame.add(viewPanel);
@@ -48,7 +50,7 @@ public class ConsoleInputImpl implements ConsoleInput, Observer{
     }
 
 
-    public ConsoleInputImpl(TaskManagerControllerImpl controller, AssigneeImpl model) {
+    public TaskManagerViewImpl(TaskManagerControllerImpl controller, AssigneeImpl model) {
         this.controller = controller;
         this.model = model;
 
@@ -56,6 +58,7 @@ public class ConsoleInputImpl implements ConsoleInput, Observer{
         String textViewButton = "Ok";
         String textName = "Name";
         String textLastName = "Last Name";
+        String textConsole = "Console";
         String textPost = "Post";
 
 
@@ -74,23 +77,8 @@ public class ConsoleInputImpl implements ConsoleInput, Observer{
         viewTextLastName.setSize(new Dimension(100, 100));
         viewTextPost = new JTextField(textPost);
         viewTextPost.setSize(new Dimension(100, 100));
-    }
-
-    Scanner scanner = new Scanner(System.in);
-    public String nameInput () {
-        System.out.println("Input name ");
-        String nameInput = scanner.nextLine();
-        return nameInput;
-    }
-    public String lastNameInput () {
-        System.out.println("Input lastname ");
-        String lastNameInput = scanner.nextLine();
-        return lastNameInput;
-    }
-    public String postInput () {
-        System.out.println("Input post ");
-        String postInput = scanner.nextLine();
-        return postInput;
+        viewTextConsole = new JTextField(textConsole);
+        viewTextConsole.setSize(new Dimension(100, 100));
     }
 
     @Override
