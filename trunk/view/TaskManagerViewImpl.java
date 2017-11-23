@@ -26,15 +26,11 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     public void createView () {
 
-
-
-
         viewPanel.add(viewTextName);
         viewPanel.add(viewTextLastName);
         viewPanel.add(viewTextPost);
         viewPanel.add(viewTextConsole);
         viewPanel.add(viewButton);
-
         viewFrame.add(viewPanel);
 
         viewFrame.pack();
@@ -44,7 +40,9 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
         viewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.assigneeImplSetName(String.valueOf(viewTextName.getText()));
+
+                controller.checkFields(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
+
             }
         });
     }
@@ -84,5 +82,13 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     @Override
     public void update(Observable o, Object arg) {
 
+    }
+
+    public void updateViewTextConsole(String textConsole) {
+        viewTextConsole.setText(textConsole);
+    }
+
+    public String displayText () {
+        return viewTextConsole.getText();
     }
 }
