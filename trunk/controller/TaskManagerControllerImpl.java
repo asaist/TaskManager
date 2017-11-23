@@ -48,7 +48,8 @@ public class TaskManagerControllerImpl implements TaskManagerController {
         }
 
         TaskManagerModelImpl taskModel = new TaskManagerModelImpl();
-        taskModel.addAssaignee(name, lastName, post);
+        //taskModel.addAssaignee(name, lastName, post);
+        taskModel.outputAssigneesImpl();
     }
 }
 

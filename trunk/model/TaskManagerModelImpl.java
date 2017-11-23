@@ -27,4 +27,11 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
      public void addAssaignee(String name, String lastname, String post){
          assigneesimpl.add(new AssigneeImpl(name, lastname, post));
      }
+
+     public void outputAssigneesImpl () {
+         for (int x = 0; x < assigneesimpl.size(); x++){
+             System.out.println(assigneesimpl.get(x));
+         }
+    }
+
 }
