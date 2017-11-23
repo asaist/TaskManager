@@ -1,5 +1,5 @@
 package model;
 
-public interface AssigneeStore {
+public interface TaskManagerModel {
     void create ();
 }

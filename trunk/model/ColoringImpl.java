@@ -5,6 +5,7 @@ package model;
 public class ColoringImpl implements Coloring {
     private String color;
 
+
     ColoringImpl(String color){
         this.color=color;
     }
