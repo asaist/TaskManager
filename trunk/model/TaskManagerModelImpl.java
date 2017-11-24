@@ -11,7 +11,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     private List<AssigneeImpl> assigneesimpl=new ArrayList();
     private List<Observer> colorings = new ArrayList();
 
-    public void create(){
+     public void create(){
         System.out.println("Запись добавлена.");
     }
      public void addTask(String t_name,String description,String deadline,String priority,String status,String subtask){
@@ -21,19 +21,13 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
      public void addColoring(String color){
          coloringsimpl.add(new ColoringImpl(color));
      }
-     public void addAssaignee(String name, String lastname, String post){
-         assigneesimpl.add(new AssigneeImpl(name, lastname, post));
-     }
 
-
-    public void modelcheckFields (String name, String lastName, String post) {
-
-        AssigneeImpl assignee = new AssigneeImpl(name, lastName, post);
+     public void addAssaignee (AssigneeImpl assignee) {
 
         try {
 
             for ( int i =0;i<assigneesimpl.size();i++) {
-                if (assignee==assigneesimpl.get(i)) {
+                if (assignee.equals(assigneesimpl.get(i))) {
                     throw new RuntimeException("It already has that assaignee");
                 } else {
                     assigneesimpl.add(assignee);
@@ -47,11 +41,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         }
     }
 
-
-
-
-
-     public void outputAssigneesImpl () {
+    public void displayModels () {
          for (int x = 0; x < assigneesimpl.size(); x++){
              System.out.println(assigneesimpl.get(x));
          }
