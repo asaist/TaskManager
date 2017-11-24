@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 public class TaskManagerModelImpl extends Observable implements TaskManagerModel {
 
@@ -28,10 +25,37 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
          assigneesimpl.add(new AssigneeImpl(name, lastname, post));
      }
 
+
+    public void modelcheckFields (String name, String lastName, String post) {
+
+        AssigneeImpl assignee = new AssigneeImpl(name, lastName, post);
+
+        try {
+
+            for ( int i =0;i<assigneesimpl.size();i++) {
+                if (assignee==assigneesimpl.get(i)) {
+                    throw new RuntimeException("It already has that assaignee");
+                } else {
+                    assigneesimpl.add(assignee);
+                    notifyObservers();
+                }
+            }
+        }
+        catch (RuntimeException e) {
+
+            System.out.println("123");
+        }
+    }
+
+
+
+
+
      public void outputAssigneesImpl () {
          for (int x = 0; x < assigneesimpl.size(); x++){
              System.out.println(assigneesimpl.get(x));
          }
     }
+
 
 }
