@@ -4,14 +4,16 @@ import model.AssigneeImpl;
 import model.TaskManagerModel;
 import model.TaskManagerModelImpl;
 import view.TaskManagerViewImpl;
+
+import java.util.List;
 import java.util.Objects;
 
 
 public class TaskManagerControllerImpl implements TaskManagerController {
-    AssigneeImpl model;
+    TaskManagerModelImpl model;
     TaskManagerViewImpl view;
 
-    public TaskManagerControllerImpl (AssigneeImpl model) {
+    public TaskManagerControllerImpl (TaskManagerModelImpl model) {
         this.model = model;
         view = new TaskManagerViewImpl(this, model);
 
@@ -40,6 +42,8 @@ public class TaskManagerControllerImpl implements TaskManagerController {
                 assignee.setPost(post);
             }
 
+            model.addAssaignee(assignee);
+
         }
 
             catch (RuntimeException e) {
@@ -47,9 +51,8 @@ public class TaskManagerControllerImpl implements TaskManagerController {
                 System.out.println(view.displayText());
         }
 
-        TaskManagerModelImpl taskModel = new TaskManagerModelImpl();
-        //taskModel.addAssaignee(name, lastName, post);
-        taskModel.outputAssigneesImpl();
+
     }
+
 }
 

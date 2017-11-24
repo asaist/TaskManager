@@ -7,7 +7,7 @@ import view.TaskManagerViewImpl;
 
 public class TaskManager {
     public static void main (String[]args) {
-        AssigneeImpl model = new AssigneeImpl("name","lastname","post");
+        TaskManagerModelImpl model = new TaskManagerModelImpl();
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
         TaskManagerModelImpl assignee_store_ = new TaskManagerModelImpl();
         TaskManagerViewImpl newInput = new TaskManagerViewImpl(controller,model);

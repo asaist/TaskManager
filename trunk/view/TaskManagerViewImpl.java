@@ -2,18 +2,20 @@ package view;
 
 import controller.TaskManagerControllerImpl;
 import model.AssigneeImpl;
+import model.TaskManagerModelImpl;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     private  final TaskManagerControllerImpl controller;
-    private  final AssigneeImpl model;
+    private  final TaskManagerModelImpl model;
 
     private  final JPanel viewPanel;
     private  final JFrame viewFrame;
@@ -48,7 +50,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     }
 
 
-    public TaskManagerViewImpl(TaskManagerControllerImpl controller, AssigneeImpl model) {
+    public TaskManagerViewImpl(TaskManagerControllerImpl controller, TaskManagerModelImpl model) {
         this.controller = controller;
         this.model = model;
 
@@ -91,4 +93,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     public String displayText () {
         return viewTextConsole.getText();
     }
+
+
 }

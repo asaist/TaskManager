@@ -41,9 +41,9 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         }
     }
 
-    public void displayModels () {
-         for (int x = 0; x < assigneesimpl.size(); x++){
-             System.out.println(assigneesimpl.get(x));
+    public void displayModels (List<AssigneeImpl> assignee) {
+         for (int x = 0; x < assignee.size(); x++){
+             System.out.println(assignee.get(x));
          }
     }
 
