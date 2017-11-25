@@ -19,32 +19,28 @@ public class AssigneeImpl implements Assignee {
         public String update(String S){
             return S;
         }
-
-    public String getLastname() {
+        @Override
+        public String getLastname() {
         return lastname;
-    }
-
-    public void setLastname(String lastname) {
+        }
+        @Override
+        public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
-    public String getPost() {
+        @Override
+        public String getPost() {
         return post;
     }
-
-    public void setPost(String post) {
+        @Override
+        public void setPost(String post) {
         this.post = post;
     }
-
-    @Override
-    public void setName(String name) {
-
+        @Override
+        public void setName(String name) {
         this.name=name;
-
-    }
-
-    @Override
-    public String getName() {
+        }
+        @Override
+        public String getName() {
         return name;
     }
 

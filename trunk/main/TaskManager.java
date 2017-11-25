@@ -13,6 +13,5 @@ public class TaskManager {
         TaskManagerViewImpl newInput = new TaskManagerViewImpl(controller,model);
         newInput.createView();
         assignee_store_.addObserver(newInput);
-
     }
 }
