@@ -6,6 +6,10 @@ public class AssigneeImpl implements Assignee {
         private String lastname;
         private String post;
 
+        public AssigneeImpl () {
+
+        }
+
         public AssigneeImpl(String name, String lastname, String post){
             this.name=name;
             this.lastname=lastname;

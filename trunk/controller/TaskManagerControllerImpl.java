@@ -21,11 +21,12 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     }
 
     public void addAssignee (String name, String lastName, String post){
-        AssigneeImpl assignee = new AssigneeImpl(name, lastName , post);
-        controller.checkFields(assignee);
+        AssigneeImpl assignee = new AssigneeImpl();
+        checkFields(name, lastName, post, assignee);
         model.addAssaignee(assignee);
 
     }
+
     @Override
 
     public boolean equals(String variableFirst, String variableSecond){
@@ -39,12 +40,7 @@ public class TaskManagerControllerImpl implements TaskManagerController {
 
     }
 
-    public void checkFields (Assignee assignee) {
-
-        String name = assignee.getName();
-        String lastName = assignee.getLastname();
-        String post = assignee.getPost();
-
+    public void checkFields (String name, String lastName, String post, AssigneeImpl assignee) {
 
 
         try {
