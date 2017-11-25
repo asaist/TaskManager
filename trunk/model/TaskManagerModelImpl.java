@@ -27,7 +27,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         try {
 
             for ( int i =0;i<assigneesimpl.size();i++) {
-                if (assignee.equals(assigneesimpl.get(i))) {
+                if (assignee==assigneesimpl.get(i)) {
                     throw new RuntimeException("It already has that assaignee");
                 } else {
                     assigneesimpl.add(assignee);
