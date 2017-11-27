@@ -27,18 +27,6 @@ public class TaskManagerControllerImpl implements TaskManagerController {
 
     }
 
-    @Override
-
-    public boolean equals(String variableFirst, String variableSecond){
-        if (variableFirst == variableSecond) {
-            return true;
-        }
-
-        else {
-            return false;
-        }
-
-    }
 
     public void checkFields (String name, String lastName, String post, AssigneeImpl assignee) {
 
@@ -61,7 +49,6 @@ public class TaskManagerControllerImpl implements TaskManagerController {
             } else {
                 assignee.setPost(post);
             }
-
         }
             catch (RuntimeException e) {
                 System.out.println(name);
