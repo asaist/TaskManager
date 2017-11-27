@@ -23,10 +23,19 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     public void addAssignee (String name, String lastName, String post){
         AssigneeImpl assignee = new AssigneeImpl();
         checkFields(name, lastName, post, assignee);
-        model.addAssaignee(assignee);
-
+        checkAssignees(assignee);
     }
 
+    public void checkAssignees (AssigneeImpl assignee) {
+
+        for (int i = 0; i < model.getAssigneesimpl().size(); i++) {
+            if (model.getAssigneesimpl().get(i) == assignee) {
+                throw new RuntimeException("a record already exists");
+            } else {
+                model.addAssaignee(assignee);
+            }
+        }
+    }
 
     public void checkFields (String name, String lastName, String post, AssigneeImpl assignee) {
 

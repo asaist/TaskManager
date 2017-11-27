@@ -8,6 +8,15 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     private List<Observer> tasks = new ArrayList();
     private List<TaskImpl> tasksimpl=new ArrayList();
     private List<ColoringImpl> coloringsimpl=new ArrayList();
+
+    public List<AssigneeImpl> getAssigneesimpl() {
+        return assigneesimpl;
+    }
+
+    public void setAssigneesimpl(List<AssigneeImpl> assigneesimpl) {
+        this.assigneesimpl = assigneesimpl;
+    }
+
     private List<AssigneeImpl> assigneesimpl=new ArrayList();
     private List<Observer> colorings = new ArrayList();
 
@@ -26,6 +35,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
 
         try {
                     assigneesimpl.add(assignee);
+                    System.out.println("Запись добавлена");
                     setChanged();
                     notifyObservers();
                     System.out.println("Запись добавлена " + assignee.getName());
