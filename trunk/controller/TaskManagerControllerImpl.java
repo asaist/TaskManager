@@ -29,12 +29,13 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     public void checkAssignees (AssigneeImpl assignee) {
         if (model.getAssigneesimpl().size() == 0) {
             model.addAssaignee(assignee);
-        }
-        for (int i = 0; i < model.getAssigneesimpl().size(); i++) {
-            if (model.getAssigneesimpl().get(i) == assignee) {
-                throw new RuntimeException("a record already exists");
-            } else {
-                model.addAssaignee(assignee);
+        } else {
+            for (int i = 0; i < model.getAssigneesimpl().size(); i++) {
+                if (model.getAssigneesimpl().get(i) == assignee) {
+                    throw new RuntimeException("a record already exists");
+                } else {
+                    model.addAssaignee(assignee);
+                }
             }
         }
     }
