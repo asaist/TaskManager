@@ -33,7 +33,10 @@ public class TaskManagerControllerImpl implements TaskManagerController {
         } else {
             for (int i = 0; i < model.getAssigneesimpl().size(); i++) {
                 try {
-                    if (model.getAssigneesimpl().get(i).getName().equals(assignee.getName())) {
+                    if (model.getAssigneesimpl().get(i).getName().equals(assignee.getName())&&
+                        model.getAssigneesimpl().get(i).getLastname().equals(assignee.getLastname())&&
+                        model.getAssigneesimpl().get(i).getPost().equals(assignee.getPost())
+                        ) {
                         throw new RuntimeException("a record already exists");
                     } else {
                         model.addAssaignee(assignee);
