@@ -25,19 +25,9 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
      public void addAssaignee (AssigneeImpl assignee) {
 
         try {
-                if (assigneesimpl.size()==0) {
                     assigneesimpl.add(assignee);
                     setChanged();
                     notifyObservers();
-                } else{
-                    for (int i=0;i<assigneesimpl.size();i++){
-                        if (assignee==assigneesimpl.get(i)){
-                            
-                        }
-
-                    }
-                }
-
         }
         catch (RuntimeException e) {
 
