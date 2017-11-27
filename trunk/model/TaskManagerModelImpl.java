@@ -32,18 +32,10 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
      }
 
      public void addAssaignee (AssigneeImpl assignee) {
-
-        try {
-                    assigneesimpl.add(assignee);
-                    System.out.println("Запись добавлена");
-                    setChanged();
-                    notifyObservers();
-                    System.out.println("Запись добавлена " + assignee.getName());
-        }
-        catch (RuntimeException e) {
-
-            System.out.println("123");
-        }
+         assigneesimpl.add(assignee);
+         setChanged();
+         notifyObservers();
+         System.out.println("Запись добавлена  в модель " + assignee.getName());
     }
 
 
