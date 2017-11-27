@@ -25,15 +25,19 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
      public void addAssaignee (AssigneeImpl assignee) {
 
         try {
-
-            for ( int i =0;i<assigneesimpl.size();i++) {
-                if (assignee==assigneesimpl.get(i)) {
-                    throw new RuntimeException("It already has that assaignee");
-                } else {
+                if (assigneesimpl.size()==0) {
                     assigneesimpl.add(assignee);
+                    setChanged();
                     notifyObservers();
+                } else{
+                    for (int i=0;i<assigneesimpl.size();i++){
+                        if (assignee==assigneesimpl.get(i)){
+                            
+                        }
+
+                    }
                 }
-            }
+
         }
         catch (RuntimeException e) {
 
@@ -41,11 +45,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         }
     }
 
-    public void displayModels (List<AssigneeImpl> assignee) {
-         for (int x = 0; x < assignee.size(); x++){
-             System.out.println(assignee.get(x));
-         }
-    }
+
 
 
 }
