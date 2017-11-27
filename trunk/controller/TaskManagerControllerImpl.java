@@ -27,6 +27,7 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     }
 
     public void checkAssignees (AssigneeImpl assignee) {
+        System.out.println(model.getAssigneesimpl().size());
         if (model.getAssigneesimpl().size() == 0) {
             model.addAssaignee(assignee);
         } else {
