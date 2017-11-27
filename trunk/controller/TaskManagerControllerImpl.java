@@ -42,34 +42,32 @@ public class TaskManagerControllerImpl implements TaskManagerController {
 
     public void checkFields (String name, String lastName, String post, AssigneeImpl assignee) {
 
-
         try {
 
-            if (name == null || controller.equals(name, "") || controller.equals(name, " ")) {
+            if (name == null || name == "" || name == " ") {
                 throw new RuntimeException("name is empty");
             } else {
                 assignee.setName(name);
             }
 
-            if (lastName == null || controller.equals(lastName, "") || controller.equals(lastName, " ")) {
+            if (lastName == null || lastName == "" || lastName == " ") {
                 throw new RuntimeException("lastName is empty");
             } else {
                 assignee.setLastname(lastName);
             }
 
-            if (post == null || controller.equals(post, "") || controller.equals(post, " ")) {
+            if (post == null || post == "" || post == " ") {
                 throw new RuntimeException("post is empty");
             } else {
                 assignee.setPost(post);
             }
 
-
         }
             catch (RuntimeException e) {
+                System.out.println(name);
                 view.updateViewTextConsole("Error "+e);
                 System.out.println(view.displayText());
         }
-
 
     }
 
