@@ -5,6 +5,9 @@ package model;
 public class ColoringImpl implements Coloring {
     private String color;
 
+    public String getColor() {
+        return color;
+    }
 
     ColoringImpl(String color){
         this.color=color;
@@ -21,4 +24,26 @@ public class ColoringImpl implements Coloring {
     public String delete(String S){
         return S;
     }
+
+    @Override
+    public boolean equals(Object anObject){
+        if (anObject instanceof ColoringImpl) {
+            ColoringImpl coloring = (ColoringImpl) anObject;
+                /*if (name == null || assignee.getName() == null)  {
+                    return false;
+                }*/
+
+            if (!color.equals(coloring.getColor())) {
+                return false;
+            }
+
+
+        }
+        return true;
+    }
+    @Override
+    public String toString(){
+        return (color);
+    }
+
 }

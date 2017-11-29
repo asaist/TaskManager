@@ -1,7 +1,9 @@
 package view;
 
+import controller.TaskManagerController;
 import controller.TaskManagerControllerImpl;
 import model.AssigneeImpl;
+import model.TaskManagerModel;
 import model.TaskManagerModelImpl;
 
 import javax.swing.*;
@@ -14,8 +16,8 @@ import java.util.Observer;
 
 public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
-    private  final TaskManagerControllerImpl controller;
-    private  final TaskManagerModelImpl model;
+    private  final TaskManagerController controller;
+    private  final TaskManagerModel model;
 
     private  final JPanel viewPanel;
     private  final JFrame viewFrame;
@@ -48,7 +50,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     }
 
 
-    public TaskManagerViewImpl(TaskManagerControllerImpl controller, TaskManagerModelImpl model) {
+    public TaskManagerViewImpl(TaskManagerController controller, TaskManagerModel model) {
         this.controller = controller;
         this.model = model;
 
@@ -93,10 +95,10 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     }
 
     public void displayModels(){
-        for (int i=0;i<model.getAssigneesimpl().size();i++){
-            System.out.println(model.getAssigneesimpl().get(i).getName()+""+
-                    model.getAssigneesimpl().get(i).getLastname()+""+
-                    model.getAssigneesimpl().get(i).getPost()
+        for (int i=0;i<model.getAssignees().size();i++){
+            System.out.println(model.getAssignees().get(i).getName()+" "+
+                    model.getAssignees().get(i).getLastname()+" "+
+                    model.getAssignees().get(i).getPost()
             );
 
         }

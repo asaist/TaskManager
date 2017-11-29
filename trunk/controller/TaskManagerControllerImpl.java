@@ -3,84 +3,56 @@ package controller;
 import model.Assignee;
 import model.AssigneeImpl;
 import model.TaskManagerModel;
-import model.TaskManagerModelImpl;
+import view.TaskManagerView;
 import view.TaskManagerViewImpl;
+
 import java.util.List;
 import java.util.Objects;
 
 
 public class TaskManagerControllerImpl implements TaskManagerController {
-    TaskManagerModelImpl model;
-    TaskManagerViewImpl view;
-    TaskManagerControllerImpl controller;
+    TaskManagerModel model;
+    TaskManagerView view;
+    TaskManagerController controller;
 
-    public TaskManagerControllerImpl (TaskManagerModelImpl model) {
+    public TaskManagerControllerImpl (TaskManagerModel model) {
         this.model = model;
         view = new TaskManagerViewImpl(this, model);
 
     }
 
     public void addAssignee (String name, String lastName, String post){
-        AssigneeImpl assignee = new AssigneeImpl();
+        Assignee assignee = new AssigneeImpl();
         checkFields(name, lastName, post, assignee);
-        checkAssignees(assignee);
+        model.addAssaignee(assignee);
+        System.out.println(assignee.toString());
     }
 
-    public void checkAssignees (AssigneeImpl assignee) {
-        System.out.println(model.getAssigneesimpl().size());
-        if (model.getAssigneesimpl().size() == 0) {
-            model.addAssaignee(assignee);
-        } else {
-            int count = 0;
-            for (int i = 0; i < model.getAssigneesimpl().size(); i++) {
-                try {
-                    if (model.getAssigneesimpl().get(i).getName().equals(assignee.getName())&&
-                            model.getAssigneesimpl().get(i).getLastname().equals(assignee.getLastname())&&
-                            model.getAssigneesimpl().get(i).getPost().equals(assignee.getPost())
-                            ) {
-                        count++;
-                        throw new RuntimeException("a record already exists");
-                    }
-                } catch (RuntimeException e) {
-                    view.updateViewTextConsole("Error " + e);
-                    System.out.println(view.displayText());
-                }
-            }
-            if (count == 0) {
-                model.addAssaignee(assignee);
-                view.displayModels();
-            }
-        }
-    }
 
-    public void checkFields (String name, String lastName, String post, AssigneeImpl assignee) {
 
-        try {
+    public void checkFields (String name, String lastName, String post, Assignee assignee) {
 
-            if (name == null || name == "" || name == " ") {
+            if (isCorrect(name)) {
                 throw new RuntimeException("name is empty");
             } else {
-                assignee.setName(name);
+                assignee.setName(name.trim());
             }
 
-            if (lastName == null || lastName == "" || lastName == " ") {
+            if (isCorrect(lastName)) {
                 throw new RuntimeException("lastName is empty");
             } else {
-                assignee.setLastname(lastName);
+                assignee.setLastname(lastName.trim());
             }
 
-            if (post == null || post == "" || post == " ") {
+            if (isCorrect(post)) {
                 throw new RuntimeException("post is empty");
             } else {
-                assignee.setPost(post);
+                assignee.setPost(post.trim());
             }
-        }
-            catch (RuntimeException e) {
-                System.out.println(name);
-                view.updateViewTextConsole("Error "+e);
-                System.out.println(view.displayText());
-        }
+    }
 
+    private boolean isCorrect(String field) {
+        return field == null || field.isEmpty() || field.trim().isEmpty();
     }
 
 }

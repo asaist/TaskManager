@@ -78,4 +78,41 @@ public class TaskImpl implements Task {
     public String delete(String S){
         return S;
     }
+
+    @Override
+    public boolean equals(Object anObject){
+        if (anObject instanceof TaskImpl) {
+            TaskImpl task = (TaskImpl) anObject;
+                /*if (name == null || assignee.getName() == null)  {
+                    return false;
+                }*/
+
+            if (!t_name.equals(task.getT_name())) {
+                return false;
+            }
+            if (!description.equals(task.getDescription())) {
+                return false;
+            }
+            if (!deadline.equals(task.getDeadline())) {
+                return false;
+            }
+            if (!priority.equals(task.getPriority())) {
+                return false;
+            }
+            if (!status.equals(task.getStatus())) {
+                return false;
+            }
+            if (!subtask.equals(task.getSubtask())) {
+                return false;
+            }
+        }
+        return true;
+    }
+    @Override
+    public String toString(){
+        return (t_name+" "+description+" "+deadline+" "+priority+" "+status+" "+subtask);
+    }
+
+
+
 }
