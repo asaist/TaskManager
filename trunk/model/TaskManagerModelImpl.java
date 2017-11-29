@@ -37,8 +37,4 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
          notifyObservers();
          System.out.println("Запись добавлена  в модель " + assignee.getName());
     }
-
-
-
-
 }

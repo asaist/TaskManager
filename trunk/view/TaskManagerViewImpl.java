@@ -92,7 +92,15 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         return viewTextConsole.getText();
     }
 
+    public void displayModels(){
+        for (int i=0;i<model.getAssigneesimpl().size();i++){
+            System.out.println(model.getAssigneesimpl().get(i).getName()+""+
+                    model.getAssigneesimpl().get(i).getLastname()+""+
+                    model.getAssigneesimpl().get(i).getPost()
+            );
 
+        }
+    }
 
 
 }

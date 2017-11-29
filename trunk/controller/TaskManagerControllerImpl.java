@@ -31,20 +31,24 @@ public class TaskManagerControllerImpl implements TaskManagerController {
         if (model.getAssigneesimpl().size() == 0) {
             model.addAssaignee(assignee);
         } else {
+            int count = 0;
             for (int i = 0; i < model.getAssigneesimpl().size(); i++) {
                 try {
                     if (model.getAssigneesimpl().get(i).getName().equals(assignee.getName())&&
-                        model.getAssigneesimpl().get(i).getLastname().equals(assignee.getLastname())&&
-                        model.getAssigneesimpl().get(i).getPost().equals(assignee.getPost())
-                        ) {
+                            model.getAssigneesimpl().get(i).getLastname().equals(assignee.getLastname())&&
+                            model.getAssigneesimpl().get(i).getPost().equals(assignee.getPost())
+                            ) {
+                        count++;
                         throw new RuntimeException("a record already exists");
-                    } else {
-                        model.addAssaignee(assignee);
                     }
                 } catch (RuntimeException e) {
                     view.updateViewTextConsole("Error " + e);
                     System.out.println(view.displayText());
                 }
+            }
+            if (count == 0) {
+                model.addAssaignee(assignee);
+                view.displayModels();
             }
         }
     }
