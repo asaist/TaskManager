@@ -66,18 +66,7 @@ public class TaskImpl implements Task {
         this.subtask = subtask;
     }
 
-    @Override
-    public String create(String S){
-        return S;
-    }
-    @Override
-    public String update(String S){
-        return S;
-    }
-    @Override
-    public String delete(String S){
-        return S;
-    }
+
 
     @Override
     public boolean equals(Object anObject){

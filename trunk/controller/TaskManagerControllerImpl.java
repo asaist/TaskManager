@@ -2,12 +2,16 @@ package controller;
 
 import model.Assignee;
 import model.AssigneeImpl;
+import model.Task;
+import model.TaskImpl;
 import model.TaskManagerModel;
 import view.TaskManagerView;
 import view.TaskManagerViewImpl;
 
 import java.util.List;
 import java.util.Objects;
+
+import static model.Assignee.post;
 
 
 public class TaskManagerControllerImpl implements TaskManagerController {
@@ -20,7 +24,14 @@ public class TaskManagerControllerImpl implements TaskManagerController {
         view = new TaskManagerViewImpl(this, model);
 
     }
-
+    //Task
+    public void addTask (String t_name, String description, String deadline,String priority,String status,String subtask){
+        Task task = new TaskImpl();
+        checkFields(t_name,description, deadline,priority,status,subtask, task);
+        model.addTask(task);
+        System.out.println(assignee.toString());
+    }
+    //Assaignee
     public void addAssignee (String name, String lastName, String post){
         Assignee assignee = new AssigneeImpl();
         checkFields(name, lastName, post, assignee);

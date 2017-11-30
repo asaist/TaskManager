@@ -9,27 +9,41 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     private List<Assignee> assignees=new ArrayList();
 
 
+
+
     public List<Assignee> getAssignees() {
         return assignees;
+    }
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public void setAssignees(List<Assignee> assignees) {
         this.assignees = assignees;
     }
+    public void setTasks(List<Task> tasks) { this.tasks = tasks; }
 
+    public void create(){ System.out.println("Запись добавлена."); }
 
-
-     public void create(){
-        System.out.println("Запись добавлена.");
+    //Task
+    public void addTask (Task task) {
+        checkTasks(task);
+        tasks.add(task);
+        setChanged();
+        notifyObservers();
+        System.out.println("Запись добавлена  в модель " + task.getT_name());
     }
-     public void addTask(String t_name,String description,String deadline,String priority,String status,String subtask){
-         tasks.add(new TaskImpl(t_name, description, deadline, priority, status, subtask));
-         notifyObservers();
-     }
-     public void addColoring(String color){
-         colorings.add(new ColoringImpl(color));
-     }
+    private void checkTasks (Task task) {
+        System.out.println(getTasks().size());
 
+        for (Task task1:getTasks()) {
+            if (task1.equals(task)) {
+                throw new RuntimeException("a record already exists");
+            }
+        }
+    }
+
+    //Assaignee
      public void addAssaignee (Assignee assignee) {
          checkAssignees(assignee);
          assignees.add(assignee);
