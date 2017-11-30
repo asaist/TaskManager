@@ -8,8 +8,9 @@ public class TaskImpl implements Task {
     private String status;
     private String subtask;
 
+    public TaskImpl() {}
 
-    TaskImpl(String t_name, String description, String deadline, String priority, String status, String subtask){
+    public TaskImpl(String t_name, String description, String deadline, String priority, String status, String subtask){
         this.t_name=t_name;
         this.description=description;
         this.deadline=deadline;

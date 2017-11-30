@@ -27,9 +27,43 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     //Task
     public void addTask (String t_name, String description, String deadline,String priority,String status,String subtask){
         Task task = new TaskImpl();
-        checkFields(t_name,description, deadline,priority,status,subtask, task);
+        checkFieldstask(t_name,description, deadline,priority,status,subtask, task);
         model.addTask(task);
-        System.out.println(assignee.toString());
+        System.out.println(task.toString());
+    }
+
+    public void checkFieldstask (String t_name, String description, String deadline, String priority,String status,String subtask, Task task) {
+
+        if (isCorrect(t_name)) {
+            throw new RuntimeException("t_name is empty");
+        } else {
+            task.setT_name(t_name.trim());
+        }
+        if (isCorrect(description)) {
+            throw new RuntimeException("description is empty");
+        } else {
+            task.setDescription(description.trim());
+        }
+        if (isCorrect(deadline)) {
+            throw new RuntimeException("deadline is empty");
+        } else {
+            task.setDeadline(deadline.trim());
+        }
+        if (isCorrect(priority)) {
+            throw new RuntimeException("priority is empty");
+        } else {
+            task.setPriority(priority.trim());
+        }
+        if (isCorrect(status)) {
+            throw new RuntimeException("status is empty");
+        } else {
+            task.setStatus(status.trim());
+        }
+        if (isCorrect(subtask)) {
+            throw new RuntimeException("subtask is empty");
+        } else {
+            task.setStatus(subtask.trim());
+        }
     }
     //Assaignee
     public void addAssignee (String name, String lastName, String post){

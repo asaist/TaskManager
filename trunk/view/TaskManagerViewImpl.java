@@ -102,6 +102,16 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             );
 
         }
+        for (int i=0;i<model.getTasks().size();i++){
+            System.out.println(model.getTasks().get(i).getT_name()+" "+
+                    model.getTasks().get(i).getDescription()+" "+
+                    model.getTasks().get(i).getDeadline()+" "+
+                    model.getTasks().get(i).getPriority()+" "+
+                    model.getTasks().get(i).getStatus()+" "+
+                    model.getTasks().get(i).getSubtask()
+            );
+
+        }
     }
 
 
