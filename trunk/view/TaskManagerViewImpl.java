@@ -25,6 +25,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final JTextField viewTextLastName;
     private  final JTextField viewTextPost;
     private  final JTextField viewTextConsole;
+    private  final JTextField viewTextTName;
     private  final JButton viewButton;
 
 
@@ -33,6 +34,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewPanel.add(viewTextName);
         viewPanel.add(viewTextLastName);
         viewPanel.add(viewTextPost);
+        viewPanel.add(viewTextTName);
         viewPanel.add(viewTextConsole);
         viewPanel.add(viewButton);
         viewFrame.add(viewPanel);
@@ -46,6 +48,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
+                    //controller.addTask();
                 } catch (RuntimeException e1) {
                     System.out.println(e1);;
                 }
@@ -64,6 +67,12 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         String textLastName = "Last Name";
         String textConsole = "Console";
         String textPost = "Post";
+        String texTName = "TaskName";
+        String textDescription = "Description";
+        String textDeadline = "Deadline";
+        String textPriority = "Priority";
+        String textStatus = "Status";
+        String textSubtask = "Subtask";
 
 
         viewFrame = new JFrame(textViewFrame);
@@ -75,6 +84,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewButton = new JButton(textViewButton);
         viewButton.setSize(new Dimension(100, 100));
 
+        viewTextTName = new JTextField(texTName);
+        viewTextTName.setSize(new Dimension(100, 100));
         viewTextName = new JTextField(textName);
         viewTextName.setSize(new Dimension(100, 100));
         viewTextLastName = new JTextField(textLastName);
