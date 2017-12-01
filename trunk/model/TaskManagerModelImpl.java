@@ -34,8 +34,6 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         System.out.println("Запись добавлена  в модель " + task.getT_name());
     }
     private void checkTasks (Task task) {
-        System.out.println(getTasks().size());
-
         for (Task task1:getTasks()) {
             if (task1.equals(task)) {
                 throw new RuntimeException("a record already exists");
@@ -53,8 +51,6 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     }
 
     private void checkAssignees (Assignee assignee) {
-        System.out.println(getAssignees().size());
-
             for (Assignee assignee1:getAssignees()) {
                     if (assignee1.equals(assignee)) {
                         throw new RuntimeException("a record already exists");

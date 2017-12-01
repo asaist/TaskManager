@@ -62,7 +62,7 @@ public class TaskManagerControllerImpl implements TaskManagerController {
         if (isCorrect(subtask)) {
             throw new RuntimeException("subtask is empty");
         } else {
-            task.setStatus(subtask.trim());
+            task.setSubtask(subtask.trim());
         }
     }
     //Assaignee

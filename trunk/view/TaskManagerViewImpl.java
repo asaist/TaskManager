@@ -1,16 +1,12 @@
 package view;
 
 import controller.TaskManagerController;
-import controller.TaskManagerControllerImpl;
-import model.AssigneeImpl;
 import model.TaskManagerModel;
-import model.TaskManagerModelImpl;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,6 +22,11 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final JTextField viewTextPost;
     private  final JTextField viewTextConsole;
     private  final JTextField viewTextTName;
+    private  final JTextField viewTextDescription;
+    private  final JTextField viewTextDeadline;
+    private  final JTextField viewTextPriority;
+    private  final JTextField viewTextStatus;
+    private  final JTextField viewTextSubTask;
     private  final JButton viewButton;
 
 
@@ -35,6 +36,11 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewPanel.add(viewTextLastName);
         viewPanel.add(viewTextPost);
         viewPanel.add(viewTextTName);
+        viewPanel.add(viewTextDescription);
+        viewPanel.add(viewTextDeadline);
+        viewPanel.add(viewTextPriority);
+        viewPanel.add(viewTextStatus);
+        viewPanel.add(viewTextSubTask);
         viewPanel.add(viewTextConsole);
         viewPanel.add(viewButton);
         viewFrame.add(viewPanel);
@@ -48,9 +54,9 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             public void actionPerformed(ActionEvent e) {
                 try {
                     controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
-                    //controller.addTask();
+                    controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadline.getText()),String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
                 } catch (RuntimeException e1) {
-                    System.out.println(e1);;
+                    System.out.println(e1);
                 }
             }
         });
@@ -72,7 +78,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         String textDeadline = "Deadline";
         String textPriority = "Priority";
         String textStatus = "Status";
-        String textSubtask = "Subtask";
+        String textSubtasks = "Subtasks";
 
 
         viewFrame = new JFrame(textViewFrame);
@@ -84,6 +90,17 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewButton = new JButton(textViewButton);
         viewButton.setSize(new Dimension(100, 100));
 
+
+        viewTextDeadline = new JTextField(textDeadline);
+        viewTextDeadline.setSize(new Dimension(100, 100));
+        viewTextPriority = new JTextField(textPriority);
+        viewTextPriority.setSize(new Dimension(100, 100));
+        viewTextStatus = new JTextField(textStatus);
+        viewTextStatus.setSize(new Dimension(100, 100));
+        viewTextSubTask = new JTextField(textSubtasks);
+        viewTextSubTask.setSize(new Dimension(100, 100));
+        viewTextDescription = new JTextField(textDescription);
+        viewTextDescription.setSize(new Dimension(100, 100));
         viewTextTName = new JTextField(texTName);
         viewTextTName.setSize(new Dimension(100, 100));
         viewTextName = new JTextField(textName);
