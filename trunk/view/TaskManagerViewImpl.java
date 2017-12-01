@@ -44,7 +44,11 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
         viewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                try {
                     controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
+                } catch (RuntimeException e1) {
+                    System.out.println(e1);;
+                }
             }
         });
     }
