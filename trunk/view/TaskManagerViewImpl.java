@@ -1,6 +1,8 @@
 package view;
 
 import controller.TaskManagerController;
+import model.Assignee;
+import model.Task;
 import model.TaskManagerModel;
 
 import javax.swing.*;
@@ -15,7 +17,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final TaskManagerController controller;
     private  final TaskManagerModel model;
 
-    private  final JPanel viewPanel;
+    private  final JPanel addAssaigneePanel;
+    private  final JPanel addTaskPanel;
     private  final JFrame viewFrame;
     private  final JTextField viewTextName;
     private  final JTextField viewTextLastName;
@@ -27,40 +30,9 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final JTextField viewTextPriority;
     private  final JTextField viewTextStatus;
     private  final JTextField viewTextSubTask;
-    private  final JButton viewButton;
+    private  final JButton addAssaigneeButton;
+    private  final JButton addTaskButton;
 
-
-    public void createView () {
-
-        viewPanel.add(viewTextName);
-        viewPanel.add(viewTextLastName);
-        viewPanel.add(viewTextPost);
-        viewPanel.add(viewTextTName);
-        viewPanel.add(viewTextDescription);
-        viewPanel.add(viewTextDeadline);
-        viewPanel.add(viewTextPriority);
-        viewPanel.add(viewTextStatus);
-        viewPanel.add(viewTextSubTask);
-        viewPanel.add(viewTextConsole);
-        viewPanel.add(viewButton);
-        viewFrame.add(viewPanel);
-
-        viewFrame.pack();
-        viewFrame.setVisible(true);
-        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-        viewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
-                    controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadline.getText()),String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
-                } catch (RuntimeException e1) {
-                    System.out.println(e1);
-                }
-            }
-        });
-    }
 
 
     public TaskManagerViewImpl(TaskManagerController controller, TaskManagerModel model) {
@@ -68,7 +40,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         this.model = model;
 
         String textViewFrame = "view";
-        String textViewButton = "Ok";
+        String addAssaigneeButtonLable = "Add Assaignee";
+        String addTaskButtonLable = "Add Task";
         String textName = "Name";
         String textLastName = "Last Name";
         String textConsole = "Console";
@@ -84,11 +57,14 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewFrame = new JFrame(textViewFrame);
         viewFrame.setSize(new Dimension(700, 700));
 
-        viewPanel = new JPanel();
-        viewPanel.setSize(new Dimension(700, 700));
-
-        viewButton = new JButton(textViewButton);
-        viewButton.setSize(new Dimension(100, 100));
+        addAssaigneePanel = new JPanel();
+        addAssaigneePanel.setSize(new Dimension(700, 700));
+        addTaskPanel = new JPanel();
+        addTaskPanel.setSize(new Dimension(700, 700));
+        addAssaigneeButton = new JButton(addAssaigneeButtonLable);
+        addAssaigneeButton.setSize(new Dimension(100, 100));
+        addTaskButton = new JButton(addTaskButtonLable);
+        addTaskButton.setSize(new Dimension(100, 100));
 
 
         viewTextDeadline = new JTextField(textDeadline);
@@ -113,34 +89,86 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewTextConsole.setSize(new Dimension(100, 100));
     }
 
+    public void createView () {
+
+        addAssaigneePanel.add(viewTextName);
+        addAssaigneePanel.add(viewTextLastName);
+        addAssaigneePanel.add(viewTextPost);
+        addAssaigneePanel.add(viewTextConsole);
+        addAssaigneePanel.add(addAssaigneeButton);
+        addAssaigneePanel.add(addTaskButton);
+        viewFrame.add(addAssaigneePanel);
+
+        viewFrame.pack();
+        viewFrame.setVisible(true);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        addTaskPanel.add(viewTextTName);
+        addTaskPanel.add(viewTextDescription);
+        addTaskPanel.add(viewTextDeadline);
+        addTaskPanel.add(viewTextPriority);
+        addTaskPanel.add(viewTextStatus);
+        addTaskPanel.add(viewTextSubTask);
+        addTaskPanel.add(addTaskButton);
+
+        viewFrame.add(addTaskPanel);
+
+        viewFrame.pack();
+        viewFrame.setVisible(true);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        addAssaigneeButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
+            } catch (RuntimeException e1) {
+                System.out.println(e1);
+            }
+        }
+    });
+                addTaskButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadline.getText()),String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
+                        } catch (RuntimeException e1) {
+                            System.out.println(e1);
+                        }
+                    }
+                }
+
+
+
+    );
+    }
+
+
     @Override
     public void update(Observable o, Object arg) {
-
+        TaskManagerModel model = (TaskManagerModel) o;
+        displayModels(model);
     }
 
     public void updateViewTextConsole(String textConsole) {
         viewTextConsole.setText(textConsole);
+        System.out.println(textConsole);
     }
 
-    public String displayText () {
-        return viewTextConsole.getText();
-    }
 
-    public void displayModels(){
-        for (int i=0;i<model.getAssignees().size();i++){
-            System.out.println(model.getAssignees().get(i).getName()+" "+
-                    model.getAssignees().get(i).getLastname()+" "+
-                    model.getAssignees().get(i).getPost()
+    public void displayModels(TaskManagerModel model){
+        for (Assignee assignee: model.getAssignees()){
+            updateViewTextConsole(assignee.getName()+" "+
+                    assignee.getLastname()+" "+
+                    assignee.getPost()
             );
 
         }
-        for (int i=0;i<model.getTasks().size();i++){
-            System.out.println(model.getTasks().get(i).getT_name()+" "+
-                    model.getTasks().get(i).getDescription()+" "+
-                    model.getTasks().get(i).getDeadline()+" "+
-                    model.getTasks().get(i).getPriority()+" "+
-                    model.getTasks().get(i).getStatus()+" "+
-                    model.getTasks().get(i).getSubtask()
+        for (Task task: model.getTasks()){
+            updateViewTextConsole(task.getT_name()+" "+
+                    task.getDescription()+" "+
+                    task.getDeadline()+" "+
+                    task.getPriority()+" "+
+                    task.getStatus()+" "+
+                    task.getSubtask()
             );
 
         }

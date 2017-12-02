@@ -1,7 +1,8 @@
 package view;
 
+import model.TaskManagerModel;
+
 public interface TaskManagerView {
-    public void updateViewTextConsole(String textConsole);
-    public String displayText ();
-    public void displayModels();
+    void updateViewTextConsole(String textConsole);
+    void displayModels(TaskManagerModel model);
 }

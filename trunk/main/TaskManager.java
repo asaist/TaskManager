@@ -9,9 +9,8 @@ public class TaskManager {
     public static void main (String[]args) {
         TaskManagerModelImpl model = new TaskManagerModelImpl();
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
-        TaskManagerModelImpl assignee_store_ = new TaskManagerModelImpl();
-        TaskManagerViewImpl newInput = new TaskManagerViewImpl(controller,model);
-        newInput.createView();
-        assignee_store_.addObserver(newInput);
+        TaskManagerViewImpl view = new TaskManagerViewImpl(controller,model);
+        view.createView();
+        model.addObserver(view);
     }
 }
