@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -135,6 +138,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         public void actionPerformed(ActionEvent e) {
             try {
                 controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
+                String fileName = String.valueOf(viewTextName.getText()) + " " + String.valueOf(viewTextLastName.getText()) + " " + String.valueOf(viewTextPost.getText());
+                fileWriter(fileName);
             } catch (RuntimeException e1) {
                 System.out.println(e1);
             }
@@ -144,6 +149,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
                     public void actionPerformed(ActionEvent e) {
                         try {
                             controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadline.getText()),String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
+                            String fileName = String.valueOf(viewTextTName.getText()) + " " + String.valueOf(viewTextDescription.getText()) + " " + String.valueOf(viewTextDeadline.getText()) + " " + String.valueOf(viewTextPriority.getText()) + " " + String.valueOf(viewTextStatus.getText()) + " " + String.valueOf(viewTextSubTask.getText());
+                            fileWriter(fileName);
                         } catch (RuntimeException e1) {
                             System.out.println(e1);
                         }
@@ -209,5 +216,16 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         }
     }
 
+
+    public void fileWriter(String fileName) {
+        try {
+            FileWriter writer = new FileWriter("text/"+fileName+".txt", true);
+            writer.write(fileName);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
