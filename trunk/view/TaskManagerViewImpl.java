@@ -32,6 +32,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final JTextField viewTextSubTask;
     private  final JButton addAssaigneeButton;
     private  final JButton addTaskButton;
+    private  final JButton deleteAssigneeButton;
+    private  final JButton deleteTaskButton;
 
 
 
@@ -42,6 +44,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         String textViewFrame = "view";
         String addAssaigneeButtonLable = "Add Assaignee";
         String addTaskButtonLable = "Add Task";
+        String deleteAssigneeButtonLable = "Delete Assignee";
+        String deleteTaskButtonLable = "Delete Task";
         String textName = "Name";
         String textLastName = "Last Name";
         String textConsole = "Console";
@@ -65,6 +69,10 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         addAssaigneeButton.setSize(new Dimension(100, 100));
         addTaskButton = new JButton(addTaskButtonLable);
         addTaskButton.setSize(new Dimension(100, 100));
+        deleteAssigneeButton = new JButton(deleteAssigneeButtonLable);
+        deleteAssigneeButton.setSize(new Dimension(100, 100));
+        deleteTaskButton = new JButton(deleteTaskButtonLable);
+        deleteTaskButton.setSize(new Dimension(100, 100));
 
 
         viewTextDeadline = new JTextField(textDeadline);
@@ -91,12 +99,14 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     public void createView () {
 
+
         addAssaigneePanel.add(viewTextName);
         addAssaigneePanel.add(viewTextLastName);
         addAssaigneePanel.add(viewTextPost);
         addAssaigneePanel.add(viewTextConsole);
         addAssaigneePanel.add(addAssaigneeButton);
-        addAssaigneePanel.add(addTaskButton);
+        //addAssaigneePanel.add(addTaskButton);
+        addAssaigneePanel.add(deleteAssigneeButton);
         viewFrame.add(addAssaigneePanel);
 
         viewFrame.pack();
@@ -110,6 +120,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         addTaskPanel.add(viewTextStatus);
         addTaskPanel.add(viewTextSubTask);
         addTaskPanel.add(addTaskButton);
+        addTaskPanel.add(deleteTaskButton);
 
         viewFrame.add(addTaskPanel);
 
@@ -139,6 +150,27 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
 
     );
+
+        deleteAssigneeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    throw new RuntimeException("I do not know how to do this, but I'll soon learn");
+                } catch (RuntimeException e1) {
+                    System.out.println(e1);
+                }
+            }
+        });
+
+        deleteTaskButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    throw new RuntimeException("I do not know how to do this, but I'll soon learn");
+                } catch (RuntimeException e1) {
+                    System.out.println(e1);
+                }
+            }
+        });
+
     }
 
 
