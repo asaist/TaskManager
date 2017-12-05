@@ -60,6 +60,9 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
         viewFrame = new JFrame(textViewFrame);
         viewFrame.setSize(new Dimension(700, 700));
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel contents = new JPanel(new VerticalLayout());
 
         addAssaigneePanel = new JPanel();
         addAssaigneePanel.setSize(new Dimension(700, 700));
@@ -69,6 +72,11 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         addAssaigneeButton.setSize(new Dimension(100, 100));
         addTaskButton = new JButton(addTaskButtonLable);
         addTaskButton.setSize(new Dimension(100, 100));
+
+        contents.add(addAssaigneePanel);
+        contents.add(addTaskPanel);
+        viewFrame.setContentPane(contents);
+
         deleteAssigneeButton = new JButton(deleteAssigneeButtonLable);
         deleteAssigneeButton.setSize(new Dimension(100, 100));
         deleteTaskButton = new JButton(deleteTaskButtonLable);
