@@ -34,6 +34,21 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final JButton addTaskButton;
     private  final JButton deleteAssigneeButton;
     private  final JButton deleteTaskButton;
+    private  final String textViewFrame = "view";
+    private  final String addAssaigneeButtonLable = "Add Assaignee";
+    private  final String addTaskButtonLable = "Add Task";
+    private  final String deleteAssigneeButtonLable = "Delete Assignee";
+    private  final String deleteTaskButtonLable = "Delete Task";
+    private  final String textName = "Name";
+    private  final String textLastName = "Last Name";
+    private  final String textConsole = "Console";
+    private  final String textPost = "Post";
+    private  final String texTName = "TaskName";
+    private  final String textDescription = "Description";
+    private  final String textDeadline = "Deadline";
+    private  final String textPriority = "Priority";
+    private  final String textStatus = "Status";
+    private  final String textSubtasks = "Subtasks";
 
 
 
@@ -41,88 +56,61 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         this.controller = controller;
         this.model = model;
 
-        String textViewFrame = "view";
-        String addAssaigneeButtonLable = "Add Assaignee";
-        String addTaskButtonLable = "Add Task";
-        String deleteAssigneeButtonLable = "Delete Assignee";
-        String deleteTaskButtonLable = "Delete Task";
-        String textName = "Name";
-        String textLastName = "Last Name";
-        String textConsole = "Console";
-        String textPost = "Post";
-        String texTName = "TaskName";
-        String textDescription = "Description";
-        String textDeadline = "Deadline";
-        String textPriority = "Priority";
-        String textStatus = "Status";
-        String textSubtasks = "Subtasks";
-
-        // создаем окно и устанавливаем его размер.
         viewFrame = new JFrame(textViewFrame);
-        viewFrame.setSize(700, 700);
-        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-
-
-
-
         addAssaigneePanel = new JPanel();
-        addAssaigneePanel.setLayout(new BorderLayout());
-        addAssaigneePanel.setSize(new Dimension(700, 700));
-
         addTaskPanel = new JPanel();
-        addTaskPanel.setLayout(new BorderLayout());
-        addTaskPanel.setSize(new Dimension(700, 700));
 
         addAssaigneeButton = new JButton(addAssaigneeButtonLable);
-        addAssaigneeButton.setSize(new Dimension(100, 100));
         addTaskButton = new JButton(addTaskButtonLable);
-        addTaskButton.setSize(new Dimension(100, 100));
-
-
         deleteAssigneeButton = new JButton(deleteAssigneeButtonLable);
-        deleteAssigneeButton.setSize(new Dimension(100, 100));
         deleteTaskButton = new JButton(deleteTaskButtonLable);
-        deleteTaskButton.setSize(new Dimension(100, 100));
 
-
-        viewTextDeadline = new JTextField(textDeadline);
-        viewTextDeadline.setSize(new Dimension(100, 100));
-        viewTextPriority = new JTextField(textPriority);
-        viewTextPriority.setSize(new Dimension(100, 100));
-        viewTextStatus = new JTextField(textStatus);
-        viewTextStatus.setSize(new Dimension(100, 100));
-        viewTextSubTask = new JTextField(textSubtasks);
-        viewTextSubTask.setSize(new Dimension(100, 100));
-        viewTextDescription = new JTextField(textDescription);
-        viewTextDescription.setSize(new Dimension(100, 100));
-        viewTextTName = new JTextField(texTName);
-        viewTextTName.setSize(new Dimension(100, 100));
         viewTextName = new JTextField(textName);
-        viewTextName.setSize(new Dimension(100, 100));
         viewTextLastName = new JTextField(textLastName);
-        viewTextLastName.setSize(new Dimension(100, 100));
         viewTextPost = new JTextField(textPost);
-        viewTextPost.setSize(new Dimension(100, 100));
         viewTextConsole = new JTextField(textConsole);
-        viewTextConsole.setSize(new Dimension(100, 100));
+
+        viewTextTName = new JTextField(texTName);
+        viewTextDescription = new JTextField(textDescription);
+        viewTextDeadline = new JTextField(textDeadline);
+        viewTextPriority = new JTextField(textPriority);
+        viewTextStatus = new JTextField(textStatus);
+        viewTextSubTask = new JTextField(textSubtasks);
+
+
+
     }
 
     public void createView () {
 
+        //viewFrame.pack();
+        viewFrame.setSize(700, 700);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        viewFrame.setVisible(true);
+
+        addAssaigneePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        addAssaigneePanel.setSize(new Dimension(700, 700));
 
         addAssaigneePanel.add(viewTextName);
         addAssaigneePanel.add(viewTextLastName);
         addAssaigneePanel.add(viewTextPost);
         addAssaigneePanel.add(viewTextConsole);
-        addAssaigneePanel.add(addAssaigneeButton,BorderLayout.NORTH);
-        //addAssaigneePanel.add(addTaskButton);
+        addAssaigneePanel.add(addAssaigneeButton);
         addAssaigneePanel.add(deleteAssigneeButton);
+
+        viewTextName.setSize(new Dimension(100, 100));
+        viewTextLastName.setSize(new Dimension(100, 100));
+        viewTextPost.setSize(new Dimension(100, 100));
+        viewTextConsole.setSize(new Dimension(100, 100));
+        addAssaigneeButton.setSize(new Dimension(100, 100));
+        deleteAssigneeButton.setSize(new Dimension(100, 100));
+
         viewFrame.add(addAssaigneePanel);
 
-        viewFrame.pack();
-        viewFrame.setVisible(true);
-        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        addTaskPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        addTaskPanel.setSize(new Dimension(700, 700));
 
         addTaskPanel.add(viewTextTName);
         addTaskPanel.add(viewTextDescription);
@@ -133,11 +121,17 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         addTaskPanel.add(addTaskButton);
         addTaskPanel.add(deleteTaskButton);
 
+        viewTextTName.setSize(new Dimension(100, 100));
+        viewTextDescription.setSize(new Dimension(100, 100));
+        viewTextDeadline.setSize(new Dimension(100, 100));
+        viewTextPriority.setSize(new Dimension(100, 100));
+        viewTextStatus.setSize(new Dimension(100, 100));
+        viewTextSubTask.setSize(new Dimension(100, 100));
+        addTaskButton.setSize(new Dimension(100, 100));
+        deleteTaskButton.setSize(new Dimension(100, 100));
+
         viewFrame.add(addTaskPanel);
 
-        viewFrame.pack();
-        viewFrame.setVisible(true);
-        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         addAssaigneeButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
