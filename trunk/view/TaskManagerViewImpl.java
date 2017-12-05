@@ -76,16 +76,14 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewTextPriority = new JTextField(textPriority);
         viewTextStatus = new JTextField(textStatus);
         viewTextSubTask = new JTextField(textSubtasks);
-
-
-
     }
 
     public void createView () {
 
-        //viewFrame.pack();
+        viewFrame.pack();
         viewFrame.setSize(700, 700);
         viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        viewFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         viewFrame.setVisible(true);
 
         addAssaigneePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
