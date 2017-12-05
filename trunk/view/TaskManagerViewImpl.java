@@ -57,25 +57,28 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         String textStatus = "Status";
         String textSubtasks = "Subtasks";
 
-
+        // создаем окно и устанавливаем его размер.
         viewFrame = new JFrame(textViewFrame);
-        viewFrame.setSize(new Dimension(700, 700));
+        viewFrame.setSize(700, 700);
         viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
-        JPanel contents = new JPanel(new VerticalLayout());
+
+
 
         addAssaigneePanel = new JPanel();
+        addAssaigneePanel.setLayout(new BorderLayout());
         addAssaigneePanel.setSize(new Dimension(700, 700));
+
         addTaskPanel = new JPanel();
+        addTaskPanel.setLayout(new BorderLayout());
         addTaskPanel.setSize(new Dimension(700, 700));
+
         addAssaigneeButton = new JButton(addAssaigneeButtonLable);
         addAssaigneeButton.setSize(new Dimension(100, 100));
         addTaskButton = new JButton(addTaskButtonLable);
         addTaskButton.setSize(new Dimension(100, 100));
 
-        contents.add(addAssaigneePanel);
-        contents.add(addTaskPanel);
-        viewFrame.setContentPane(contents);
 
         deleteAssigneeButton = new JButton(deleteAssigneeButtonLable);
         deleteAssigneeButton.setSize(new Dimension(100, 100));
@@ -112,7 +115,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         addAssaigneePanel.add(viewTextLastName);
         addAssaigneePanel.add(viewTextPost);
         addAssaigneePanel.add(viewTextConsole);
-        addAssaigneePanel.add(addAssaigneeButton);
+        addAssaigneePanel.add(addAssaigneeButton,BorderLayout.NORTH);
         //addAssaigneePanel.add(addTaskButton);
         addAssaigneePanel.add(deleteAssigneeButton);
         viewFrame.add(addAssaigneePanel);
