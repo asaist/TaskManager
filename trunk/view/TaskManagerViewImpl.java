@@ -140,6 +140,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
                 String fileName = "textAssignee/" + String.valueOf(viewTextName.getText()) + " " + String.valueOf(viewTextLastName.getText()) + " " + String.valueOf(viewTextPost.getText()) + ".txt";
                 String fileValue = String.valueOf(viewTextName.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextLastName.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextPost.getText());
                 fileWriter(fileName, fileValue);
+
             } catch (RuntimeException e1) {
                 System.out.println(e1);
             }
@@ -236,7 +237,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     public void fileWriter(String fileName, String fileValue) {
         try {
-            System.out.println(fileName);
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
             writer.write(fileValue);
             writer.flush();
@@ -246,17 +246,26 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         }
     }
 
-    public void fileReader (String fileName) {
-        File myFolder = new File("textAssignee");
-        File[] files = myFolder.listFiles();
-        try {
-            BufferedReader bReader = new BufferedReader(new FileReader(fileName));
-            bReader.readLine();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void fileReader (File[] files) {
+        for (int count  = 0; count < files.length; count++) {
+            String fileName = files[count].getName();
+            try {
+                BufferedReader bReader = new BufferedReader(new FileReader("textAssignee/" + fileName));
+                while (bReader.readLine() != null) {
+                    System.out.println(bReader.readLine());
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
+
+    public File[] getFilesList () {
+        File assigneeFolder = new File("textAssignee");
+        File[] files = assigneeFolder.listFiles();
+        return files;
+    }
+
 }
