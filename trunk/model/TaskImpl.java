@@ -19,7 +19,7 @@ public class TaskImpl implements Task {
         this.subtask=subtask;
     }
 
-    public String getT_name() {
+    public String getTaskName() {
         return t_name;
     }
 
@@ -77,7 +77,7 @@ public class TaskImpl implements Task {
                     return false;
                 }*/
 
-            if (!t_name.equals(task.getT_name())) {
+            if (!t_name.equals(task.getTaskName())) {
                 return false;
             }
             if (!description.equals(task.getDescription())) {

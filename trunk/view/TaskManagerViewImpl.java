@@ -18,9 +18,13 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final TaskManagerController controller;
     private  final TaskManagerModel model;
 
-    private  final JPanel addAssaigneePanel;
-    private  final JPanel addTaskPanel;
-    private   JPanel TaskPanel;
+    private  final JPanel assaigneeControlPanel;
+    private  final JPanel taskControlPanel;
+    private  final JPanel globalPanel;
+    private  final JPanel tasksViewPanel;
+    private  final TaskPresenter taskPresenter = new TaskPresenter();
+
+//    private   JPanel TaskPanelButton;
     private  final JFrame viewFrame;
     private  final JTextField viewTextName;
     private  final JTextField viewTextLastName;
@@ -59,8 +63,10 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         this.model = model;
 
         viewFrame = new JFrame(textViewFrame);
-        addAssaigneePanel = new JPanel();
-        addTaskPanel = new JPanel();
+        tasksViewPanel = new JPanel();
+        globalPanel= new JPanel();
+        assaigneeControlPanel = new JPanel();
+        taskControlPanel = new JPanel();
 
         addAssaigneeButton = new JButton(addAssaigneeButtonLable);
         addTaskButton = new JButton(addTaskButtonLable);
@@ -88,15 +94,18 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         viewFrame.setVisible(true);
 
-        addAssaigneePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        addAssaigneePanel.setSize(new Dimension(700, 700));
+        globalPanel.setLayout(new GridLayout(3,1));
+        tasksViewPanel.setLayout(new GridLayout(2,1));
 
-        addAssaigneePanel.add(viewTextName);
-        addAssaigneePanel.add(viewTextLastName);
-        addAssaigneePanel.add(viewTextPost);
-        addAssaigneePanel.add(viewTextConsole);
-        addAssaigneePanel.add(addAssaigneeButton);
-        addAssaigneePanel.add(deleteAssigneeButton);
+        assaigneeControlPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        assaigneeControlPanel.setSize(new Dimension(700, 700));
+
+        assaigneeControlPanel.add(viewTextName);
+        assaigneeControlPanel.add(viewTextLastName);
+        assaigneeControlPanel.add(viewTextPost);
+        assaigneeControlPanel.add(viewTextConsole);
+        assaigneeControlPanel.add(addAssaigneeButton);
+        assaigneeControlPanel.add(deleteAssigneeButton);
 
         viewTextName.setSize(new Dimension(100, 100));
         viewTextLastName.setSize(new Dimension(100, 100));
@@ -105,21 +114,25 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         addAssaigneeButton.setSize(new Dimension(100, 100));
         deleteAssigneeButton.setSize(new Dimension(100, 100));
 
-        viewFrame.add(addAssaigneePanel);
+
+
+        globalPanel.add(assaigneeControlPanel);
 
 
 
-        addTaskPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        addTaskPanel.setSize(new Dimension(700, 700));
 
-        addTaskPanel.add(viewTextTName);
-        addTaskPanel.add(viewTextDescription);
-        addTaskPanel.add(viewTextDeadline);
-        addTaskPanel.add(viewTextPriority);
-        addTaskPanel.add(viewTextStatus);
-        addTaskPanel.add(viewTextSubTask);
-        addTaskPanel.add(addTaskButton);
-        addTaskPanel.add(deleteTaskButton);
+
+        taskControlPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        taskControlPanel.setSize(new Dimension(700, 700));
+
+        taskControlPanel.add(viewTextTName);
+        taskControlPanel.add(viewTextDescription);
+        taskControlPanel.add(viewTextDeadline);
+        taskControlPanel.add(viewTextPriority);
+        taskControlPanel.add(viewTextStatus);
+        taskControlPanel.add(viewTextSubTask);
+        taskControlPanel.add(addTaskButton);
+        taskControlPanel.add(deleteTaskButton);
 
         viewTextTName.setSize(new Dimension(100, 100));
         viewTextDescription.setSize(new Dimension(100, 100));
@@ -130,7 +143,9 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         addTaskButton.setSize(new Dimension(100, 100));
         deleteTaskButton.setSize(new Dimension(100, 100));
 
-        viewFrame.add(addTaskPanel);
+        globalPanel.add(taskControlPanel);
+        globalPanel.add(tasksViewPanel);
+        viewFrame.add(globalPanel);
 
 
         addAssaigneeButton.addActionListener(new ActionListener() {
@@ -146,15 +161,16 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             }
         }
     });
-                addTaskButton.addActionListener(new TaskActionListener() {
+                addTaskButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+
                         try {
                             controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadline.getText()),String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
                             String fileName = "textTask/" + String.valueOf(viewTextTName.getText()) + " " + String.valueOf(viewTextDescription.getText()) + " " + String.valueOf(viewTextDeadline.getText()) + " " + String.valueOf(viewTextPriority.getText()) + " " + String.valueOf(viewTextStatus.getText()) + " " + String.valueOf(viewTextSubTask.getText()) + ".txt";
                             String fileValue = String.valueOf(viewTextTName.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextDescription.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextDeadline.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextPriority.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextStatus.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextSubTask.getText());
-                            fileWriter(fileName, fileValue);
                         } catch (RuntimeException e1) {
-                            System.out.println(e1);
+                            updateViewTextConsole(e1.toString());
+
                         }
                     }
                 }
@@ -185,21 +201,31 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     }
 
-    public class TaskActionListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            TaskPanel = new JPanel();
-            TaskPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-            TaskPanel.setSize(new Dimension(700, 700));
+    public class TaskPresenter {
 
-            TaskPanel.add(viewTextTName);
-            TaskPanel.add(viewTextDescription);
-            TaskPanel.add(viewTextDeadline);
-            TaskPanel.add(viewTextPriority);
-            TaskPanel.add(viewTextStatus);
-            TaskPanel.add(viewTextSubTask);
-            viewFrame.add(TaskPanel);
+        public void displayTask(Task task) {
+            JTextField taskName = new JTextField(task.getTaskName());
+            JTextField description = new JTextField(task.getDescription());
+            JTextField deadline = new JTextField(task.getDeadline());
+            JTextField priority = new JTextField(task.getPriority());
+            JTextField status = new JTextField(task.getStatus());
+            JTextField subtask = new JTextField(task.getSubtask());
+            JPanel certainTaskPanel = new JPanel();
+            JButton removeButton = new JButton("-");
+            certainTaskPanel.add(taskName);
+            certainTaskPanel.add(description);
+            certainTaskPanel.add(deadline);
+            certainTaskPanel.add(priority);
+            certainTaskPanel.add(status);
+            certainTaskPanel.add(subtask);
+            certainTaskPanel.add(removeButton);
+
+            tasksViewPanel.add(certainTaskPanel);
+
+
         }
     }
+
 
 
     @Override
@@ -215,6 +241,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
 
     public void displayModels(TaskManagerModel model){
+
+        tasksViewPanel.removeAll();
         for (Assignee assignee: model.getAssignees()){
             updateViewTextConsole(assignee.getName()+" "+
                     assignee.getLastname()+" "+
@@ -223,49 +251,17 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
         }
         for (Task task: model.getTasks()){
-            updateViewTextConsole(task.getT_name()+" "+
+            updateViewTextConsole(task.getTaskName()+" "+
                     task.getDescription()+" "+
                     task.getDeadline()+" "+
                     task.getPriority()+" "+
                     task.getStatus()+" "+
                     task.getSubtask()
             );
-
+            taskPresenter.displayTask(task);
         }
-    }
 
-
-    public void fileWriter(String fileName, String fileValue) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
-            writer.write(fileValue);
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void fileReader (File[] files) {
-        for (int count  = 0; count < files.length; count++) {
-            String fileName = files[count].getName();
-            try {
-                BufferedReader bReader = new BufferedReader(new FileReader("textAssignee/" + fileName));
-                while (bReader.readLine() != null) {
-                    System.out.println(bReader.readLine());
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public File[] getFilesList () {
-        File assigneeFolder = new File("textAssignee");
-        File[] files = assigneeFolder.listFiles();
-        return files;
+        globalPanel.updateUI();
     }
 
 }

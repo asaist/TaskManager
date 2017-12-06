@@ -1,5 +1,6 @@
 package model;
 
+import java.io.*;
 import java.util.*;
 
 public class TaskManagerModelImpl extends Observable implements TaskManagerModel {
@@ -7,6 +8,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     private List<Task> tasks=new ArrayList();
     private List<Coloring> colorings=new ArrayList();
     private List<Assignee> assignees=new ArrayList();
+    private static final String tasksStorageFileName="tasksStorageFileName.txt";
 
 
 
@@ -27,11 +29,13 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
 
     //Task
     public void addTask (Task task) {
+
         checkTasks(task);
         tasks.add(task);
         setChanged();
         notifyObservers();
-        System.out.println("Запись добавлена  в модель " + task.getT_name());
+        System.out.println("Запись добавлена  в модель " + task.getTaskName());
+        fileWriter(tasksStorageFileName,);
     }
     private void checkTasks (Task task) {
         for (Task task1:getTasks()) {
@@ -57,4 +61,34 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
                     }
             }
     }
+
+
+    public void fileWriter(String fileName,Task task) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+            writer.write(task.toString()+System.getProperty("line.separator"));
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void fileReader (File file) {
+            try {
+                BufferedReader bReader = new BufferedReader(new FileReader("textAssignee/" + file.getName()));
+                while (bReader.readLine() != null) {
+                    System.out.println(bReader.readLine());
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }

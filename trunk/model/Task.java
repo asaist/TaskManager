@@ -11,7 +11,7 @@ public interface Task {
 
     void setT_name(String t_name);
 
-    String getT_name();
+    String getTaskName();
 
     void setDescription(String description);
 
