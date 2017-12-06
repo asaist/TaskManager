@@ -22,6 +22,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     private  final JPanel addAssaigneePanel;
     private  final JPanel addTaskPanel;
+    private   JPanel TaskPanel;
     private  final JFrame viewFrame;
     private  final JTextField viewTextName;
     private  final JTextField viewTextLastName;
@@ -145,7 +146,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             }
         }
     });
-                addTaskButton.addActionListener(new ActionListener() {
+                addTaskButton.addActionListener(new TaskActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         try {
                             controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadline.getText()),String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
@@ -181,6 +182,22 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             }
         });
 
+    }
+
+    public class TaskActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            TaskPanel = new JPanel();
+            TaskPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+            TaskPanel.setSize(new Dimension(700, 700));
+
+            TaskPanel.add(viewTextTName);
+            TaskPanel.add(viewTextDescription);
+            TaskPanel.add(viewTextDeadline);
+            TaskPanel.add(viewTextPriority);
+            TaskPanel.add(viewTextStatus);
+            TaskPanel.add(viewTextSubTask);
+            viewFrame.add(TaskPanel);
+        }
     }
 
 
