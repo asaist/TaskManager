@@ -30,9 +30,7 @@ public class TaskImpl implements Task {
         return t_name;
     }
 
-    public void setT_name(String t_name) {
-        this.t_name = t_name;
-    }
+    public void setT_name(String t_name) {this.t_name = t_name;}
 
     public String getDescription() {
         return description;
@@ -83,6 +81,9 @@ public class TaskImpl implements Task {
                 /*if (name == null || assignee.getName() == null)  {
                     return false;
                 }*/
+            if (!(id == task.getId())) {
+                return false;
+            }
 
             if (!t_name.equals(task.getTaskName())) {
                 return false;
@@ -107,7 +108,7 @@ public class TaskImpl implements Task {
     }
     @Override
     public String toString(){
-        return (t_name+" "+description+" "+deadline+" "+priority+" "+status+" "+subtask);
+        return (id+" "+t_name+" "+description+" "+deadline+" "+priority+" "+status+" "+subtask);
     }
 
 
