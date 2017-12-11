@@ -1,6 +1,7 @@
 package model;
 
 public class TaskImpl implements Task {
+    private int id;
     private String t_name;
     private String description;
     private String deadline;
@@ -10,7 +11,8 @@ public class TaskImpl implements Task {
 
     public TaskImpl() {}
 
-    public TaskImpl(String t_name, String description, String deadline, String priority, String status, String subtask){
+    public TaskImpl(int id,String t_name, String description, String deadline, String priority, String status, String subtask){
+        this.id=id;
         this.t_name=t_name;
         this.description=description;
         this.deadline=deadline;
@@ -18,6 +20,11 @@ public class TaskImpl implements Task {
         this.status=status;
         this.subtask=subtask;
     }
+    public int getId() {
+        return id;
+    }
+
+    public int setId(int id) {this.id = id;}
 
     public String getTaskName() {
         return t_name;

@@ -1,12 +1,14 @@
 package model;
 
 public interface Assignee {
+    int id = 0;
     String name = null;
     String lastNmae = null;
     String post = null;
 
-    String create(String S);
-    String update(String S);
+    void setId(int id);
+
+    String getId();
 
     void setName(String name);
 
