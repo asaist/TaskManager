@@ -1,7 +1,7 @@
 package model;
 
 public class AssigneeImpl implements Assignee {
-
+        private int id;
         private String name;
         private String lastname;
         private String post;
@@ -10,24 +10,19 @@ public class AssigneeImpl implements Assignee {
 
         }
 
-        public AssigneeImpl(String name, String lastname, String post){
+        public AssigneeImpl(int id,String name, String lastname, String post){
+            this.id=id;
             this.name=name;
             this.lastname=lastname;
             this.post=post;
 
         }
         @Override
-        public String create(String S){
-            return S;
-        }
+        public int getId(){return id;}
         @Override
-        public String update(String S){
-            return S;
-        }
+        public void setId(int id) {this.id = id;}
         @Override
-        public String getLastname() {
-        return lastname;
-        }
+        public String getLastname() {return lastname;}
         @Override
         public void setLastname(String lastname) {
         this.lastname = lastname;
@@ -55,6 +50,9 @@ public class AssigneeImpl implements Assignee {
                 /*if (name == null || assignee.getName() == null)  {
                     return false;
                 }*/
+                if (!(id == assignee.getId())) {
+                    return false;
+                }
 
                 if (!name.equals(assignee.getName())) {
                     return false;
@@ -71,7 +69,7 @@ public class AssigneeImpl implements Assignee {
         }
     @Override
     public String toString(){
-            return (name+" "+lastname+" "+post);
+            return (id+" "+name+" "+lastname+" "+post);
     }
 
 

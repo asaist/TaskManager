@@ -9,7 +9,7 @@ public interface Task {
     String status=null;
     String subtask=null;
 
-    int setId(int id);
+    void setId(int id);
 
     int getId();
 

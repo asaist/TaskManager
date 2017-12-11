@@ -24,7 +24,7 @@ public class TaskImpl implements Task {
         return id;
     }
 
-    public int setId(int id) {this.id = id;}
+    public void setId(int id) {this.id = id;}
 
     public String getTaskName() {
         return t_name;

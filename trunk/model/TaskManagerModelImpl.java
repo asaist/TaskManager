@@ -35,7 +35,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         setChanged();
         notifyObservers();
         System.out.println("Запись добавлена  в модель " + task.getTaskName());
-        fileWriter(tasksStorageFileName,);
+        fileWriter(tasksStorageFileName,task);
     }
     private void checkTasks (Task task) {
         for (Task task1:getTasks()) {
@@ -88,7 +88,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
                 e.printStackTrace();
             }
         }
-    }
+
 
 
 }

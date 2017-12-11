@@ -8,7 +8,7 @@ public interface Assignee {
 
     void setId(int id);
 
-    String getId();
+    int getId();
 
     void setName(String name);
 
