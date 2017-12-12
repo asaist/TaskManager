@@ -95,8 +95,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         viewFrame.setVisible(true);
 
-        globalPanel.setLayout(new GridLayout(3,1));
-        tasksViewPanel.setLayout(new GridLayout(2,1));
+        globalPanel.setLayout(new BoxLayout(globalPanel, BoxLayout.Y_AXIS));
+        tasksViewPanel.setLayout(new BoxLayout(tasksViewPanel, BoxLayout.Y_AXIS));
 
         assaigneeControlPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         assaigneeControlPanel.setSize(new Dimension(700, 700));
@@ -114,14 +114,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewTextConsole.setSize(new Dimension(100, 100));
         addAssaigneeButton.setSize(new Dimension(100, 100));
         deleteAssigneeButton.setSize(new Dimension(100, 100));
-
-
-
-        globalPanel.add(assaigneeControlPanel);
-
-
-
-
 
         taskControlPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         taskControlPanel.setSize(new Dimension(700, 700));
@@ -144,6 +136,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         addTaskButton.setSize(new Dimension(100, 100));
         deleteTaskButton.setSize(new Dimension(100, 100));
 
+        globalPanel.add(assaigneeControlPanel);
         globalPanel.add(taskControlPanel);
         globalPanel.add(tasksViewPanel);
         viewFrame.add(globalPanel);
@@ -191,7 +184,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
                 }
             }
         });
-
+        displayModels(model);
         displayModels(model);
     }
 
