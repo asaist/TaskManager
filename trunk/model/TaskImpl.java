@@ -2,6 +2,7 @@ package model;
 
 public class TaskImpl implements Task {
     private int id;
+    private static int idInc;
     private String t_name;
     private String description;
     private String deadline;
@@ -9,16 +10,18 @@ public class TaskImpl implements Task {
     private String status;
     private String subtask;
 
-    public TaskImpl() {}
+    //public TaskImpl() {}
 
-    public TaskImpl(int id,String t_name, String description, String deadline, String priority, String status, String subtask){
-        this.id=id;
+    /*public TaskImpl(String t_name, String description, String deadline, String priority, String status, String subtask){
         this.t_name=t_name;
         this.description=description;
         this.deadline=deadline;
         this.priority=priority;
         this.status=status;
         this.subtask=subtask;
+    }*/
+    public TaskImpl(){
+        this.id=idInc++;
     }
     public int getId() {
         return id;
@@ -81,9 +84,6 @@ public class TaskImpl implements Task {
                 /*if (name == null || assignee.getName() == null)  {
                     return false;
                 }*/
-            if (!(id == task.getId())) {
-                return false;
-            }
 
             if (!t_name.equals(task.getTaskName())) {
                 return false;

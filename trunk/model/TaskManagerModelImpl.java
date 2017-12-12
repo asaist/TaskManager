@@ -29,7 +29,8 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
 
     //Task
     public void addTask (Task task) {
-
+        //int j=0;
+        //task.setId(j);
         checkTasks(task);
         tasks.add(task);
         setChanged();

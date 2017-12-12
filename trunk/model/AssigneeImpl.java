@@ -2,21 +2,22 @@ package model;
 
 public class AssigneeImpl implements Assignee {
         private int id;
+        private static int idInc;
         private String name;
         private String lastname;
         private String post;
 
         public AssigneeImpl () {
-
+            this.id=idInc++;
         }
 
-        public AssigneeImpl(int id,String name, String lastname, String post){
+        /*public AssigneeImpl(int id,String name, String lastname, String post){
             this.id=id;
             this.name=name;
             this.lastname=lastname;
             this.post=post;
 
-        }
+        }*/
         @Override
         public int getId(){return id;}
         @Override
@@ -50,10 +51,6 @@ public class AssigneeImpl implements Assignee {
                 /*if (name == null || assignee.getName() == null)  {
                     return false;
                 }*/
-                if (!(id == assignee.getId())) {
-                    return false;
-                }
-
                 if (!name.equals(assignee.getName())) {
                     return false;
                 }
