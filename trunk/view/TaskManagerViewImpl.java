@@ -193,7 +193,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         });
 
         displayModels(model);
-
     }
 
     public class TaskPresenter {
@@ -206,7 +205,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             JTextField status = new JTextField(task.getStatus());
             JTextField subtask = new JTextField(task.getSubtask());
             JPanel certainTaskPanel = new JPanel();
-            JButton removeButton = new JButton("-");
+            JButton removeButton = new JButton(taskName.getText() + " delete");
             certainTaskPanel.add(taskName);
             certainTaskPanel.add(description);
             certainTaskPanel.add(deadline);
@@ -214,6 +213,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             certainTaskPanel.add(status);
             certainTaskPanel.add(subtask);
             certainTaskPanel.add(removeButton);
+
 
             tasksViewPanel.add(certainTaskPanel);
 
