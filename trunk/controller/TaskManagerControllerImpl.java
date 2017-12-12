@@ -108,11 +108,10 @@ public class TaskManagerControllerImpl implements TaskManagerController {
         return field == null || field.isEmpty() || field.trim().isEmpty();
     }
 
-    public void deleteTask(int idTask, List<Task> tasks) throws IOException {
+    /*public void deleteTask(int idTask, List<Task> tasks) throws IOException {
         File myFile = new File("textFile/tasksStorageFileName.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter("textFile/tasksStorageFileName.txt", true));
-        if (myFile.exists()) {
-            myFile.delete();
+        myFile.delete();
         for (Task p: tasks) {
             if (p.getId() == idTask) {
                 tasks.remove(p);
@@ -123,9 +122,9 @@ public class TaskManagerControllerImpl implements TaskManagerController {
                 writer.close();
                 }
             }
-        }
 
 
-    }
+
+    }*/
 }
 

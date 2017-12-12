@@ -211,7 +211,9 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             removeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        controller.deleteTask(task.getId(), model.getTasks());
+                        File myFile = new File("textFile/tasksStorageFileName.txt");
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("textFile/tasksStorageFileName.txt", true));
+                        myFile.delete();
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
