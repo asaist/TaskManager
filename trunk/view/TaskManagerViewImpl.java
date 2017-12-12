@@ -88,6 +88,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     public void createView () {
 
+
         viewFrame.pack();
         viewFrame.setSize(700, 700);
         viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -183,12 +184,15 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         deleteTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+
                     throw new RuntimeException("I do not know how to do this, but I'll soon learn");
                 } catch (RuntimeException e1) {
                     System.out.println(e1);
                 }
             }
         });
+
+        displayModels(model);
 
     }
 

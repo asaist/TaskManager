@@ -79,7 +79,11 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
                     task.setStatus(fields[5]);
                     task.setSubtask(fields[6]);
                     tasks.add(task);
+                    setChanged();
+                    notifyObservers();
                     System.out.println("Запись добавлена  в модель " + task.getTaskName());
+
+
                 }
             }
         }catch (FileNotFoundException e) {
