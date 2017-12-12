@@ -107,8 +107,12 @@ public class TaskImpl implements Task {
         return true;
     }
     @Override
-    public String toString(){
-        return (id+" "+t_name+" "+description+" "+deadline+" "+priority+" "+status+" "+subtask);
+    public String toString() {
+        if (t_name.indexOf(";") == -1 && description.indexOf(";") == -1 && deadline.indexOf(";") == -1 && priority.indexOf(";") == -1 && status.indexOf(";") == -1 && subtask.indexOf(";") == -1) {
+            return (id + " " + t_name + " " + description + " " + deadline + " " + priority + " " + status + " " + subtask);
+        } else {
+            return null;
+        }
     }
 
 

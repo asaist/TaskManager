@@ -28,8 +28,13 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     public void addTask (String t_name, String description, String deadline,String priority,String status,String subtask){
         Task task = new TaskImpl();
         checkFieldstask(t_name,description, deadline,priority,status,subtask, task);
+        if (task.toString() != null) {
         model.addTask(task);
         System.out.println(task.toString());
+        }
+        else {
+            throw new RuntimeException("Введён символ ';'");
+        }
     }
 
     public void checkFieldstask (String t_name, String description, String deadline, String priority,String status,String subtask, Task task) {
