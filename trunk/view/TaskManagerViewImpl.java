@@ -185,8 +185,10 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             }
         });
         displayModels(model);
-        displayModels(model);
+
     }
+
+
 
     public class TaskPresenter {
 
@@ -199,16 +201,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             JTextField subtask = new JTextField(task.getSubtask());
             JPanel certainTaskPanel = new JPanel();
             JButton removeButton = new JButton("Delete");//toString = имя кнопки /вызывать task.getId
-            removeButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        task.getId();
-                        throw new RuntimeException("I do not know how to do this, but I'll soon learn");
-                    } catch (RuntimeException e1) {
-                        System.out.println(e1);
-                    }
-                }
-            });
             certainTaskPanel.add(taskName);
             certainTaskPanel.add(description);
             certainTaskPanel.add(deadline);
@@ -216,13 +208,24 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             certainTaskPanel.add(status);
             certainTaskPanel.add(subtask);
             certainTaskPanel.add(removeButton);
+            removeButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        controller.deleteTask(task.getId(), model.getTasks());
+                        throw new RuntimeException("I do not know how to do this, but I'll soon learn");
+                    } catch (RuntimeException e1) {
+                        System.out.println(e1);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
 
             tasksViewPanel.add(certainTaskPanel);
 
 
         }
     }
-
 
 
     @Override
