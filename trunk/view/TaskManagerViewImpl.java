@@ -198,7 +198,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             JTextField status = new JTextField(task.getStatus());
             JTextField subtask = new JTextField(task.getSubtask());
             JPanel certainTaskPanel = new JPanel();
-            JButton removeButton = new JButton(taskName.getText() + " delete");
+            JButton removeButton = new JButton("Delete");//toString = имя кнопки /вызывать task.getId
             certainTaskPanel.add(taskName);
             certainTaskPanel.add(description);
             certainTaskPanel.add(deadline);
@@ -206,7 +206,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             certainTaskPanel.add(status);
             certainTaskPanel.add(subtask);
             certainTaskPanel.add(removeButton);
-
 
             tasksViewPanel.add(certainTaskPanel);
 
