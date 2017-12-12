@@ -35,11 +35,11 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             setChanged();
             notifyObservers();
             System.out.println("Запись добавлена  в модель " + task.getTaskName());
-            fileWriter(tasksStorageFileName, task);//не вызывать fileWriter при запуске программы
+            fileWriter(tasksStorageFileName, task);
             }
         }
 
-    private void checkTasks (Task task) { //сделать boolean для проверки в if
+    private void checkTasks (Task task) {
         for (Task task1 : getTasks()) {
             if (task1.equals(task)) {
                 throw new RuntimeException("a record already exists");
@@ -68,7 +68,6 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         try {
             BufferedReader bReader = new BufferedReader(new FileReader(fileName));
             String line;
-
             while ((line = bReader.readLine()) != null) {
                 if (!line.isEmpty()) {
                     Task task = new TaskImpl();
@@ -81,7 +80,6 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
                     task.setSubtask(fields[6]);
                     tasks.add(task);
                     System.out.println("Запись добавлена  в модель " + task.getTaskName());
-
                 }
             }
         }catch (FileNotFoundException e) {

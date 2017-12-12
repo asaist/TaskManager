@@ -156,24 +156,19 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
                 System.out.println(e1);
             }
         }
-    });
+        });
                 addTaskButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
 
                         try {
                             controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadline.getText()),String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
-                            String fileName = "textTask/" + String.valueOf(viewTextTName.getText()) + " " + String.valueOf(viewTextDescription.getText()) + " " + String.valueOf(viewTextDeadline.getText()) + " " + String.valueOf(viewTextPriority.getText()) + " " + String.valueOf(viewTextStatus.getText()) + " " + String.valueOf(viewTextSubTask.getText()) + ".txt";
-                            String fileValue = String.valueOf(viewTextTName.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextDescription.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextDeadline.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextPriority.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextStatus.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextSubTask.getText());
                         } catch (RuntimeException e1) {
                             updateViewTextConsole(e1.toString());
 
                         }
                     }
                 }
-
-
-
-    );
+                );
 
         deleteAssigneeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
