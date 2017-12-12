@@ -212,9 +212,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
                 public void actionPerformed(ActionEvent e) {
                     try {
                         controller.deleteTask(task.getId(), model.getTasks());
-                        throw new RuntimeException("I do not know how to do this, but I'll soon learn");
-                    } catch (RuntimeException e1) {
-                        System.out.println(e1);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
