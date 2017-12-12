@@ -5,12 +5,10 @@ import java.util.*;
 
 public class TaskManagerModelImpl extends Observable implements TaskManagerModel {
 
+    private static final String tasksStorageFileName="textFile/tasksStorageFileName.txt";
     private List<Task> tasks=new ArrayList();
     private List<Coloring> colorings=new ArrayList();
     private List<Assignee> assignees=new ArrayList();
-    private static final String tasksStorageFileName="tasksStorageFileName.txt";
-
-
 
 
     public List<Assignee> getAssignees() {
@@ -31,15 +29,18 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     public void addTask (Task task) {
         //int j=0;
         //task.setId(j);
-        checkTasks(task);
-        tasks.add(task);
-        setChanged();
-        notifyObservers();
-        System.out.println("Запись добавлена  в модель " + task.getTaskName());
-        fileWriter(tasksStorageFileName,task);
-    }
-    private void checkTasks (Task task) {
-        for (Task task1:getTasks()) {
+        if (task != null) {
+            checkTasks(task);
+            tasks.add(task);
+            setChanged();
+            notifyObservers();
+            System.out.println("Запись добавлена  в модель " + task.getTaskName());
+            fileWriter(tasksStorageFileName, task);//не вызывать fileWriter при запуске программы
+            }
+        }
+
+    private void checkTasks (Task task) { //сделать boolean для проверки в if
+        for (Task task1 : getTasks()) {
             if (task1.equals(task)) {
                 throw new RuntimeException("a record already exists");
             }
@@ -63,6 +64,34 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             }
     }
 
+    public void fileReader (String fileName) throws IOException {
+        try {
+            BufferedReader bReader = new BufferedReader(new FileReader(fileName));
+            String line;
+
+            while ((line = bReader.readLine()) != null) {
+                if (!line.isEmpty()) {
+                    Task task = new TaskImpl();
+                    String[] fields = line.split(";");
+                    task.setT_name(fields[1]);
+                    task.setDescription(fields[2]);
+                    task.setDeadline(fields[3]);
+                    task.setPriority(fields[4]);
+                    task.setStatus(fields[5]);
+                    task.setSubtask(fields[6]);
+                    tasks.add(task);
+                    System.out.println("Запись добавлена  в модель " + task.getTaskName());
+
+                }
+            }
+        }catch (FileNotFoundException e) {
+            System.out.println("Создан файл " + tasksStorageFileName);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void fileWriter(String fileName,Task task) {
         try {
@@ -74,22 +103,6 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             e.printStackTrace();
         }
 
-
     }
-
-    public void fileReader (File file) {
-            try {
-                BufferedReader bReader = new BufferedReader(new FileReader("textAssignee/" + file.getName()));
-                while (bReader.readLine() != null) {
-                    System.out.println(bReader.readLine());
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
 
 }

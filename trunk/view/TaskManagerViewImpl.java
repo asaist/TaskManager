@@ -152,10 +152,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         public void actionPerformed(ActionEvent e) {
             try {
                 controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
-                String fileName = "textAssignee/" + String.valueOf(viewTextName.getText()) + " " + String.valueOf(viewTextLastName.getText()) + " " + String.valueOf(viewTextPost.getText()) + ".txt";
-                String fileValue = String.valueOf(viewTextName.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextLastName.getText()) + System.getProperty("line.separator") + String.valueOf(viewTextPost.getText());
-                //fileWriter(fileName, fileValue);
-
             } catch (RuntimeException e1) {
                 System.out.println(e1);
             }

@@ -8,6 +8,7 @@ import model.TaskManagerModel;
 import view.TaskManagerView;
 import view.TaskManagerViewImpl;
 
+import java.io.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,6 +20,7 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     TaskManagerView view;
     TaskManagerController controller;
 
+
     public TaskManagerControllerImpl (TaskManagerModel model) {
         this.model = model;
         view = new TaskManagerViewImpl(this, model);
@@ -29,13 +31,14 @@ public class TaskManagerControllerImpl implements TaskManagerController {
         Task task = new TaskImpl();
         checkFieldstask(t_name,description, deadline,priority,status,subtask, task);
         if (task.toString() != null) {
-        model.addTask(task);
-        System.out.println(task.toString());
+            model.addTask(task);
+
         }
         else {
             throw new RuntimeException("Введён символ ';'");
         }
     }
+
 
     public void checkFieldstask (String t_name, String description, String deadline, String priority,String status,String subtask, Task task) {
 
@@ -104,6 +107,10 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     private boolean isCorrect(String field) {
         return field == null || field.isEmpty() || field.trim().isEmpty();
     }
+
+
+
+
 
 }
 
