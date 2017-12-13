@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -86,7 +87,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewTextSubTask = new JTextField(textSubtasks);
     }
 
-    public void createView () {
+    public void createView () throws IOException {
 
 
         viewFrame.pack();
@@ -192,7 +193,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     public class TaskPresenter {
 
-        public void displayTask(Task task) {
+        public void displayTask(Task task) throws IOException {
             JTextField taskName = new JTextField(task.getTaskName());
             JTextField description = new JTextField(task.getDescription());
             JTextField deadline = new JTextField(task.getDeadline());
@@ -208,17 +209,40 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             certainTaskPanel.add(status);
             certainTaskPanel.add(subtask);
             certainTaskPanel.add(removeButton);
-            removeButton.addActionListener(new ActionListener() {
+           /* removeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    File myFile = new File("textFile/tasksStorageFileName.txt");
+                    //myFile.delete();
+                    BufferedWriter writer = null;
                     try {
-                        File myFile = new File("textFile/tasksStorageFileName.txt");
-                        BufferedWriter writer = new BufferedWriter(new FileWriter("textFile/tasksStorageFileName.txt", true));
-                        myFile.delete();
+                        writer = new BufferedWriter(new FileWriter("textFile/tasksStorageFileName.txt", true));
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                }
-            });
+
+
+                    List<Task> tasks = model.getTasks();
+                    for (Task p: tasks) {
+                        if (task.getId() == p.getId()){
+
+
+                            tasks.remove(p);
+
+                        }
+
+                    }
+                    try {
+                        writer.write(tasks.toString()+System.getProperty("line.separator"));
+                        writer.flush();
+                        writer.close();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+
+
+
+            }
+            });*/
 
             tasksViewPanel.add(certainTaskPanel);
 
@@ -230,7 +254,11 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     @Override
     public void update(Observable o, Object arg) {
         TaskManagerModel model = (TaskManagerModel) o;
-        displayModels(model);
+        try {
+            displayModels(model);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateViewTextConsole(String textConsole) {
@@ -239,7 +267,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     }
 
 
-    public void displayModels(TaskManagerModel model){
+    public void displayModels(TaskManagerModel model) throws IOException {
 
         tasksViewPanel.removeAll();
         for (Assignee assignee: model.getAssignees()){

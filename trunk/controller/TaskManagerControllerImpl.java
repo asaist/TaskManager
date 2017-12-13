@@ -31,48 +31,48 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     public void addTask(String t_name, String description, String deadline, String priority, String status, String subtask) {
         Task task = new TaskImpl();
         checkFieldstask(t_name, description, deadline, priority, status, subtask, task);
-        if (task.toString() != null) {
-            model.addTask(task);
-
-        } else {
-            throw new RuntimeException("Введён символ ';'");
+        model.addTask(task);
         }
-    }
+
 
 
     public void checkFieldstask(String t_name, String description, String deadline, String priority, String status, String subtask, Task task) {
 
-        if (isCorrect(t_name)) {
-            throw new RuntimeException("t_name is empty");
-        } else {
-            task.setT_name(t_name.trim());
+
+            if (isCorrect(t_name)) {
+                throw new RuntimeException("t_name is not correct");
+            } else {
+
+                task.setT_name(t_name.trim());
+            }
+            if (isCorrect(description)) {
+                throw new RuntimeException("description is not correct");
+            } else {
+                task.setDescription(description.trim());
+            }
+            if (isCorrect(deadline)) {
+                throw new RuntimeException("deadline is not correct");
+            } else {
+                task.setDeadline(deadline.trim());
+            }
+            if (isCorrect(priority)) {
+                throw new RuntimeException("priority is not correct");
+            } else {
+                task.setPriority(priority.trim());
+            }
+            if (isCorrect(status)) {
+                throw new RuntimeException("status is not correct");
+            } else {
+                task.setStatus(status.trim());
+            }
+            if (isCorrect(subtask)) {
+                throw new RuntimeException("subtask is not correct");
+            } else {
+                task.setSubtask(subtask.trim());
+            }
         }
-        if (isCorrect(description)) {
-            throw new RuntimeException("description is empty");
-        } else {
-            task.setDescription(description.trim());
-        }
-        if (isCorrect(deadline)) {
-            throw new RuntimeException("deadline is empty");
-        } else {
-            task.setDeadline(deadline.trim());
-        }
-        if (isCorrect(priority)) {
-            throw new RuntimeException("priority is empty");
-        } else {
-            task.setPriority(priority.trim());
-        }
-        if (isCorrect(status)) {
-            throw new RuntimeException("status is empty");
-        } else {
-            task.setStatus(status.trim());
-        }
-        if (isCorrect(subtask)) {
-            throw new RuntimeException("subtask is empty");
-        } else {
-            task.setSubtask(subtask.trim());
-        }
-    }
+
+   // }
 
     //Assaignee
     public void addAssignee(String name, String lastName, String post) {
@@ -105,7 +105,7 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     }
 
     private boolean isCorrect(String field) {
-        return field == null || field.isEmpty() || field.trim().isEmpty();
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";" ) != -1;
     }
 
     /*public void deleteTask(int idTask, List<Task> tasks) throws IOException {
