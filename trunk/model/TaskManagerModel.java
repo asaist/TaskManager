@@ -8,4 +8,5 @@ public interface TaskManagerModel {
     List<Task> getTasks();
     void addAssaignee (Assignee assignee);
     List<Assignee> getAssignees();
+    void deleteTask (Task task);
 }

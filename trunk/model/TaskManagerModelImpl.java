@@ -79,13 +79,12 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
                     task.setStatus(fields[5]);
                     task.setSubtask(fields[6]);
                     tasks.add(task);
-                    setChanged();
-                    notifyObservers();
                     System.out.println("Запись добавлена  в модель " + task.getTaskName());
 
 
                 }
             }
+            modelIsChanged();
         }catch (FileNotFoundException e) {
             System.out.println("Создан файл " + tasksStorageFileName);
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
@@ -105,6 +104,23 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void deleteTask(Task taskToRemove) {
+        File file = new File(tasksStorageFileName);
+        file.delete();
+        tasks.remove(taskToRemove);
+        for(Task task:tasks){
+            fileWriter(tasksStorageFileName,task);
+
+        }
+        modelIsChanged();
+    }
+
+    private void modelIsChanged(){
+        setChanged();
+        notifyObservers();
     }
 
 }

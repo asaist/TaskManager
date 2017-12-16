@@ -209,40 +209,21 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             certainTaskPanel.add(status);
             certainTaskPanel.add(subtask);
             certainTaskPanel.add(removeButton);
-           /* removeButton.addActionListener(new ActionListener() {
+            removeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    File myFile = new File("textFile/tasksStorageFileName.txt");
-                    //myFile.delete();
-                    BufferedWriter writer = null;
-                    try {
-                        writer = new BufferedWriter(new FileWriter("textFile/tasksStorageFileName.txt", true));
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-
-
-                    List<Task> tasks = model.getTasks();
-                    for (Task p: tasks) {
-                        if (task.getId() == p.getId()){
-
-
-                            tasks.remove(p);
-
-                        }
+                    try{
+                        controller.deleteTask(task);
+                    }catch (RuntimeException e1) {
+                        updateViewTextConsole(e1.toString());
 
                     }
-                    try {
-                        writer.write(tasks.toString()+System.getProperty("line.separator"));
-                        writer.flush();
-                        writer.close();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+
+
 
 
 
             }
-            });*/
+            });
 
             tasksViewPanel.add(certainTaskPanel);
 
@@ -288,7 +269,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             taskPresenter.displayTask(task);
         }
 
-        globalPanel.updateUI();
+        viewFrame.pack();
     }
 
 }
