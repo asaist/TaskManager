@@ -6,6 +6,7 @@ import model.Task;
 import model.TaskManagerModel;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -91,16 +92,19 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
 
         viewFrame.pack();
-        viewFrame.setSize(700, 700);
         viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         viewFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         viewFrame.setVisible(true);
 
         globalPanel.setLayout(new BoxLayout(globalPanel, BoxLayout.Y_AXIS));
+        Border border = BorderFactory.createLineBorder(Color.black);
+        globalPanel.setBorder(border);
         tasksViewPanel.setLayout(new BoxLayout(tasksViewPanel, BoxLayout.Y_AXIS));
+        tasksViewPanel.setBorder(border);
 
         assaigneeControlPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        assaigneeControlPanel.setSize(new Dimension(700, 700));
+        assaigneeControlPanel.setSize(new Dimension(100, 100));
+        assaigneeControlPanel.setBorder(border);
 
         assaigneeControlPanel.add(viewTextName);
         assaigneeControlPanel.add(viewTextLastName);
@@ -117,7 +121,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         deleteAssigneeButton.setSize(new Dimension(100, 100));
 
         taskControlPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        taskControlPanel.setSize(new Dimension(700, 700));
+        taskControlPanel.setSize(new Dimension(100, 100));
+        taskControlPanel.setBorder(border);
 
         taskControlPanel.add(viewTextTName);
         taskControlPanel.add(viewTextDescription);
@@ -194,13 +199,18 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     public class TaskPresenter {
 
         public void displayTask(Task task) throws IOException {
+            Border border = BorderFactory.createLineBorder(Color.black);
             JTextField taskName = new JTextField(task.getTaskName());
             JTextField description = new JTextField(task.getDescription());
             JTextField deadline = new JTextField(task.getDeadline());
             JTextField priority = new JTextField(task.getPriority());
             JTextField status = new JTextField(task.getStatus());
             JTextField subtask = new JTextField(task.getSubtask());
+            JPanel certainParentTaskPanel = new JPanel();
             JPanel certainTaskPanel = new JPanel();
+            certainTaskPanel.setBorder(border);
+
+            certainTaskPanel.setLayout(new GridLayout(3,3));
             JButton removeButton = new JButton("Delete");//toString = имя кнопки /вызывать task.getId
             certainTaskPanel.add(taskName);
             certainTaskPanel.add(description);
@@ -217,15 +227,12 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
                         updateViewTextConsole(e1.toString());
 
                     }
-
-
-
-
-
             }
             });
+            certainParentTaskPanel.add(certainTaskPanel);
+            certainParentTaskPanel.setLayout(new GridLayout(1,3));
 
-            tasksViewPanel.add(certainTaskPanel);
+            tasksViewPanel.add(certainParentTaskPanel);
 
 
         }
