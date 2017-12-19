@@ -1,14 +1,14 @@
 package main;
 
+
 import controller.TaskManagerControllerImpl;
-import model.AssigneeImpl;
 import model.TXTFileWork;
 import model.TaskManagerModelImpl;
 import model.XMLFileWork;
 import view.TaskManagerViewImpl;
-
-import java.io.File;
 import java.io.IOException;
+
+
 
 public class TaskManager {
     public static void main (String[]args) throws IOException {
@@ -20,5 +20,6 @@ public class TaskManager {
         txtFileWork.fileReader();
         view.createView();
         model.addObserver(view);
+        //model.addObserver();
     }
 }
