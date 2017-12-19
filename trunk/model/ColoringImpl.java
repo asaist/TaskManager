@@ -2,7 +2,7 @@ package model;
 
 
 
-public class ColoringImpl implements Coloring {
+public class ColoringImpl implements Coloring, Entity {
     private String color;
 
     public String getColor() {

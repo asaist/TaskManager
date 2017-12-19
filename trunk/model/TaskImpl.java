@@ -1,6 +1,6 @@
 package model;
 
-public class TaskImpl implements Task {
+public class TaskImpl implements Task, Entity {
     private int id;
     private static int idInc;
     private String t_name;

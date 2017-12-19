@@ -1,6 +1,6 @@
 package model;
 
-public class AssigneeImpl implements Assignee {
+public class AssigneeImpl implements Assignee, Entity {
         private int id;
         private static int idInc;
         private String name;
