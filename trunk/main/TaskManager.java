@@ -17,7 +17,7 @@ public class TaskManager {
         TaskManagerModelImpl model = new TaskManagerModelImpl();
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
         TaskManagerViewImpl view = new TaskManagerViewImpl(controller,model);
-        txtFileWork.fileReader(txtFileWork.getTasksStorageFileName());
+        txtFileWork.fileReader();
         view.createView();
         model.addObserver(view);
     }

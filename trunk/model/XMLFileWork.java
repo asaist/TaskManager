@@ -78,7 +78,7 @@ public class XMLFileWork implements FileWork {
     }
 
     @Override
-    public void fileReader(String fileName) {
+    public void fileReader() {
 
     }
 }

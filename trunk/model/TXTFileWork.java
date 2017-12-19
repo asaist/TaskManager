@@ -7,7 +7,7 @@ public class TXTFileWork implements FileWork {
 
     private static final String tasksStorageFileName="textFile/tasksStorageFileName.txt";
 
-    TaskManagerModelImpl model = new TaskManagerModelImpl();
+    TaskManagerModelImpl model;
 
     public static String getTasksStorageFileName() {
         return tasksStorageFileName;
@@ -26,10 +26,10 @@ public class TXTFileWork implements FileWork {
     }
 
     @Override
-    public void fileReader(String fileName) {
+    public void fileReader() {
 
         try {
-            BufferedReader bReader = new BufferedReader(new FileReader(fileName));
+            BufferedReader bReader = new BufferedReader(new FileReader(tasksStorageFileName));
             String line;
             while ((line = bReader.readLine()) != null) {
                 if (!line.isEmpty()) {
@@ -48,9 +48,9 @@ public class TXTFileWork implements FileWork {
             model.modelIsChanged();
             bReader.close();
         }catch (FileNotFoundException e) {
-            System.out.println("Создан файл " + fileName);
+            System.out.println("Создан файл " + tasksStorageFileName);
             try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(tasksStorageFileName, true));
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
