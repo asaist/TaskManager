@@ -9,6 +9,13 @@ public class TXTFileWork implements FileWork {
 
     TaskManagerModelImpl model;
 
+    public TXTFileWork(TaskManagerModelImpl model) {
+        this.model = model;
+    }
+
+    public TXTFileWork() {
+    }
+
     public static String getTasksStorageFileName() {
         return tasksStorageFileName;
     }
