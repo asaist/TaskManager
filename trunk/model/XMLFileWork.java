@@ -2,6 +2,9 @@ package model;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,8 +15,12 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class XMLFileWork implements FileWork {
     public static String getTasksStorageFileNameXml() {
@@ -24,13 +31,11 @@ public class XMLFileWork implements FileWork {
 
     DocumentBuilder builder;
 
-    public void ParamLangXML() {
+    @Override
+    public void fileWriter(Task taskAdd) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try { builder = factory.newDocumentBuilder(); }
         catch (ParserConfigurationException e) { e.printStackTrace(); }
-    }
-    @Override
-    public void fileWriter(Task taskAdd) {
 
         Document doc = builder.newDocument();
         Element RootElement=doc.createElement("task_" + taskAdd.getId());
@@ -79,6 +84,39 @@ public class XMLFileWork implements FileWork {
 
     @Override
     public void fileReader() {
+        try {
 
+            final File xmlFile = new File(System.getProperty("user.dir")
+                    + File.separator + tasksStorageFileNameXml);
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(xmlFile);
+
+            doc.getDocumentElement().normalize();
+
+            System.out.println("Корневой элемент: "
+                    + doc.getDocumentElement().getNodeName());
+
+
+            NodeList nodeList = doc.getElementsByTagName("task_1");
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                System.out.println();
+                System.out.println("Текущий элемент: " + node.getNodeName());
+                if (Node.ELEMENT_NODE == node.getNodeType()) {
+                    Element element = (Element) node;
+                    System.out.println("Имя: " + element
+                            .getElementsByTagName("task_name").item(0)
+                            .getTextContent());
+                }
+            }
+        } catch (ParserConfigurationException | SAXException
+                | IOException ex) {
+            Logger.getLogger(XMLFileWork.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
     }
 }
+
+

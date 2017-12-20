@@ -18,6 +18,7 @@ public class TaskManager {
         XMLFileWork xmlFileWork = new XMLFileWork();
         TXTFileWork txtFileWork = new TXTFileWork(model);
         txtFileWork.fileReader();
+        xmlFileWork.fileReader();
         view.createView();
         model.addObserver(view);
         //model.addObserver();

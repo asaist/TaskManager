@@ -44,8 +44,6 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             notifyObservers();
             System.out.println("Запись добавлена  в модель " + task.getTaskName());
             txtFileWork.fileWriter(task);
-
-            xmlFileWork.ParamLangXML();
             xmlFileWork.fileWriter(task);
         }
         }
