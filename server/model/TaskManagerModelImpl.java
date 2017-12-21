@@ -3,8 +3,10 @@ package server.model;
 
 import common.entity.Assignee;
 import common.entity.Coloring;
+import common.entity.Entity;
 import common.entity.Task;
 import common.service.TXTFileWork;
+import common.service.TextDao;
 import common.service.XMLFileWork;
 
 import java.io.*;
@@ -49,8 +51,8 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             setChanged();
             notifyObservers();
             System.out.println("Запись добавлена  в модель " + task.getTaskName());
-            txtFileWork.fileWriter(task);
-            xmlFileWork.fileWriter(task);
+            TextDao txtFileWork = new TextDao() ;
+            txtFileWork.create((Entity) task);
         }
         }
 

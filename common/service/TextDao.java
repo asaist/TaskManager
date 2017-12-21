@@ -37,12 +37,7 @@ public class TextDao implements GenericDao {
         if (!file.exists()) {
             file.createNewFile();
         }
-        Entity entyti = new Entity() {
-            @Override
-            public Integer getId() {
-                return null;
-            }
-        };
+        Entity entyti = null;
         Parser parser = new Parser();
         BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
         String line;
@@ -50,7 +45,6 @@ public class TextDao implements GenericDao {
             if ((!line.isEmpty()) && (parser.parse(line).getId().equals(id))) {
                 entyti = parser.parse(line);
             }
-
 
         }
         return  entyti;

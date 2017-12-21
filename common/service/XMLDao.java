@@ -11,7 +11,7 @@ public class XMLDao implements GenericDao {
     }
 
     @Override
-    public List<Entity> read(Integer id) {
+    public Entity read(Integer id) {
         return null;
     }
 
