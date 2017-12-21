@@ -30,25 +30,32 @@ public class TextDao implements GenericDao {
     }
 
     @Override
-    public List<Entity> read(Integer id) throws IOException {
+    public Entity read(Integer id) throws IOException {
 
 
         File file = new File(TextDao.getFileLocation());
         if (!file.exists()) {
             file.createNewFile();
         }
-
-        List<Entity> entitys = new ArrayList<>();
+        Entity entyti = new Entity() {
+            @Override
+            public Integer getId() {
+                return null;
+            }
+        };
         Parser parser = new Parser();
         BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
         String line;
         while ((line = bReader.readLine()) != null) {
             if ((!line.isEmpty()) && (parser.parse(line).getId().equals(id))) {
-                entitys.add(parser.parse(line));
+                entyti = parser.parse(line);
             }
+
+
         }
-        return entitys;
+        return  entyti;
     }
+
 
 
 
