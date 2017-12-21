@@ -3,6 +3,7 @@ package common.service;
 import common.entity.Entity;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TextDao implements GenericDao {
@@ -30,9 +31,23 @@ public class TextDao implements GenericDao {
 
     @Override
     public List<Entity> read(Integer id) throws IOException {
-        Parser parser = new Parser();
 
-            return parser.parse(id);
+
+        File file = new File(TextDao.getFileLocation());
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        List<Entity> entitys = new ArrayList<>();
+        Parser parser = new Parser();
+        BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
+        String line;
+        while ((line = bReader.readLine()) != null) {
+            if ((!line.isEmpty()) && (parser.parse(line).getId().equals(id))) {
+                entitys.add(parser.parse(line));
+            }
+        }
+        return entitys;
     }
 
 
