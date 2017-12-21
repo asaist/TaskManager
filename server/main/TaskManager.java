@@ -16,13 +16,9 @@ public class TaskManager {
         TaskManagerModelImpl model = new TaskManagerModelImpl();
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
         TaskManagerViewImpl view = new TaskManagerViewImpl(controller,model);
-        XMLFileWork xmlFileWork = new XMLFileWork();
         TextDao txtFileWork = new TextDao() ;
         System.out.println(txtFileWork.read(0));
-        //txtFileWork.fileReader();
-        //xmlFileWork.fileReader();
         view.createView();
         model.addObserver(view);
-        //model.addObserver();
     }
 }
