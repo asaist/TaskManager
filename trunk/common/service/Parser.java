@@ -15,31 +15,15 @@ public class Parser {
 
 
         Task task = new TaskImpl();
-        Entity entity = new Entity() {
-            @Override
-            public boolean equals(Object anObject) {
-                return false;
-            }
-
-            @Override
-            public String toString() {
-                return null;
-            }
-
-            @Override
-            public Integer getId() {
-                return null;
-            }
-        };
         String[] fields = line.split(";");
         if ((fields.length == 7)) {
+            task.setId(Integer.parseInt(fields[0]));
             task.setT_name(fields[1]);
             task.setDescription(fields[2]);
             task.setDeadline(fields[3]);
             task.setPriority(fields[4]);
             task.setStatus(fields[5]);
             task.setSubtask(fields[6]);
-            System.out.println("Запись добавлена  в модель " + task.getTaskName());
         }
         return (Entity) task;
     }

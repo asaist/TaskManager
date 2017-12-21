@@ -16,7 +16,7 @@ public class TaskManager {
         TaskManagerModelImpl model = new TaskManagerModelImpl();
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
         TaskManagerViewImpl view = new TaskManagerViewImpl(controller,model);
-        TextDao txtFileWork = new TextDao() ;
+        TextDao txtFileWork = new TextDao();
         System.out.println(txtFileWork.read(0));
         view.createView();
         model.addObserver(view);
