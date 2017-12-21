@@ -41,7 +41,7 @@ public class Parser {
             task.setSubtask(fields[6]);
             System.out.println("Запись добавлена  в модель " + task.getTaskName());
         }
-        return entity;
+        return (Entity) task;
     }
 }
 
