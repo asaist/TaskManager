@@ -1,6 +1,7 @@
 package server.main;
 
 
+import client.model.Task;
 import common.service.TextDao;
 import server.controller.TaskManagerControllerImpl;
 import common.service.TXTFileWork;
@@ -17,7 +18,6 @@ public class TaskManager {
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
         TaskManagerViewImpl view = new TaskManagerViewImpl(controller,model);
         TextDao txtFileWork = new TextDao();
-        System.out.println(txtFileWork.read(0));
         view.createView();
         model.addObserver(view);
     }
