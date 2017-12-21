@@ -15,9 +15,11 @@ public interface GenericDao <T extends Entity> {
   Entity read(Integer id) throws IOException;
 
     /** Save changes made to a persistent object.  */
-    void update(T transientObject);
+    void update(T transientObject) throws IOException;
 
     /** Remove an object from persistent storage in the database */
     void delete(T persistentObject) throws IOException;
+
+    List<Entity> readAll() throws IOException;
 }
 
