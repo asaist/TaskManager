@@ -63,24 +63,34 @@ public class TextDao implements GenericDao {
 
 
     @Override
-    public void update(Entity transientObject) {
+    public void update(Entity entity) throws IOException {
+        File fileTxt = new File(TextDao.getFileLocation());
+        List<Entity> entities = readAll();
+        for (Entity entity1:entities) {
+            if (entity1.getId().equals(entity.getId())){
+                entities.remove(entity1);
+                entities.add(entity);
+            }
+        }
+        fileTxt.delete();
+        fileTxt.createNewFile();
+        for (Entity entity2:entities) {
+            create(entity2);
+        }
+
 
     }
 
     @Override
     public void delete(Entity entity) throws IOException {
         File fileTxt = new File(TextDao.getFileLocation());
+
         List<Entity> entities = readAll();
             entities.remove(entity);
-            fileTxt.delete();
+        fileTxt.delete();
             fileTxt.createNewFile();
         for (Entity entity1:entities) {
             create(entity1);
         }
-
-
-
-
-
     }
 }
