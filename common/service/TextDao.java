@@ -31,23 +31,32 @@ public class TextDao implements GenericDao {
 
     @Override
     public Entity read(Integer id) throws IOException {
-
-
-        File file = new File(TextDao.getFileLocation());
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        Entity entyti = null;
+        Entity entity = null;
         Parser parser = new Parser();
         BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
         String line;
         while ((line = bReader.readLine()) != null) {
             if ((!line.isEmpty()) && (parser.parse(line).getId().equals(id))) {
-                entyti = parser.parse(line);
+                entity = parser.parse(line);
             }
 
         }
-        return  entyti;
+        return  entity;
+    }
+
+    public List<Entity> readAll() throws IOException {
+        List<Entity> entitys = null;
+        Entity entity = null;
+        Parser parser = new Parser();
+        BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
+        String line;
+        while ((line = bReader.readLine()) != null) {
+            if (!line.isEmpty()) {
+                entity = parser.parse(line);
+            }
+            entitys.add(entity);
+        }
+        return  entitys;
     }
 
 
@@ -59,7 +68,19 @@ public class TextDao implements GenericDao {
     }
 
     @Override
-    public void delete(Entity persistentObject) {
+    public void delete(Entity entity) throws IOException {
+        File fileTxt = new File(TextDao.getFileLocation());
+        List<Entity> entities = readAll();
+            entities.remove(entity);
+            fileTxt.delete();
+            fileTxt.createNewFile();
+        for (Entity entity1:entities) {
+            create(entity1);
+        }
+
+
+
+
 
     }
 }

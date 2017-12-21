@@ -18,6 +18,6 @@ public interface GenericDao <T extends Entity> {
     void update(T transientObject);
 
     /** Remove an object from persistent storage in the database */
-    void delete(T persistentObject);
+    void delete(T persistentObject) throws IOException;
 }
 

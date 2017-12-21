@@ -51,7 +51,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             setChanged();
             notifyObservers();
             System.out.println("Запись добавлена  в модель " + task.getTaskName());
-            TextDao txtFileWork = new TextDao() ;
+            TextDao txtFileWork = new TextDao();
             txtFileWork.create((Entity) task);
         }
         }
