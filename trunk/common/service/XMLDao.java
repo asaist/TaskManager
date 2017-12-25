@@ -2,6 +2,7 @@ package common.service;
 
 import common.entity.Entity;
 
+import java.io.IOException;
 import java.util.List;
 
 public class XMLDao implements GenericDao {
@@ -23,5 +24,10 @@ public class XMLDao implements GenericDao {
     @Override
     public void delete(Entity persistentObject) {
 
+    }
+
+    @Override
+    public List<Entity> readAll() throws IOException {
+        return null;
     }
 }

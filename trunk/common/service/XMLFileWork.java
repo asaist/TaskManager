@@ -49,9 +49,9 @@ public class XMLFileWork implements FileWork {
         NameElementDescription.appendChild(doc.createTextNode(taskAdd.getDescription()));
         RootElement.appendChild(NameElementDescription);
 
-        Element NameElementDeadline=doc.createElement("deadline");
+        /*Element NameElementDeadline=doc.createElement("deadline");
         NameElementDeadline.appendChild(doc.createTextNode(taskAdd.getDeadline()));
-        RootElement.appendChild(NameElementDeadline);
+        RootElement.appendChild(NameElementDeadline);*/
 
         Element NameElementPriority=doc.createElement("priority");
         NameElementPriority.appendChild(doc.createTextNode(taskAdd.getPriority()));

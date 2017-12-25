@@ -2,12 +2,15 @@ package common.entity;
 
 public interface Task {
     int id = 0;
-    String t_name=null;
-    String description=null;
-    String deadline=null;
-    String priority=null;
-    String status=null;
-    String subtask=null;
+    String t_name = null;
+    String description = null;
+    String deadlineYear = null;
+    String deadlineMonth = null;
+    String deadlineDay = null;
+    String deadlineHour = null;
+    String priority = null;
+    String status = null;
+    String subtask = null;
 
     void setId(int id);
 
@@ -21,9 +24,21 @@ public interface Task {
 
     String getDescription();
 
-    void setDeadline(String deadline);
+    void setDeadlineYear(String deadlineYear);
 
-    String getDeadline();
+    String getDeadlineYear();
+
+    void setDeadlineMonth(String deadlineMonth);
+
+    String getDeadlineMonth();
+
+    void setDeadlineDay(String deadlineDay);
+
+    String getDeadlineDay();
+
+    void setDeadlineHour(String deadlineHour);
+
+    String getDeadlineHour();
 
     void setPriority(String priority);
 
