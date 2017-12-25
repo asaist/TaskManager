@@ -1,11 +1,16 @@
 package common.entity;
 
+import static client.model.Task.deadline;
+
 public class TaskImpl implements Task, Entity {
     private int id;
     private static int idInc;
     private String t_name;
     private String description;
-    private String deadline;
+    private String deadlineYear;
+    private String deadlineMonth;
+    private String deadlineDay;
+    private String deadlineHour;
     private String priority;
     private String status;
     private String subtask;
@@ -26,6 +31,45 @@ public class TaskImpl implements Task, Entity {
     public Integer getId() {
         return id;
     }
+    @Override
+    public String getDeadlineYear() {
+        return deadlineYear;
+    }
+
+    @Override
+    public void setDeadlineYear(String deadlineYear) {
+        this.deadlineYear = deadlineYear;
+    }
+
+    @Override
+    public String getDeadlineMonth() {
+        return deadlineMonth;
+    }
+
+    @Override
+    public void setDeadlineMonth(String deadlineMonth) {
+        this.deadlineMonth = deadlineMonth;
+    }
+
+    @Override
+    public String getDeadlineDay() {
+        return deadlineDay;
+    }
+
+    @Override
+    public void setDeadlineDay(String deadlineDay) {
+        this.deadlineDay = deadlineDay;
+    }
+
+    @Override
+    public String getDeadlineHour() {
+        return deadlineHour;
+    }
+
+    @Override
+    public void setDeadlineHour(String deadlineHour) {
+        this.deadlineHour = deadlineHour;
+    }
 
     public void setId(int id) {this.id = id;}
 
@@ -41,14 +85,6 @@ public class TaskImpl implements Task, Entity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
     }
 
     public String getPriority() {
@@ -91,7 +127,16 @@ public class TaskImpl implements Task, Entity {
             if (!description.equals(task.getDescription())) {
                 return false;
             }
-            if (!deadline.equals(task.getDeadline())) {
+            if (!deadlineYear.equals(task.getDeadlineYear())) {
+                return false;
+            }
+            if (!deadlineMonth.equals(task.getDeadlineMonth())) {
+                return false;
+            }
+            if (!deadlineDay.equals(task.getDeadlineDay())) {
+                return false;
+            }
+            if (!deadlineHour.equals(task.getDeadlineHour())) {
                 return false;
             }
             if (!priority.equals(task.getPriority())) {
@@ -108,7 +153,8 @@ public class TaskImpl implements Task, Entity {
     }
     @Override
     public String toString() {
-            return ( id + ";" + t_name + ";" + description + ";" + deadline + ";" + priority + ";" + status + ";" + subtask);
+            return ( id + ";" + t_name + ";" + description + ";" + deadlineYear + ";" + deadlineMonth + ";" + deadlineDay + ";" + deadlineHour + ";" + priority + ";" + status + ";" + subtask);
+
         }
 
 

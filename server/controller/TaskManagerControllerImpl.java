@@ -22,15 +22,15 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     }
 
     //Task
-    public void addTask(String t_name, String description, String deadline, String priority, String status, String subtask) {
+    public void addTask(String t_name, String description, String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour, String priority, String status, String subtask) {
         Task task = new TaskImpl();
-        checkFieldstask(t_name, description, deadline, priority, status, subtask, task);
+        checkFieldstask(t_name, description, deadlineYear, deadlineMonth, deadlineDay, deadlineHour, priority, status, subtask, task);
         model.addTask(task);
         }
 
 
 
-    public void checkFieldstask(String t_name, String description, String deadline, String priority, String status, String subtask, Task task) {
+    public void checkFieldstask(String t_name, String description, String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour, String priority, String status, String subtask, Task task) {
 
 
             if (isCorrect(t_name)) {
@@ -44,11 +44,26 @@ public class TaskManagerControllerImpl implements TaskManagerController {
             } else {
                 task.setDescription(description.trim());
             }
-            if (isCorrect(deadline)) {
+            if (isCorrect(deadlineYear)) {
                 throw new RuntimeException("deadline is not correct");
             } else {
-                task.setDeadline(deadline.trim());
+                task.setDeadlineYear(deadlineYear.trim());
             }
+             if (isCorrect(deadlineMonth)) {
+                throw new RuntimeException("deadline is not correct");
+            } else {
+                task.setDeadlineMonth(deadlineMonth.trim());
+            }
+        if (isCorrect(deadlineDay)) {
+            throw new RuntimeException("deadline is not correct");
+        } else {
+            task.setDeadlineDay(deadlineDay.trim());
+        }
+        if (isCorrect(deadlineHour)) {
+            throw new RuntimeException("deadline is not correct");
+        } else {
+            task.setDeadlineHour(deadlineHour.trim());
+        }
             if (isCorrect(priority)) {
                 throw new RuntimeException("priority is not correct");
             } else {
