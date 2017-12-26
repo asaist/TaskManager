@@ -47,7 +47,7 @@ public class TextDao implements GenericDao {
 
     public List<Entity> readAll() throws IOException {
         checkFile();
-        List<Entity> entitys = null;
+        List<Entity> entitys = new ArrayList<>();
         Entity entity = null;
         Parser parser = new Parser();
         BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));

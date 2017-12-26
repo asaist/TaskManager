@@ -16,7 +16,7 @@ public class Parser {
 
         Task task = new TaskImpl();
         String[] fields = line.split(";");
-        if ((fields.length == 10)) {
+       // if ((fields.length == 10)) {
             task.setId(Integer.parseInt(fields[0]));
             task.setT_name(fields[1]);
             task.setDescription(fields[2]);
@@ -27,7 +27,7 @@ public class Parser {
             task.setPriority(fields[7]);
             task.setStatus(fields[8]);
             task.setSubtask(fields[9]);
-        }
+       // }
         return (Entity) task;
     }
 }
