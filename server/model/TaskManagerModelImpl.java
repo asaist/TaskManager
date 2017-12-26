@@ -64,9 +64,6 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
                 tasks.add((Task) entity);
                 setChanged();
                 notifyObservers();
-                //System.out.println("Запись добавлена  в модель " + (Task) entity.getTaskName());
-                TextDao txtFileWork = new TextDao();
-                txtFileWork.create(entity);
             }
         }
     }
@@ -98,24 +95,16 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             }
     }
 
-
-
     @Override
-    public void deleteTask(Task taskToRemove) {
-        File fileTxt = new File(txtFileWork.getTasksStorageFileName());
-        fileTxt.delete();
-        tasks.remove(taskToRemove);
-
-
-        for(Task task:tasks){
-            xmlFileWork.fileWriter(task);
-            txtFileWork.fileWriter(task);
-
-        }
+    public void deleteTask(Task taskToRemove) throws IOException {
+        TextDao txtFileWork = new TextDao();
+        txtFileWork.delete((Entity) taskToRemove);
         modelIsChanged();
     }
 
-    void modelIsChanged(){
+
+
+    public void modelIsChanged(){
         setChanged();
         notifyObservers();
     }

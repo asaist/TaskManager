@@ -1,13 +1,12 @@
 package server.controller;
 
-import common.entity.Assignee;
-import common.entity.AssigneeImpl;
-import common.entity.Task;
-import common.entity.TaskImpl;
+import common.entity.*;
+import common.service.TextDao;
 import server.model.TaskManagerModel;
 import server.view.TaskManagerView;
 import server.view.TaskManagerViewImpl;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -137,8 +136,8 @@ public class TaskManagerControllerImpl implements TaskManagerController {
         return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";" ) != -1 || Integer.parseInt(field) < 0 || Integer.parseInt(field) > 23;
     }
 
-    public void deleteTask(Task task) {
-        model.deleteTask(task);
+    public void deleteTask(Task taskToRemove) throws IOException {
+        model.deleteTask(taskToRemove);
     }
 }
 

@@ -242,7 +242,11 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             removeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try{
-                        controller.deleteTask(task);
+                        try {
+                            controller.deleteTask(task);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                     }catch (RuntimeException e1) {
                         updateViewTextConsole(e1.toString());
 
