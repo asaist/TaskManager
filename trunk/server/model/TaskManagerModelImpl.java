@@ -99,6 +99,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     public void deleteTask(Task taskToRemove) throws IOException {
         TextDao txtFileWork = new TextDao();
         txtFileWork.delete((Entity) taskToRemove);
+        tasks.remove(taskToRemove);
         modelIsChanged();
     }
 
