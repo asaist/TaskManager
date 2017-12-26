@@ -42,6 +42,7 @@ public class TextDao implements GenericDao {
             }
 
         }
+        bReader.close();
         return  entity;
     }
 
@@ -56,9 +57,12 @@ public class TextDao implements GenericDao {
             if (!line.isEmpty()) {
                 entity = parser.parse(line);
             }
+
             entitys.add(entity);
         }
+        bReader.close();
         return  entitys;
+
     }
 
 
@@ -88,7 +92,6 @@ public class TextDao implements GenericDao {
     public void delete(Entity entity) throws IOException {
         checkFile();
         File fileTxt = new File(TextDao.getFileLocation());
-
         List<Entity> entities = readAll();
             entities.remove(entity);
         fileTxt.delete();
@@ -103,10 +106,12 @@ public class TextDao implements GenericDao {
         if (!fileTxt.exists()){
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(TextDao.getFileLocation(), true));
+                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             System.out.println("Создан файл " + TextDao.getFileLocation());
+
         }
     }
 }

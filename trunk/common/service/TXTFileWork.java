@@ -74,4 +74,19 @@ public class TXTFileWork implements FileWork {
             e.printStackTrace();
         }
     }
+
+   /* @Override
+    public void deleteTask(Task taskToRemove) {
+        File fileTxt = new File(txtFileWork.getTasksStorageFileName());
+        fileTxt.delete();
+        tasks.remove(taskToRemove);
+
+
+        for(Task task:tasks){
+            xmlFileWork.fileWriter(task);
+            txtFileWork.fileWriter(task);
+
+        }
+        modelIsChanged();
+    }*/
 }
