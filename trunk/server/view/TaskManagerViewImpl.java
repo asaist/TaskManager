@@ -56,9 +56,9 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final String texTName = "TaskName";
     private  final String textDescription = "Description";
     private  final String textDeadlineYear = "2017";
-    private  final String textDeadlineMonth = "1";
-    private  final String textDeadlineDay = "1";
-    private  final String textDeadlineHour = "0";
+    private  final String textDeadlineMonth = "12";
+    private  final String textDeadlineDay = "31";
+    private  final String textDeadlineHour = "23";
     private  final String textPriority = "Priority";
     private  final String textStatus = "Status";
     private  final String textSubtasks = "Subtasks";

@@ -30,4 +30,9 @@ public class XMLDao implements GenericDao {
     public List<Entity> readAll() throws IOException {
         return null;
     }
+
+    @Override
+    public void checkFile() {
+
+    }
 }

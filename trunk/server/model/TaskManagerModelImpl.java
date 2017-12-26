@@ -56,6 +56,23 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         }
         }
 
+    public void addAllTask (List<Task> tasks1) {
+
+        for (Task task:tasks1) {
+            if (task != null) {
+                checkTasks(task);
+                tasks.add(task);
+                setChanged();
+                notifyObservers();
+                System.out.println("Запись добавлена  в модель " + task.getTaskName());
+                TextDao txtFileWork = new TextDao();
+                txtFileWork.create((Entity) task);
+            }
+        }
+    }
+
+
+
     private void checkTasks (Task task) {
         for (Task task1 : getTasks()) {
             if (task1.equals(task)) {

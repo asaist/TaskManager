@@ -21,5 +21,7 @@ public interface GenericDao <T extends Entity> {
     void delete(T persistentObject) throws IOException;
 
     List<Entity> readAll() throws IOException;
+
+    void checkFile ();
 }
 

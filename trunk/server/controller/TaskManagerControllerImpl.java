@@ -8,6 +8,9 @@ import server.model.TaskManagerModel;
 import server.view.TaskManagerView;
 import server.view.TaskManagerViewImpl;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 
 public class TaskManagerControllerImpl implements TaskManagerController {
     TaskManagerModel model;
@@ -44,26 +47,26 @@ public class TaskManagerControllerImpl implements TaskManagerController {
             } else {
                 task.setDescription(description.trim());
             }
-            if (isCorrect(deadlineYear)) {
-                throw new RuntimeException("deadline is not correct");
+            if (isCorrectYear(deadlineYear)) {
+                throw new RuntimeException("Year is not correct");
             } else {
                 task.setDeadlineYear(deadlineYear.trim());
             }
-             if (isCorrect(deadlineMonth)) {
-                throw new RuntimeException("deadline is not correct");
+             if (isCorrectMonth(deadlineMonth)) {
+                throw new RuntimeException("Month is not correct");
             } else {
                 task.setDeadlineMonth(deadlineMonth.trim());
             }
-        if (isCorrect(deadlineDay)) {
-            throw new RuntimeException("deadline is not correct");
-        } else {
-            task.setDeadlineDay(deadlineDay.trim());
-        }
-        if (isCorrect(deadlineHour)) {
-            throw new RuntimeException("deadline is not correct");
-        } else {
-            task.setDeadlineHour(deadlineHour.trim());
-        }
+            if (isCorrectDay(deadlineDay)) {
+                throw new RuntimeException("Day is not correct");
+            } else {
+                task.setDeadlineDay(deadlineDay.trim());
+            }
+            if (isCorrectHour(deadlineHour)) {
+                throw new RuntimeException("Hour is not correct");
+            } else {
+                task.setDeadlineHour(deadlineHour.trim());
+            }
             if (isCorrect(priority)) {
                 throw new RuntimeException("priority is not correct");
             } else {
@@ -115,6 +118,23 @@ public class TaskManagerControllerImpl implements TaskManagerController {
 
     private boolean isCorrect(String field) {
         return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";" ) != -1;
+    }
+
+    private boolean isCorrectYear(String field) {
+        Calendar calendar = new GregorianCalendar();
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";" ) != -1 || Integer.parseInt(field) > calendar.get(Calendar.YEAR) + 3;
+    }
+
+    private boolean isCorrectMonth(String field) {
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";" ) != -1 || Integer.parseInt(field) < 1 || Integer.parseInt(field) > 12;
+    }
+
+    private boolean isCorrectDay(String field) {
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";" ) != -1 || Integer.parseInt(field) < 1 || Integer.parseInt(field) > 31;
+    }
+
+    private boolean isCorrectHour(String field) {
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";" ) != -1 || Integer.parseInt(field) < 0 || Integer.parseInt(field) > 23;
     }
 
     public void deleteTask(Task task) {
