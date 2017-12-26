@@ -31,6 +31,7 @@ public class TextDao implements GenericDao {
 
     @Override
     public Entity read(Integer id) throws IOException {
+        checkFile();
         Entity entity = null;
         Parser parser = new Parser();
         BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
@@ -45,6 +46,7 @@ public class TextDao implements GenericDao {
     }
 
     public List<Entity> readAll() throws IOException {
+        checkFile();
         List<Entity> entitys = null;
         Entity entity = null;
         Parser parser = new Parser();
@@ -64,6 +66,7 @@ public class TextDao implements GenericDao {
 
     @Override
     public void update(Entity entity) throws IOException {
+        checkFile();
         File fileTxt = new File(TextDao.getFileLocation());
         List<Entity> entities = readAll();
 
@@ -83,6 +86,7 @@ public class TextDao implements GenericDao {
 
     @Override
     public void delete(Entity entity) throws IOException {
+        checkFile();
         File fileTxt = new File(TextDao.getFileLocation());
 
         List<Entity> entities = readAll();
@@ -91,6 +95,18 @@ public class TextDao implements GenericDao {
             fileTxt.createNewFile();
         for (Entity entity1:entities) {
             create(entity1);
+        }
+    }
+
+    public void checkFile () {
+        File fileTxt = new File(TextDao.getFileLocation());
+        if (!fileTxt.exists()){
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(TextDao.getFileLocation(), true));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Создан файл " + TextDao.getFileLocation());
         }
     }
 }

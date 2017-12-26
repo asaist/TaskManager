@@ -14,10 +14,11 @@ import java.io.IOException;
 
 public class TaskManager {
     public static void main (String[]args) throws IOException {
+        TextDao txtFileWork = new TextDao();
         TaskManagerModelImpl model = new TaskManagerModelImpl();
+        model.addTask((common.entity.Task) txtFileWork.readAll());
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
         TaskManagerViewImpl view = new TaskManagerViewImpl(controller,model);
-        TextDao txtFileWork = new TextDao();
         view.createView();
         model.addObserver(view);
     }
