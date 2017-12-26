@@ -16,7 +16,7 @@ public class TaskManager {
     public static void main (String[]args) throws IOException {
         TextDao txtFileWork = new TextDao();
         TaskManagerModelImpl model = new TaskManagerModelImpl();
-        model.addAllTask((List<Task>)txtFileWork.readAll());
+        model.addAllTask(txtFileWork.readAll());
         TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
         TaskManagerViewImpl view = new TaskManagerViewImpl(controller,model);
         view.createView();
