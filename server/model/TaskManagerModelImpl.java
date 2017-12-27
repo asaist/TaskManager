@@ -8,6 +8,7 @@ import common.entity.Task;
 import common.service.TXTFileWork;
 import common.service.TextDao;
 import common.service.XMLFileWork;
+import server.view.TaskManagerView;
 
 import java.io.*;
 import java.util.*;
@@ -68,6 +69,10 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         }
     }
 
+    @Override
+    public void addWatcher(TaskManagerView view) {
+        addObserver(view);
+    }
 
 
     private void checkTasks (Task task) {

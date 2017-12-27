@@ -97,7 +97,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
         viewTextSubTask = new JTextField(textSubtasks);
     }
 
-    public void createView () throws IOException {
+    public void createView (){
 
 
         viewFrame.pack();
@@ -213,7 +213,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
     public class TaskPresenter {
 
-        public void displayTask(Task task) throws IOException {
+        public void displayTask(Task task){
             Border border = BorderFactory.createLineBorder(Color.black);
             JTextField taskName = new JTextField(task.getTaskName());
             JTextField description = new JTextField(task.getDescription());
@@ -297,11 +297,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     @Override
     public void update(Observable o, Object arg) {
         TaskManagerModel model = (TaskManagerModel) o;
-        try {
             displayModels(model);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void updateViewTextConsole(String textConsole) {
@@ -310,7 +306,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     }
 
 
-    public void displayModels(TaskManagerModel model) throws IOException {
+    public void displayModels(TaskManagerModel model) {
 
         tasksViewPanel.removeAll();
         for (Assignee assignee: model.getAssignees()){
