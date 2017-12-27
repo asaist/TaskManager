@@ -1,25 +1,28 @@
 package server.main;
 
 
-import client.model.Task;
 import common.service.TextDao;
+import server.controller.TaskManagerController;
 import server.controller.TaskManagerControllerImpl;
-import common.service.TXTFileWork;
+import server.model.TaskManagerModel;
 import server.model.TaskManagerModelImpl;
-import common.service.XMLFileWork;
+import server.view.ClientDataViewImpl;
+import server.view.TaskManagerView;
 import server.view.TaskManagerViewImpl;
 import java.io.IOException;
-import java.util.List;
 
 
 public class TaskManager {
     public static void main (String[]args) throws IOException {
         TextDao txtFileWork = new TextDao();
-        TaskManagerModelImpl model = new TaskManagerModelImpl();
+        TaskManagerModel model = new TaskManagerModelImpl();
         model.addAllTask(txtFileWork.readAll());
-        TaskManagerControllerImpl controller = new TaskManagerControllerImpl(model);
-        TaskManagerViewImpl view = new TaskManagerViewImpl(controller,model);
+        TaskManagerController controller = new TaskManagerControllerImpl(model);
+        TaskManagerView view = new TaskManagerViewImpl(controller,model);
+        TaskManagerView viewClient = new ClientDataViewImpl(controller,model);
         view.createView();
-        model.addObserver(view);
+        viewClient.createView();
+        model.addWatcher(view);
+        model.addWatcher(viewClient);
     }
 }
