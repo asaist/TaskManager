@@ -15,16 +15,19 @@ public class TaskImpl implements Task, Entity {
     private String status;
     private String subtask;
 
-    //public TaskImpl() {}
 
-    /*public TaskImpl(String t_name, String description, String deadline, String priority, String status, String subtask){
+
+    public TaskImpl(String t_name, String description, String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour, String priority, String status, String subtask){
         this.t_name=t_name;
         this.description=description;
-        this.deadline=deadline;
+        this.deadlineYear=deadlineYear;
+        this.deadlineMonth=deadlineMonth;
+        this.deadlineDay=deadlineDay;
+        this.deadlineHour=deadlineHour;
         this.priority=priority;
         this.status=status;
         this.subtask=subtask;
-    }*/
+    }
     public TaskImpl(){
         this.id=idInc++;
     }

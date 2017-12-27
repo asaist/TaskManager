@@ -139,5 +139,9 @@ public class TaskManagerControllerImpl implements TaskManagerController {
     public void deleteTask(Task taskToRemove) throws IOException {
         model.deleteTask(taskToRemove);
     }
+
+    public void updateTask(Task taskToUpdate) throws IOException {
+        model.updateTask(taskToUpdate);
+    }
 }
 

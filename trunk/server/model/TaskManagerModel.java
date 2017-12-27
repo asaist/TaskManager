@@ -14,5 +14,6 @@ public interface TaskManagerModel {
     List<Assignee> getAssignees();
     void modelIsChanged();
     void deleteTask(Task taskToRemove) throws IOException;
+    void updateTask (Task taskToUpdate) throws IOException;
 
 }

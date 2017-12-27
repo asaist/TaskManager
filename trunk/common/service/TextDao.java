@@ -71,20 +71,15 @@ public class TextDao implements GenericDao {
     @Override
     public void update(Entity entity) throws IOException {
         checkFile();
-        File fileTxt = new File(TextDao.getFileLocation());
         List<Entity> entities = readAll();
-
+        Entity entityToUpdate = null;
         for (Entity entity1:entities) {
             if (entity1.getId().equals(entity.getId())){
-                entities.remove(entity1);
-                entities.add(entity);
+                entityToUpdate = entity1;
             }
         }
-        fileTxt.delete();
-        fileTxt.createNewFile();
-        for (Entity entity2:entities) {
-            create(entity2);
-        }
+        delete(entityToUpdate);
+        create(entity);
 
     }
 
