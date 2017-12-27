@@ -1,5 +1,6 @@
 package server.view;
 
+import common.entity.TaskImpl;
 import server.controller.TaskManagerController;
 import common.entity.Assignee;
 import common.entity.Task;
@@ -228,7 +229,8 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             certainTaskPanel.setBorder(border);
 
             certainTaskPanel.setLayout(new GridLayout(3,3));
-            JButton removeButton = new JButton("Delete");//toString = имя кнопки /вызывать task.getId
+            JButton removeButton = new JButton("Delete");
+            JButton updateButton = new JButton("Update");//toString = имя кнопки /вызывать task.getId
             certainTaskPanel.add(taskName);
             certainTaskPanel.add(description);
             certainTaskPanel.add(deadlineYear);
@@ -238,7 +240,9 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
             certainTaskPanel.add(priority);
             certainTaskPanel.add(status);
             certainTaskPanel.add(subtask);
+            certainTaskPanel.add(updateButton);
             certainTaskPanel.add(removeButton);
+
             removeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try{
@@ -252,6 +256,33 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
 
                     }
             }
+            });
+
+            updateButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try{
+                        try {
+                            Task taskToUpdate = new TaskImpl(String.valueOf(taskName.getText()), String.valueOf(description.getText()), String.valueOf(deadlineYear.getText()), String.valueOf(deadlineMonth.getText()), String.valueOf(deadlineDay.getText()), String.valueOf(deadlineHour.getText()), String.valueOf(priority.getText()), String.valueOf(status.getText()), String.valueOf(subtask.getText()));
+                            //System.out.println(String.valueOf(taskName.getText()) + String.valueOf(description.getText()) + String.valueOf(deadlineYear.getText()) + String.valueOf(deadlineMonth.getText()) + String.valueOf(deadlineDay.getText()) + String.valueOf(deadlineHour.getText()) + String.valueOf(priority.getText()) + String.valueOf(status.getText()) + String.valueOf(subtask.getText()));
+                           /* task.setT_name(String.valueOf(taskName.getText()));
+                            task.setDescription(String.valueOf(description.getText()));
+                            task.setDeadlineYear(String.valueOf(deadlineYear.getText()));
+                            task.setDeadlineMonth(String.valueOf(deadlineMonth.getText()));
+                            task.setDeadlineDay(String.valueOf(deadlineDay.getText()));
+                            task.setDeadlineHour(String.valueOf(deadlineHour.getText()));
+                            task.setPriority(String.valueOf(priority.getText()));
+                            task.setStatus(String.valueOf(status.getText()));
+                            task.setSubtask(String.valueOf(subtask.getText()));*/
+                            controller.updateTask(taskToUpdate);
+
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    }catch (RuntimeException e1) {
+                        updateViewTextConsole(e1.toString());
+
+                    }
+                }
             });
             certainParentTaskPanel.add(certainTaskPanel);
             certainParentTaskPanel.setLayout(new GridLayout(1,3));

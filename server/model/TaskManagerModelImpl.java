@@ -103,6 +103,12 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
         modelIsChanged();
     }
 
+    public void updateTask (Task taskToUpdate) throws IOException {
+        TextDao txtFileWork = new TextDao();
+        txtFileWork.update((Entity) taskToUpdate);
+        modelIsChanged();
+    }
+
 
 
     public void modelIsChanged(){
