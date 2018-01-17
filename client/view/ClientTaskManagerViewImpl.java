@@ -88,7 +88,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
         viewTextSubTask = new JTextField(textSubtasks);
     }
 
-    public void createView () throws IOException {
+    public void createView () {
 
 
         viewFrame.pack();
@@ -198,7 +198,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
 
     public class TaskPresenter {
 
-        public void displayTask(Task task) throws IOException {
+        public void displayTask(Task task){
             Border border = BorderFactory.createLineBorder(Color.black);
             JTextField taskName = new JTextField(task.getTaskName());
             JTextField description = new JTextField(task.getDescription());
@@ -242,11 +242,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     @Override
     public void update(Observable o, Object arg) {
         ClientTaskManagerModel model = (ClientTaskManagerModel) o;
-        try {
             displayModels(model);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void updateViewTextConsole(String textConsole) {
@@ -255,7 +251,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     }
 
 
-    public void displayModels(ClientTaskManagerModel model) throws IOException {
+    public void displayModels(ClientTaskManagerModel model) {
 
         tasksViewPanel.removeAll();
         for (Assignee assignee: model.getAssignees()){

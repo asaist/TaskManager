@@ -30,37 +30,60 @@ public class TextDao implements GenericDao {
     }
 
     @Override
-    public Entity read(Integer id) throws IOException {
+    public Entity read(Integer id) {
         checkFile();
         Entity entity = null;
         Parser parser = new Parser();
-        BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
-        String line;
-        while ((line = bReader.readLine()) != null) {
-            if ((!line.isEmpty()) && (parser.parse(line).getId().equals(id))) {
-                entity = parser.parse(line);
-            }
-
+        BufferedReader bReader = null;
+        try {
+            bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Файл не найден ", e);
         }
-        bReader.close();
+        String line;
+        try {
+            while ((line = bReader.readLine()) != null) {
+                if ((!line.isEmpty()) && (parser.parse(line).getId().equals(id))) {
+                    entity = parser.parse(line);
+                }
+
+            }
+            bReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException("Что-то пошло не так ", e);
+        }
+
         return  entity;
     }
 
-    public List<Entity> readAll() throws IOException {
+    public List<Entity> readAll()  {
         checkFile();
         List<Entity> entitys = new ArrayList();
         Entity entity = null;
         Parser parser = new Parser();
-        BufferedReader bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
-        String line;
-        while ((line = bReader.readLine()) != null) {
-            if (!line.isEmpty()) {
-                entity = parser.parse(line);
-            }
-
-            entitys.add(entity);
+        BufferedReader bReader = null;
+        try {
+            bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
+        } catch (FileNotFoundException e) {
+            throw new  RuntimeException("Файл не создан ",e);
         }
-        bReader.close();
+        String line;
+        try {
+            while ((line = bReader.readLine()) != null) {
+                if (!line.isEmpty()) {
+                    entity = parser.parse(line);
+                }
+
+                entitys.add(entity);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Что-то пошло не так ", e);
+        }
+        try {
+            bReader.close();
+        } catch (IOException e) {
+            throw new RuntimeException("Что-то пошло не так ", e);
+        }
         return  entitys;
 
     }
@@ -69,7 +92,7 @@ public class TextDao implements GenericDao {
 
 
     @Override
-    public void update(Entity entity) throws IOException {
+    public void update(Entity entity) {
         checkFile();
         List<Entity> entities = readAll();
         Entity entityToUpdate = null;
@@ -84,13 +107,17 @@ public class TextDao implements GenericDao {
     }
 
     @Override
-    public void delete(Entity entity) throws IOException {
+    public void delete(Entity entity) {
         checkFile();
         File fileTxt = new File(TextDao.getFileLocation());
         List<Entity> entities = readAll();
             entities.remove(entity);
         fileTxt.delete();
+        try {
             fileTxt.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException("Файл не может быть создан ",e);
+        }
         for (Entity entity1:entities) {
             create(entity1);
         }
