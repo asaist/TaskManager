@@ -1,9 +1,12 @@
 package common.entity;
 
+import java.util.Date;
+
 public interface Task {
     int id = 0;
     String t_name = null;
     String description = null;
+    Date deadline = null;
     String deadlineYear = null;
     String deadlineMonth = null;
     String deadlineDay = null;
