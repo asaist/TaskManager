@@ -25,7 +25,7 @@ public class XMLDao implements GenericDao {
     }
 
     @Override
-    public List<Entity> readAll() throws IOException {
+    public List<Entity> readAll(){
         return null;
     }
 

@@ -5,12 +5,9 @@ import common.entity.Assignee;
 import common.entity.Coloring;
 import common.entity.Entity;
 import common.entity.Task;
-import common.service.TXTFileWork;
-import common.service.TextDao;
-import common.service.XMLFileWork;
+import common.service.GenericDao;
 import server.view.TaskManagerView;
 
-import java.io.*;
 import java.util.*;
 
 
@@ -23,8 +20,11 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     private List<Task> tasks=new ArrayList();
     private List<Coloring> colorings=new ArrayList();
     private List<Assignee> assignees=new ArrayList();
-    XMLFileWork xmlFileWork = new XMLFileWork();
-    TXTFileWork txtFileWork = new TXTFileWork();
+    private final GenericDao dao;
+
+    public TaskManagerModelImpl(GenericDao dao) {
+        this.dao = dao;
+    }
 
 
     public List<Assignee> getAssignees() {
@@ -52,8 +52,7 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
             setChanged();
             notifyObservers();
             System.out.println("Запись добавлена  в модель " + task.getTaskName());
-            TextDao txtFileWork = new TextDao();
-            txtFileWork.create((Entity) task);
+            dao.create((Entity) task);
         }
         }
 
@@ -108,16 +107,14 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
     }
 
     @Override
-    public void deleteTask(Task taskToRemove) throws IOException {
-        TextDao txtFileWork = new TextDao();
-        txtFileWork.delete((Entity) taskToRemove);
+    public void deleteTask(Task taskToRemove){
+        dao.delete((Entity) taskToRemove);
         tasks.remove(taskToRemove);
         modelIsChanged();
     }
 
-    public void updateTask (Task taskToUpdate) throws IOException {
-        TextDao txtFileWork = new TextDao();
-        txtFileWork.update((Entity) taskToUpdate);
+    public void updateTask (Task taskToUpdate){
+        dao.update((Entity) taskToUpdate);
         modelIsChanged();
     }
 

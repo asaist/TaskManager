@@ -12,15 +12,15 @@ public interface GenericDao <T extends Entity> {
   /** Retrieve an object that was previously persisted to the database using
    *   the indicated id as primary key
    */
-  Entity read(Integer id) throws IOException;
+  Entity read(Integer id);
 
     /** Save changes made to a persistent object.  */
-    void update(T transientObject) throws IOException;
+    void update(T transientObject);
 
     /** Remove an object from persistent storage in the database */
-    void delete(T persistentObject) throws IOException;
+    void delete(T persistentObject);
 
-    List<Entity> readAll() throws IOException;
+    List<Entity> readAll();
 
     void checkFile ();
 }

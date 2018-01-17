@@ -14,8 +14,7 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
     private List<Task> tasks=new ArrayList();
     private List<Coloring> colorings=new ArrayList();
     private List<Assignee> assignees=new ArrayList();
-    XMLFileWork xmlFileWork = new XMLFileWork();
-    TXTFileWork txtFileWork = new TXTFileWork();
+
 
 
     public List<Assignee> getAssignees() {
@@ -43,8 +42,7 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
             setChanged();
             notifyObservers();
             System.out.println("Запись добавлена  в модель " + task.getTaskName());
-            txtFileWork.fileWriter(task);
-            xmlFileWork.fileWriter(task);
+
         }
         }
 
@@ -77,7 +75,7 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
 
     @Override
     public void deleteTask(Task taskToRemove) {
-        File fileTxt = new File(txtFileWork.getTasksStorageFileName());
+       /* File fileTxt = new File(txtFileWork.getTasksStorageFileName());
         fileTxt.delete();
         tasks.remove(taskToRemove);
 
@@ -87,7 +85,7 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
             txtFileWork.fileWriter(task);
 
         }
-        modelIsChanged();
+        modelIsChanged();*/
     }
 
     void modelIsChanged(){

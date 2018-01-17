@@ -1,7 +1,7 @@
 package server.main;
 
 
-import client.model.Task;
+import common.service.GenericDao;
 import common.service.TextDao;
 import server.controller.TaskManagerController;
 import server.controller.TaskManagerControllerImpl;
@@ -16,8 +16,8 @@ import java.util.List;
 
 public class TaskManager {
     public static void main (String[]args) throws IOException {
-        TextDao txtFileWork = new TextDao();
-        TaskManagerModel model = new TaskManagerModelImpl();
+        GenericDao txtFileWork = new TextDao();
+        TaskManagerModel model = new TaskManagerModelImpl(txtFileWork);
         TaskManagerController controller = new TaskManagerControllerImpl(model);
         model.addAllTask(controller.isCorrectDate(txtFileWork.readAll()));
         TaskManagerView view = new TaskManagerViewImpl(controller,model);
