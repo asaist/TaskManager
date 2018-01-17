@@ -59,12 +59,19 @@ public class TaskManagerModelImpl extends Observable implements TaskManagerModel
 
     public void addAllTask (List<Entity> entities1) {
 
-        for (Entity entity:entities1) {
-            if (entity != null) {
-                checkTasks((Task) entity);
-                tasks.add((Task) entity);
-                setChanged();
-                notifyObservers();
+        if (entities1 == null) {
+            System.out.println("Задач пока нет");
+
+        }
+        else {
+
+            for (Entity entity : entities1) {
+                if (entity != null) {
+                    checkTasks((Task) entity);
+                    tasks.add((Task) entity);
+                    setChanged();
+                    notifyObservers();
+                }
             }
         }
     }
