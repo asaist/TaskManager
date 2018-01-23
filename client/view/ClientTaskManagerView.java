@@ -6,5 +6,7 @@ import java.io.IOException;
 
 public interface ClientTaskManagerView {
     void updateViewTextConsole(String textConsole);
-    void displayModels(ClientTaskManagerModel model) throws IOException;
+    void displayModels(ClientTaskManagerModel model);
+    void createView();
+
 }
