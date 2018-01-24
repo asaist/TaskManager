@@ -1,6 +1,12 @@
-package server.main;
+package client.main;
 
 
+import client.controller.ClientTaskManagerController;
+import client.controller.ClientTaskManagerControllerImpl;
+import client.model.ClientTaskManagerModel;
+import client.model.ClientTaskManagerModelImpl;
+import client.view.ClientTaskManagerView;
+import client.view.ClientTaskManagerViewImpl;
 import common.service.GenericDao;
 import common.service.TextDao;
 import server.controller.TaskManagerController;
@@ -14,17 +20,17 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class TaskManager {
+public class ClientTaskManager {
     public static void main (String[]args) throws IOException {
         GenericDao txtFileWork = new TextDao();
-        TaskManagerModel model = new TaskManagerModelImpl(txtFileWork);
-        TaskManagerController controller = new TaskManagerControllerImpl(model);
+        ClientTaskManagerModel model = new ClientTaskManagerModelImpl(txtFileWork);
+        ClientTaskManagerController controller = new ClientTaskManagerControllerImpl(model);
         model.addAllTask(controller.isCorrectDate(txtFileWork.readAll()));
-        TaskManagerView view = new TaskManagerViewImpl(controller,model);
-        //TaskManagerView viewClient = new ClientDataViewImpl(controller,model);
+        ClientTaskManagerView view = new ClientTaskManagerViewImpl(controller,model);
+
         view.createView();
-        //viewClient.createView();
+
         model.addWatcher(view);
-       // model.addWatcher(viewClient);
+
     }
 }
