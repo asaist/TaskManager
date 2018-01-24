@@ -115,6 +115,8 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
 
     public void updateTask (Task taskToUpdate){
         dao.update((Entity) taskToUpdate);
+        tasks.remove(searchTask(taskToUpdate));
+        tasks.add(taskToUpdate);
         modelIsChanged();
     }
 
@@ -125,5 +127,15 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
         notifyObservers();
     }
 
+
+    public Task searchTask (Task task) {
+        Task foundTask = null;
+        for (Task task1:tasks) {
+            if (task1.getId().equals(task.getId())){
+                foundTask = task1;
+            }
+        }
+        return foundTask;
+    }
 
 }
