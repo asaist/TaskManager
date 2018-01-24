@@ -1,11 +1,13 @@
 package common.entity;
 
-public interface DataObject {
-    Object entities=null;
-    String action="";
+import sun.font.CreatedFontTracker;
 
-    void setEntities(Object entities);
-    Object getEntities();
-    void setAction(String action);
-    String getAction();
+public interface DataObject {
+    enum Action {CREATE,UPDATE,DELETE};
+
+
+    void setEntity(Object entity);
+    Object getEntity();
+    void setAction(Action action);
+    Action getAction();
 }

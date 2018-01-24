@@ -4,32 +4,30 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DataObjectImpl implements DataObject {
-    Object entities;
-    String action;
+    Object entity;
+    Action action;
 
-    public DataObjectImpl(InputStream sin) {
-    }
 
-    public DataObjectImpl(OutputStream sout) {
-    }
-
-    @Override
-    public void setEntities(Object entities) {
-        this.entities=entities;
+    public DataObjectImpl(Action action, Object entity) {
     }
 
     @Override
-    public Object getEntities() {
-        return entities;
+    public void setEntity(Object entity) {
+        this.entity = entity;
     }
 
     @Override
-    public void setAction(String action) {
+    public Object getEntity() {
+        return entity;
+    }
+
+    @Override
+    public void setAction(Action action) {
         this.action=action;
     }
 
     @Override
-    public String getAction() {
+    public Action getAction() {
         return action;
     }
 }
