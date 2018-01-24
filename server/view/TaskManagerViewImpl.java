@@ -263,16 +263,6 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
                     try{
                         try {
                             Task taskToUpdate = new TaskImpl(String.valueOf(taskName.getText()), String.valueOf(description.getText()), String.valueOf(deadlineYear.getText()), String.valueOf(deadlineMonth.getText()), String.valueOf(deadlineDay.getText()), String.valueOf(deadlineHour.getText()), String.valueOf(priority.getText()), String.valueOf(status.getText()), String.valueOf(subtask.getText()));
-                            //System.out.println(String.valueOf(taskName.getText()) + String.valueOf(description.getText()) + String.valueOf(deadlineYear.getText()) + String.valueOf(deadlineMonth.getText()) + String.valueOf(deadlineDay.getText()) + String.valueOf(deadlineHour.getText()) + String.valueOf(priority.getText()) + String.valueOf(status.getText()) + String.valueOf(subtask.getText()));
-                           /* task.setT_name(String.valueOf(taskName.getText()));
-                            task.setDescription(String.valueOf(description.getText()));
-                            task.setDeadlineYear(String.valueOf(deadlineYear.getText()));
-                            task.setDeadlineMonth(String.valueOf(deadlineMonth.getText()));
-                            task.setDeadlineDay(String.valueOf(deadlineDay.getText()));
-                            task.setDeadlineHour(String.valueOf(deadlineHour.getText()));
-                            task.setPriority(String.valueOf(priority.getText()));
-                            task.setStatus(String.valueOf(status.getText()));
-                            task.setSubtask(String.valueOf(subtask.getText()));*/
                             controller.updateTask(taskToUpdate);
 
                         } catch (IOException e1) {

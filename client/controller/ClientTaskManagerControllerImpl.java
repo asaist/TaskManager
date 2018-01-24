@@ -1,18 +1,14 @@
 package client.controller;
 
-import client.model.Assignee;
-import client.model.AssigneeImpl;
-import client.model.Task;
-import client.model.TaskImpl;
 import client.model.ClientTaskManagerModel;
 import client.view.ClientTaskManagerView;
 import client.view.ClientTaskManagerViewImpl;
-
-import java.io.*;
-import java.util.List;
-import java.util.Objects;
-
-import static client.model.Assignee.post;
+import common.entity.*;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public class ClientTaskManagerControllerImpl implements ClientTaskManagerController {
@@ -28,51 +24,65 @@ public class ClientTaskManagerControllerImpl implements ClientTaskManagerControl
     }
 
     //Task
-    public void addTask(String t_name, String description, String deadline, String priority, String status, String subtask) {
+    public void addTask(String t_name, String description, String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour, String priority, String status, String subtask) {
         Task task = new TaskImpl();
-        checkFieldstask(t_name, description, deadline, priority, status, subtask, task);
+        checkFieldstask(t_name, description, deadlineYear, deadlineMonth, deadlineDay, deadlineHour, priority, status, subtask, task);
         model.addTask(task);
+    }
+
+
+    public void checkFieldstask(String t_name, String description, String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour, String priority, String status, String subtask, Task task) {
+
+
+        if (isCorrect(t_name)) {
+            throw new RuntimeException("t_name is not correct");
+        } else {
+
+            task.setT_name(t_name.trim());
         }
-
-
-
-    public void checkFieldstask(String t_name, String description, String deadline, String priority, String status, String subtask, Task task) {
-
-
-            if (isCorrect(t_name)) {
-                throw new RuntimeException("t_name is not correct");
-            } else {
-
-                task.setT_name(t_name.trim());
-            }
-            if (isCorrect(description)) {
-                throw new RuntimeException("description is not correct");
-            } else {
-                task.setDescription(description.trim());
-            }
-            if (isCorrect(deadline)) {
-                throw new RuntimeException("deadline is not correct");
-            } else {
-                task.setDeadline(deadline.trim());
-            }
-            if (isCorrect(priority)) {
-                throw new RuntimeException("priority is not correct");
-            } else {
-                task.setPriority(priority.trim());
-            }
-            if (isCorrect(status)) {
-                throw new RuntimeException("status is not correct");
-            } else {
-                task.setStatus(status.trim());
-            }
-            if (isCorrect(subtask)) {
-                throw new RuntimeException("subtask is not correct");
-            } else {
-                task.setSubtask(subtask.trim());
-            }
+        if (isCorrect(description)) {
+            throw new RuntimeException("description is not correct");
+        } else {
+            task.setDescription(description.trim());
         }
+        if (isCorrectYear(deadlineYear)) {
+            throw new RuntimeException("Year is not correct");
+        } else {
+            task.setDeadlineYear(deadlineYear.trim());
+        }
+        if (isCorrectMonth(deadlineMonth)) {
+            throw new RuntimeException("Month is not correct");
+        } else {
+            task.setDeadlineMonth(deadlineMonth.trim());
+        }
+        if (isCorrectDay(deadlineDay)) {
+            throw new RuntimeException("Day is not correct");
+        } else {
+            task.setDeadlineDay(deadlineDay.trim());
+        }
+        if (isCorrectHour(deadlineHour)) {
+            throw new RuntimeException("Hour is not correct");
+        } else {
+            task.setDeadlineHour(deadlineHour.trim());
+        }
+        if (isCorrect(priority)) {
+            throw new RuntimeException("priority is not correct");
+        } else {
+            task.setPriority(priority.trim());
+        }
+        if (isCorrect(status)) {
+            throw new RuntimeException("status is not correct");
+        } else {
+            task.setStatus(status.trim());
+        }
+        if (isCorrect(subtask)) {
+            throw new RuntimeException("subtask is not correct");
+        } else {
+            task.setSubtask(subtask.trim());
+        }
+    }
 
-   // }
+    // }
 
     //Assaignee
     public void addAssignee(String name, String lastName, String post) {
@@ -105,11 +115,59 @@ public class ClientTaskManagerControllerImpl implements ClientTaskManagerControl
     }
 
     private boolean isCorrect(String field) {
-        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";" ) != -1;
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";") != -1;
     }
 
-    public void deleteTask(Task task) {
-        model.deleteTask(task);
+    private boolean isCorrectYear(String field) {
+        Calendar calendar = new GregorianCalendar();
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";") != -1 || Integer.parseInt(field) > calendar.get(Calendar.YEAR) + 3;
+    }
+
+    private boolean isCorrectMonth(String field) {
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";") != -1 || Integer.parseInt(field) < 1 || Integer.parseInt(field) > 12;
+    }
+
+    private boolean isCorrectDay(String field) {
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";") != -1 || Integer.parseInt(field) < 1 || Integer.parseInt(field) > 31;
+    }
+
+    private boolean isCorrectHour(String field) {
+        return field == null || field.isEmpty() || field.trim().isEmpty() || field.indexOf(";") != -1 || Integer.parseInt(field) < 0 || Integer.parseInt(field) > 23;
+    }
+
+    public void deleteTask(Task taskToRemove) throws IOException {
+        model.deleteTask(taskToRemove);
+    }
+
+    public void updateTask(Task taskToUpdate) throws IOException {
+        model.updateTask(taskToUpdate);
+    }
+
+    public List<Entity> isCorrectDate(List<Entity> entitys) {
+        List<Entity> isCorrectTasks = new ArrayList<>();
+        if (entitys == null) {
+            System.out.println("Задач пока нет");
+        } else {
+
+            DateFormat format = new SimpleDateFormat("YYYY.MM.DD.HH");
+            Date localDate = new Date();
+
+            for (Entity entity : entitys) {
+                Task task = (Task) entity;
+                try {
+                    Date taskTime = format.parse(task.getDeadlineYear() + "." + task.getDeadlineMonth() + "." + task.getDeadlineDay() + "." + task.getDeadlineHour());
+                    if (taskTime.after(localDate)) {
+                        isCorrectTasks.add(entity);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+        return isCorrectTasks;
     }
 }
+
 

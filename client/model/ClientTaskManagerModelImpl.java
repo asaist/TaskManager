@@ -1,7 +1,13 @@
 package client.model;
 
 
-import java.io.*;
+import client.view.ClientTaskManagerView;
+import common.entity.Assignee;
+import common.entity.Coloring;
+import common.entity.Entity;
+import common.entity.Task;
+import common.service.GenericDao;
+
 import java.util.*;
 
 
@@ -14,7 +20,11 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
     private List<Task> tasks=new ArrayList();
     private List<Coloring> colorings=new ArrayList();
     private List<Assignee> assignees=new ArrayList();
+    private final GenericDao dao;
 
+    public ClientTaskManagerModelImpl(GenericDao dao) {
+        this.dao = dao;
+    }
 
 
     public List<Assignee> getAssignees() {
@@ -42,9 +52,34 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
             setChanged();
             notifyObservers();
             System.out.println("Запись добавлена  в модель " + task.getTaskName());
+            dao.create((Entity) task);
+        }
+    }
+
+    public void addAllTask (List<Entity> entities1) {
+
+        if (entities1 == null) {
+            System.out.println("Задач пока нет");
 
         }
+        else {
+
+            for (Entity entity : entities1) {
+                if (entity != null) {
+                    checkTasks((Task) entity);
+                    tasks.add((Task) entity);
+                    setChanged();
+                    notifyObservers();
+                }
+            }
         }
+    }
+
+    @Override
+    public void addWatcher(ClientTaskManagerView view) {
+        addObserver(view);
+    }
+
 
     private void checkTasks (Task task) {
         for (Task task1 : getTasks()) {
@@ -55,40 +90,37 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
     }
 
     //Assaignee
-     public void addAssaignee (Assignee assignee) {
-         checkAssignees(assignee);
-         assignees.add(assignee);
-         setChanged();
-         notifyObservers();
-         System.out.println("Запись добавлена в модель " + assignee.getName());
+    public void addAssaignee (Assignee assignee) {
+        checkAssignees(assignee);
+        assignees.add(assignee);
+        setChanged();
+        notifyObservers();
+        System.out.println("Запись добавлена в модель " + assignee.getName());
     }
 
     private void checkAssignees (Assignee assignee) {
-            for (Assignee assignee1:getAssignees()) {
-                    if (assignee1.equals(assignee)) {
-                        throw new RuntimeException("a record already exists");
-                    }
+        for (Assignee assignee1:getAssignees()) {
+            if (assignee1.equals(assignee)) {
+                throw new RuntimeException("a record already exists");
             }
+        }
     }
-
-
 
     @Override
-    public void deleteTask(Task taskToRemove) {
-       /* File fileTxt = new File(txtFileWork.getTasksStorageFileName());
-        fileTxt.delete();
+    public void deleteTask(Task taskToRemove){
+        dao.delete((Entity) taskToRemove);
         tasks.remove(taskToRemove);
-
-
-        for(Task task:tasks){
-            xmlFileWork.fileWriter(task);
-            txtFileWork.fileWriter(task);
-
-        }
-        modelIsChanged();*/
+        modelIsChanged();
     }
 
-    void modelIsChanged(){
+    public void updateTask (Task taskToUpdate){
+        dao.update((Entity) taskToUpdate);
+        modelIsChanged();
+    }
+
+
+
+    public void modelIsChanged(){
         setChanged();
         notifyObservers();
     }

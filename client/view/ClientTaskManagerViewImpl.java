@@ -1,9 +1,11 @@
 package client.view;
 
 import client.controller.ClientTaskManagerController;
-import client.model.Assignee;
-import client.model.Task;
 import client.model.ClientTaskManagerModel;
+import common.entity.TaskImpl;
+import common.entity.Assignee;
+import common.entity.Task;
+import server.model.TaskManagerModel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,7 +13,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,7 +27,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     private  final JPanel tasksViewPanel;
     private  final TaskPresenter taskPresenter = new TaskPresenter();
 
-//    private   JPanel TaskPanelButton;
+    //    private   JPanel TaskPanelButton;
     private  final JFrame viewFrame;
     private  final JTextField viewTextName;
     private  final JTextField viewTextLastName;
@@ -34,7 +35,10 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     private  final JTextField viewTextConsole;
     private  final JTextField viewTextTName;
     private  final JTextField viewTextDescription;
-    private  final JTextField viewTextDeadline;
+    private  final JTextField viewTextDeadlineYear;
+    private  final JTextField viewTextDeadlineMonth;
+    private  final JTextField viewTextDeadlineDay;
+    private  final JTextField viewTextDeadlineHour;
     private  final JTextField viewTextPriority;
     private  final JTextField viewTextStatus;
     private  final JTextField viewTextSubTask;
@@ -53,7 +57,10 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     private  final String textPost = "Post";
     private  final String texTName = "TaskName";
     private  final String textDescription = "Description";
-    private  final String textDeadline = "Deadline";
+    private  final String textDeadlineYear = "2017";
+    private  final String textDeadlineMonth = "12";
+    private  final String textDeadlineDay = "31";
+    private  final String textDeadlineHour = "23";
     private  final String textPriority = "Priority";
     private  final String textStatus = "Status";
     private  final String textSubtasks = "Subtasks";
@@ -82,13 +89,16 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
 
         viewTextTName = new JTextField(texTName);
         viewTextDescription = new JTextField(textDescription);
-        viewTextDeadline = new JTextField(textDeadline);
+        viewTextDeadlineYear = new JTextField(textDeadlineYear);
+        viewTextDeadlineMonth = new JTextField(textDeadlineMonth);
+        viewTextDeadlineDay = new JTextField(textDeadlineDay);
+        viewTextDeadlineHour = new JTextField(textDeadlineHour);
         viewTextPriority = new JTextField(textPriority);
         viewTextStatus = new JTextField(textStatus);
         viewTextSubTask = new JTextField(textSubtasks);
     }
 
-    public void createView () {
+    public void createView (){
 
 
         viewFrame.pack();
@@ -126,7 +136,10 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
 
         taskControlPanel.add(viewTextTName);
         taskControlPanel.add(viewTextDescription);
-        taskControlPanel.add(viewTextDeadline);
+        taskControlPanel.add(viewTextDeadlineYear);
+        taskControlPanel.add(viewTextDeadlineMonth);
+        taskControlPanel.add(viewTextDeadlineDay);
+        taskControlPanel.add(viewTextDeadlineHour);
         taskControlPanel.add(viewTextPriority);
         taskControlPanel.add(viewTextStatus);
         taskControlPanel.add(viewTextSubTask);
@@ -135,7 +148,10 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
 
         viewTextTName.setSize(new Dimension(100, 100));
         viewTextDescription.setSize(new Dimension(100, 100));
-        viewTextDeadline.setSize(new Dimension(100, 100));
+        viewTextDeadlineYear.setSize(new Dimension(100, 100));
+        viewTextDeadlineMonth.setSize(new Dimension(100, 100));
+        viewTextDeadlineDay.setSize(new Dimension(100, 100));
+        viewTextDeadlineHour.setSize(new Dimension(100, 100));
         viewTextPriority.setSize(new Dimension(100, 100));
         viewTextStatus.setSize(new Dimension(100, 100));
         viewTextSubTask.setSize(new Dimension(100, 100));
@@ -149,26 +165,26 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
 
 
         addAssaigneeButton.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            try {
-                controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
-            } catch (RuntimeException e1) {
-                System.out.println(e1);
-            }
-        }
-        });
-                addTaskButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-
-                        try {
-                            controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadline.getText()),String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
-                        } catch (RuntimeException e1) {
-                            updateViewTextConsole(e1.toString());
-
-                        }
-                    }
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    controller.addAssignee(String.valueOf(viewTextName.getText()), String.valueOf(viewTextLastName.getText()), String.valueOf(viewTextPost.getText()));
+                } catch (RuntimeException e1) {
+                    System.out.println(e1);
                 }
-                );
+            }
+        });
+        addTaskButton.addActionListener(new ActionListener() {
+                                            public void actionPerformed(ActionEvent e) {
+
+                                                try {
+                                                    controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadlineYear.getText()), String.valueOf(viewTextDeadlineMonth.getText()), String.valueOf(viewTextDeadlineDay.getText()), String.valueOf(viewTextDeadlineHour.getText()), String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
+                                                } catch (RuntimeException e1) {
+                                                    updateViewTextConsole(e1.toString());
+
+                                                }
+                                            }
+                                        }
+        );
 
         deleteAssigneeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -202,7 +218,10 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
             Border border = BorderFactory.createLineBorder(Color.black);
             JTextField taskName = new JTextField(task.getTaskName());
             JTextField description = new JTextField(task.getDescription());
-            JTextField deadline = new JTextField(task.getDeadline());
+            JTextField deadlineYear = new JTextField(task.getDeadlineYear());
+            JTextField deadlineMonth = new JTextField(task.getDeadlineMonth());
+            JTextField deadlineDay = new JTextField(task.getDeadlineDay());
+            JTextField deadlineHour = new JTextField(task.getDeadlineHour());
             JTextField priority = new JTextField(task.getPriority());
             JTextField status = new JTextField(task.getStatus());
             JTextField subtask = new JTextField(task.getSubtask());
@@ -211,23 +230,50 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
             certainTaskPanel.setBorder(border);
 
             certainTaskPanel.setLayout(new GridLayout(3,3));
-            JButton removeButton = new JButton("Delete");//toString = имя кнопки /вызывать task.getId
+            JButton removeButton = new JButton("Delete");
+            JButton updateButton = new JButton("Update");//toString = имя кнопки /вызывать task.getId
             certainTaskPanel.add(taskName);
             certainTaskPanel.add(description);
-            certainTaskPanel.add(deadline);
+            certainTaskPanel.add(deadlineYear);
+            certainTaskPanel.add(deadlineMonth);
+            certainTaskPanel.add(deadlineDay);
+            certainTaskPanel.add(deadlineHour);
             certainTaskPanel.add(priority);
             certainTaskPanel.add(status);
             certainTaskPanel.add(subtask);
+            certainTaskPanel.add(updateButton);
             certainTaskPanel.add(removeButton);
+
             removeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try{
-                        controller.deleteTask(task);
+                        try {
+                            controller.deleteTask(task);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                     }catch (RuntimeException e1) {
                         updateViewTextConsole(e1.toString());
 
                     }
-            }
+                }
+            });
+
+            updateButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try{
+                        try {
+                            Task taskToUpdate = new TaskImpl(String.valueOf(taskName.getText()), String.valueOf(description.getText()), String.valueOf(deadlineYear.getText()), String.valueOf(deadlineMonth.getText()), String.valueOf(deadlineDay.getText()), String.valueOf(deadlineHour.getText()), String.valueOf(priority.getText()), String.valueOf(status.getText()), String.valueOf(subtask.getText()));
+                            controller.updateTask(taskToUpdate);
+
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    }catch (RuntimeException e1) {
+                        updateViewTextConsole(e1.toString());
+
+                    }
+                }
             });
             certainParentTaskPanel.add(certainTaskPanel);
             certainParentTaskPanel.setLayout(new GridLayout(1,3));
@@ -242,7 +288,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     @Override
     public void update(Observable o, Object arg) {
         ClientTaskManagerModel model = (ClientTaskManagerModel) o;
-            displayModels(model);
+        displayModels(model);
     }
 
     public void updateViewTextConsole(String textConsole) {
@@ -264,7 +310,10 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
         for (Task task: model.getTasks()){
             updateViewTextConsole(task.getTaskName()+" "+
                     task.getDescription()+" "+
-                    task.getDeadline()+" "+
+                    task.getDeadlineYear()+" "+
+                    task.getDeadlineMonth()+" "+
+                    task.getDeadlineDay()+" "+
+                    task.getDeadlineHour()+" "+
                     task.getPriority()+" "+
                     task.getStatus()+" "+
                     task.getSubtask()

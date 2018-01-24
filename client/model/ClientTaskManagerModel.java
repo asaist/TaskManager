@@ -1,5 +1,10 @@
 package client.model;
 
+import client.view.ClientTaskManagerView;
+import common.entity.Assignee;
+import common.entity.Entity;
+import common.entity.Task;
+
 import java.util.List;
 
 public interface ClientTaskManagerModel {
@@ -8,5 +13,9 @@ public interface ClientTaskManagerModel {
     List<Task> getTasks();
     void addAssaignee (Assignee assignee);
     List<Assignee> getAssignees();
-    void deleteTask (Task task);
+    void modelIsChanged();
+    void deleteTask(Task taskToRemove) ;
+    void updateTask (Task taskToUpdate) ;
+    void addAllTask (List<Entity> entities);
+    void addWatcher(ClientTaskManagerView view);
 }
