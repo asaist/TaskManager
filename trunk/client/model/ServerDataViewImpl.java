@@ -21,11 +21,16 @@ public class ServerDataViewImpl implements GenericDao {
         String address = "127.0.0.1"; // это IP-адрес компьютера, где исполняется наша серверная программа.
 
 
-        try {
-            InetAddress ipAddress = InetAddress.getByName(address); // создаем объект который отображает вышеописанный IP-адрес.
-            System.out.println("Any of you heard of a socket with IP address " + address + " and port " + serverPort + "?");
-            Socket socket = new Socket(ipAddress, serverPort); // создаем сокет используя IP-адрес и порт сервера.
-            System.out.println("Yes! I just got hold of the program.");
+        try(Socket socket = new Socket("localhost", 9999);
+            BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
+            DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
+            DataInputStream ois = new DataInputStream(socket.getInputStream()); )
+
+        {
+
+            System.out.println("Client connected to socket.");
+            System.out.println();
+            System.out.println("Client writing channel = oos & reading channel = ois initialized.");
 
 
             InputStream sin = socket.getInputStream();
@@ -37,18 +42,63 @@ public class ServerDataViewImpl implements GenericDao {
 
 
 
-            while (true) {
-                //line = keyboard.readLine(); // ждем пока пользователь введет что-то и нажмет кнопку Enter.
-               // System.out.println("Sending this line to the server...");
-               // out.writeUTF(line); // отсылаем введенную строку текста серверу.
-                out.flush(); // заставляем поток закончить передачу данных.
-                //line = in.readUTF(); // ждем пока сервер отошлет строку текста.
-                //System.out.println("The server was very polite. It sent me this : " + line);
-                System.out.println("Looks like the server is pleased with us. Go ahead and enter more lines.");
-                System.out.println();
+            while(!socket.isOutputShutdown()){
+
+// ждём консоли клиента на предмет появления в ней данных
+                if(br.ready()){
+
+// данные появились - работаем
+                    System.out.println("Client start writing in channel...");
+                    Thread.sleep(1000);
+                    String clientCommand = br.readLine();
+
+// пишем данные с консоли в канал сокета для сервера
+                    oos.writeUTF(clientCommand);
+                    oos.flush();
+                    System.out.println("Clien sent message " + clientCommand + " to server.");
+                    Thread.sleep(1000);
+// ждём чтобы сервер успел прочесть сообщение из сокета и ответить
+
+// проверяем условие выхода из соединения
+                    if(clientCommand.equalsIgnoreCase("quit")){
+
+// если условие выхода достигнуто разъединяемся
+                        System.out.println("Client kill connections");
+                        Thread.sleep(2000);
+
+// смотрим что нам ответил сервер на последок перед закрытием ресурсов
+                        if(ois.read() > -1)     {
+                            System.out.println("reading...");
+                            String in = ois.readUTF();
+                            System.out.println(in);
+                        }
+
+// после предварительных приготовлений выходим из цикла записи чтения
+                        break;
+                    }
+
+// если условие разъединения не достигнуто продолжаем работу
+                    System.out.println("Client sent message & start waiting for data from server...");
+                    Thread.sleep(2000);
+
+// проверяем, что нам ответит сервер на сообщение(за предоставленное ему время в паузе он должен был успеть ответить)
+                    if(ois.read() > -1)     {
+
+// если успел забираем ответ из канала сервера в сокете и сохраняем её в ois переменную,  печатаем на свою клиентскую консоль
+                        System.out.println("reading...");
+                        String in = ois.readUTF();
+                        System.out.println(in);
+                    }
+                }
             }
-        } catch (Exception x) {
-            x.printStackTrace();
+// на выходе из цикла общения закрываем свои ресурсы
+            System.out.println("Closing connections & channels on clentSide - DONE.");
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
