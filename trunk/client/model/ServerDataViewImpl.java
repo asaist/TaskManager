@@ -21,7 +21,7 @@ public class ServerDataViewImpl implements GenericDao {
         String address = "127.0.0.1"; // это IP-адрес компьютера, где исполняется наша серверная программа.
 
 
-        try(Socket socket = new Socket("localhost", 8080);
+        try(Socket socket = new Socket("localhost", 1234);
             BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
             DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
             DataInputStream ois = new DataInputStream(socket.getInputStream()); )
