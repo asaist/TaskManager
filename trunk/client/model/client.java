@@ -1,47 +1,34 @@
 package client.model;
 
-import client.view.ClientTaskManagerView;
-import common.entity.Entity;
-import common.service.GenericDao;
-
-import java.io.*;
-import java.net.InetAddress;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.List;
-import java.util.Observable;
+import java.net.UnknownHostException;
 
-public class ServerDataViewImpl implements GenericDao {
-    ObjectInputStream in ;
-    ObjectOutputStream out ;
-    Entity response;
+public class client {
 
+    /**
+     *
+     * @param args
+     * @throws InterruptedException
+     */
+    public static void main(String[] args) throws InterruptedException {
 
-    public ServerDataViewImpl() {
-        int serverPort = 9999; // здесь обязательно нужно указать порт к которому привязывается сервер.
-        String address = "127.0.0.1"; // это IP-адрес компьютера, где исполняется наша серверная программа.
-
-
-        try(Socket socket = new Socket("localhost", 8080);
+// запускаем подключение сокета по известным координатам и нициализируем приём сообщений с консоли клиента
+        try(Socket socket = new Socket("localhost", 3345);
             BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
             DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
             DataInputStream ois = new DataInputStream(socket.getInputStream()); )
-
         {
 
             System.out.println("Client connected to socket.");
             System.out.println();
             System.out.println("Client writing channel = oos & reading channel = ois initialized.");
 
-
-            InputStream sin = socket.getInputStream();
-            OutputStream sout = socket.getOutputStream();
-
-
-            in = new ObjectInputStream(sin);
-            out = new ObjectOutputStream(sout);
-
-
-
+// проверяем живой ли канал и работаем если живой
             while(!socket.isOutputShutdown()){
 
 // ждём консоли клиента на предмет появления в ней данных
@@ -94,73 +81,12 @@ public class ServerDataViewImpl implements GenericDao {
 // на выходе из цикла общения закрываем свои ресурсы
             System.out.println("Closing connections & channels on clentSide - DONE.");
 
-
-        } catch (InterruptedException e) {
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-
-
-
-    @Override
-    public Integer create(Entity newInstance) {
-        try {
-            out.writeObject(newInstance);//
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        while(response==null){
-            try {
-                response= (Entity)in.readObject();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        return response.getId();
-    }
-
-    @Override
-    public Entity read(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void update(Entity transientObject) {
-
-    }
-
-    @Override
-    public void delete(Entity persistentObject) {
-
-    }
-
-    @Override
-    public List<Entity> readAll() {
-        try {
-            out.writeUTF("getList<Entity>");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        List<Entity> response1= (List<Entity>)response;
-        while (response1==null){
-                try {
-                    response1= (List<Entity>)in.readObject();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-        }
-        return response1;
-
-    }
-
-    @Override
-    public void checkFile() {
-
     }
 }

@@ -13,6 +13,7 @@ public class DataObjectImpl implements DataObject {
     }
 
     public DataObjectImpl(ObjectInputStream in) {
+
     }
 
     @Override
