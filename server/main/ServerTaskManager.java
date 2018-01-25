@@ -22,7 +22,9 @@ public class ServerTaskManager {
         TaskManagerController controller = new TaskManagerControllerImpl(model);
         model.addAllTask(controller.isCorrectDate(txtFileWork.readAll()));
         TaskManagerView innerView = new TaskManagerViewImpl(controller,model);
+
         TaskManagerView clientDataView=new ClientDataViewImpl(controller,model);
+        clientDataView.createView();
         //TaskManagerView viewClient = new ClientDataViewImpl(controller,model);
         innerView.createView();
         //viewClient.createView();

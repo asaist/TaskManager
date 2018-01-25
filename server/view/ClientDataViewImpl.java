@@ -45,7 +45,7 @@ public class ClientDataViewImpl implements TaskManagerView {
     @Override
     public void createView() {
 
-        int port =8080;
+        int port =1234;
 
         try (ServerSocket ss= new ServerSocket(port)) {
 
