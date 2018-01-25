@@ -45,17 +45,17 @@ public class ClientDataViewImpl implements TaskManagerView {
     @Override
     public void createView() {
 
-        //sockets
-
         int port =9999;
-        try {
-            ServerSocket ss= new ServerSocket(port);
+
+        try (ServerSocket ss= new ServerSocket(port)) {
+
             System.out.println("Waiting for a client...");
-            Socket socket=ss.accept();
+
+            Socket client=ss.accept(); //сокет общения с клиентом
             System.out.println("Got a client :) ... Finally,someone saw me through all the cover");
 
-            InputStream sin = socket.getInputStream();
-            OutputStream sout = socket.getOutputStream();
+            InputStream sin = client.getInputStream();
+            OutputStream sout = client.getOutputStream();
 
             in=new ObjectInputStream(sin);
             out=new ObjectOutputStream(sout);
@@ -64,7 +64,7 @@ public class ClientDataViewImpl implements TaskManagerView {
             DataObject.Action action=null;
             Object entity;
 
-            while (true) {
+            while (!client.isClosed()) {
                 //DataObject полностью
                 DataObject dto = new DataObjectImpl(in);//заменить на чтение из потока когда найдем
 
@@ -91,11 +91,37 @@ public class ClientDataViewImpl implements TaskManagerView {
                 System.out.println("The dumb client just sent me this action: " + action);
                 System.out.println("I'm sendng it back...");
 
-                out.flush();
-                System.out.println("Waiting for the next action...");
-                System.out.println();
+                if(dto.equals("quit")){
+                    System.out.println("Client initialize connections suicide ...");
+                    out.writeObject("Server reply - "+ dto + " - OK");
+                    out.flush();
+                    Thread.sleep(3000);
+                    break;
+                }
 
+                out.writeObject("Server reply - "+ dto + " - OK");
+                System.out.println("Server Wrote message to client.");
+                out.flush();
             }
+            // если условие выхода - верно выключаем соединения
+            System.out.println("Client disconnected");
+            System.out.println("Closing connections & channels.");
+
+            // закрываем сначала каналы сокета !
+            in.close();
+            out.close();
+
+            // потом закрываем сам сокет общения на стороне сервера!
+            client.close();
+
+            // потом закрываем сокет сервера который создаёт сокеты общения
+            // хотя при многопоточном применении его закрывать не нужно
+            // для возможности поставить этот серверный сокет обратно в ожидание нового подключения
+
+            System.out.println("Closing connections & channels - DONE.");
+
+
+
         } catch (Exception e) {e.printStackTrace();
         }
 
