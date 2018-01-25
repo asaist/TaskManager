@@ -1,6 +1,7 @@
 package common.entity;
 
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 
 public class DataObjectImpl implements DataObject {
@@ -9,6 +10,9 @@ public class DataObjectImpl implements DataObject {
 
 
     public DataObjectImpl(Action action, Object entity) {
+    }
+
+    public DataObjectImpl(ObjectInputStream in) {
     }
 
     @Override

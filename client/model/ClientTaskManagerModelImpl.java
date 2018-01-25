@@ -20,9 +20,9 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
     private List<Task> tasks=new ArrayList();
     private List<Coloring> colorings=new ArrayList();
     private List<Assignee> assignees=new ArrayList();
-    private final GenericDao dao;
+    private final ServerDataViewImpl dao;
 
-    public ClientTaskManagerModelImpl(GenericDao dao) {
+    public ClientTaskManagerModelImpl(ServerDataViewImpl dao) {
         this.dao = dao;
     }
 

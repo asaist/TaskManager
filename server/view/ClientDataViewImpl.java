@@ -16,8 +16,8 @@ import static common.entity.DataObject.Action.DELETE;
 
 public class ClientDataViewImpl implements TaskManagerView {
     boolean flag = false;
-    DataInputStream in ;
-    DataOutputStream out ;
+    ObjectInputStream in ;
+    ObjectOutputStream out ;
     TaskManagerController controller;
     TaskManagerModel model;
 
@@ -57,14 +57,16 @@ public class ClientDataViewImpl implements TaskManagerView {
             InputStream sin = socket.getInputStream();
             OutputStream sout = socket.getOutputStream();
 
+            in=new ObjectInputStream(sin);
+            out=new ObjectOutputStream(sout);
 
 
-            DataObject.Action action;
+            DataObject.Action action=null;
             Object entity;
 
             while (true) {
                 //DataObject полностью
-                DataObject dto = new DataObjectImpl(DELETE,"1");//заменить на чтение из потока когда найдем
+                DataObject dto = new DataObjectImpl(in);//заменить на чтение из потока когда найдем
 
                 action = dto.getAction();
                 entity= dto.getEntity();
@@ -88,7 +90,7 @@ public class ClientDataViewImpl implements TaskManagerView {
 
                 System.out.println("The dumb client just sent me this action: " + action);
                 System.out.println("I'm sendng it back...");
-                out.writeUTF(action);
+
                 out.flush();
                 System.out.println("Waiting for the next action...");
                 System.out.println();
