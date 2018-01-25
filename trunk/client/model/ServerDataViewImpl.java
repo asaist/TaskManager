@@ -17,8 +17,6 @@ public class ServerDataViewImpl implements GenericDao {
 
 
     public ServerDataViewImpl() {
-        int serverPort = 9999; // здесь обязательно нужно указать порт к которому привязывается сервер.
-        String address = "127.0.0.1"; // это IP-адрес компьютера, где исполняется наша серверная программа.
 
 
         try(Socket socket = new Socket("localhost", 1234);
@@ -33,12 +31,12 @@ public class ServerDataViewImpl implements GenericDao {
             System.out.println("Client writing channel = oos & reading channel = ois initialized.");
 
 
-            InputStream sin = socket.getInputStream();
+            /*InputStream sin = socket.getInputStream();
             OutputStream sout = socket.getOutputStream();
 
 
             in = new ObjectInputStream(sin);
-            out = new ObjectOutputStream(sout);
+            out = new ObjectOutputStream(sout);*/
 
 
 

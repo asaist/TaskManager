@@ -27,6 +27,7 @@ public class ServerTaskManager {
         clientDataView.createView();
         //TaskManagerView viewClient = new ClientDataViewImpl(controller,model);
         innerView.createView();
+        clientDataView.createView();
         //viewClient.createView();
         model.addWatcher(innerView);
         model.addWatcher(clientDataView);
