@@ -17,7 +17,8 @@ public class XMLDao implements GenericDao {
     }
 
     @Override
-    public void update(Entity transientObject){}
+    public void update(Entity transientObject) {
+    }
 
     @Override
     public void delete(Entity persistentObject) {
@@ -25,7 +26,7 @@ public class XMLDao implements GenericDao {
     }
 
     @Override
-    public List<Entity> readAll(){
+    public List<Entity> readAll() {
         return null;
     }
 

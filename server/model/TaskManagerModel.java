@@ -9,14 +9,23 @@ import java.io.IOException;
 import java.util.List;
 
 public interface TaskManagerModel {
-    void create ();
-    void addTask (Task task);
+    void create();
+
+    void addTask(Task task);
+
     List<Task> getTasks();
-    void addAssaignee (Assignee assignee);
+
+    void addAssaignee(Assignee assignee);
+
     List<Assignee> getAssignees();
+
     void modelIsChanged();
-    void deleteTask(Task taskToRemove) ;
-    void updateTask (Task taskToUpdate) ;
-    void addAllTask (List<Entity> entities);
+
+    void deleteTask(Task taskToRemove);
+
+    void updateTask(Task taskToUpdate);
+
+    void addAllTask(List<Entity> entities);
+
     void addWatcher(TaskManagerView view);
 }

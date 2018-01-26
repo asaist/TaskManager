@@ -28,7 +28,7 @@ public class DataObjectImpl implements DataObject {
 
     @Override
     public void setAction(Action action) {
-        this.action=action;
+        this.action = action;
     }
 
     @Override

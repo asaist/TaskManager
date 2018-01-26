@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 class TestFrame extends JFrame {
-    private  final String Button1 = "Add Assaignee";
-    private  final String Button2 = "Add Task";
-    private  final String Button3 = "Add Color";
+    private final String Button1 = "Add Assaignee";
+    private final String Button2 = "Add Task";
+    private final String Button3 = "Add Color";
 
     private JTextField textField;
 

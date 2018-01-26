@@ -20,7 +20,7 @@ public class TextDao implements GenericDao {
     public Integer create(Entity entity) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(getFileLocation(), true));
-            writer.write(entity.toString()+System.getProperty("line.separator"));
+            writer.write(entity.toString() + System.getProperty("line.separator"));
             writer.flush();
             writer.close();
         } catch (IOException e) {
@@ -53,10 +53,10 @@ public class TextDao implements GenericDao {
             throw new RuntimeException("Что-то пошло не так ", e);
         }
 
-        return  entity;
+        return entity;
     }
 
-    public List<Entity> readAll()  {
+    public List<Entity> readAll() {
         checkFile();
         List<Entity> entitys = new ArrayList();
         Entity entity = null;
@@ -65,7 +65,7 @@ public class TextDao implements GenericDao {
         try {
             bReader = new BufferedReader(new FileReader(TextDao.getFileLocation()));
         } catch (FileNotFoundException e) {
-            throw new  RuntimeException("Файл не создан ",e);
+            throw new RuntimeException("Файл не создан ", e);
         }
         String line;
         try {
@@ -84,11 +84,9 @@ public class TextDao implements GenericDao {
         } catch (IOException e) {
             throw new RuntimeException("Что-то пошло не так ", e);
         }
-        return  entitys;
+        return entitys;
 
     }
-
-
 
 
     @Override
@@ -96,8 +94,8 @@ public class TextDao implements GenericDao {
         checkFile();
         List<Entity> entities = readAll();
         Entity entityToUpdate = null;
-        for (Entity entity1:entities) {
-            if (entity1.getId().equals(entity.getId())){
+        for (Entity entity1 : entities) {
+            if (entity1.getId().equals(entity.getId())) {
                 entityToUpdate = entity1;
             }
         }
@@ -111,21 +109,21 @@ public class TextDao implements GenericDao {
         checkFile();
         File fileTxt = new File(TextDao.getFileLocation());
         List<Entity> entities = readAll();
-            entities.remove(entity);
+        entities.remove(entity);
         fileTxt.delete();
         try {
             fileTxt.createNewFile();
         } catch (IOException e) {
-            throw new RuntimeException("Файл не может быть создан ",e);
+            throw new RuntimeException("Файл не может быть создан ", e);
         }
-        for (Entity entity1:entities) {
+        for (Entity entity1 : entities) {
             create(entity1);
         }
     }
 
-    public void checkFile () {
+    public void checkFile() {
         File fileTxt = new File(TextDao.getFileLocation());
-        if (!fileTxt.exists()){
+        if (!fileTxt.exists()) {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(TextDao.getFileLocation(), true));
                 writer.close();

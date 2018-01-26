@@ -1,7 +1,6 @@
 package common.entity;
 
 
-
 public class ColoringImpl implements Coloring, Entity {
     private String color;
     private int id;
@@ -10,24 +9,27 @@ public class ColoringImpl implements Coloring, Entity {
         return color;
     }
 
-    ColoringImpl(String color){
-        this.color=color;
+    ColoringImpl(String color) {
+        this.color = color;
     }
+
     @Override
-    public String create(String S){
-        return S;
-    }
-    @Override
-    public String update(String S){
-        return S;
-    }
-    @Override
-    public String delete(String S){
+    public String create(String S) {
         return S;
     }
 
     @Override
-    public boolean equals(Object anObject){
+    public String update(String S) {
+        return S;
+    }
+
+    @Override
+    public String delete(String S) {
+        return S;
+    }
+
+    @Override
+    public boolean equals(Object anObject) {
         if (anObject instanceof ColoringImpl) {
             ColoringImpl coloring = (ColoringImpl) anObject;
                 /*if (name == null || assignee.getName() == null)  {
@@ -42,8 +44,9 @@ public class ColoringImpl implements Coloring, Entity {
         }
         return true;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return (color);
     }
 
