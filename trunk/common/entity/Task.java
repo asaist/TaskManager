@@ -46,11 +46,13 @@ public interface Task {
     void setPriority(String priority);
 
     String getPriority();
+
     void setStatus(String status);
 
     String getStatus();
+
     void setSubtask(String subtask);
 
     String getSubtask();
-    
+
 }

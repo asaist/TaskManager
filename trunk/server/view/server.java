@@ -8,14 +8,13 @@ import java.net.Socket;
 
 public class server {
     /**
-     *
      * @param args
      * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
 //  стартуем сервер на порту 3345
 
-        try (ServerSocket server= new ServerSocket(3345)){
+        try (ServerSocket server = new ServerSocket(3345)) {
 // становимся в ожидание подключения к сокету под именем - "client" на серверной стороне
             Socket client = server.accept();
 
@@ -33,7 +32,7 @@ public class server {
             System.out.println("DataInputStream created");
 
 // начинаем диалог с подключенным клиентом в цикле, пока сокет не закрыт
-            while(!client.isClosed()){
+            while (!client.isClosed()) {
 
                 System.out.println("Server reading from channel");
 
@@ -41,22 +40,22 @@ public class server {
                 String entry = in.readUTF();
 
 // после получения данных считывает их
-                System.out.println("READ from client message - "+entry);
+                System.out.println("READ from client message - " + entry);
 
 // и выводит в консоль
                 System.out.println("Server try writing to channel");
 
 // инициализация проверки условия продолжения работы с клиентом по этому сокету по кодовому слову       - quit
-                if(entry.equalsIgnoreCase("quit")){
+                if (entry.equalsIgnoreCase("quit")) {
                     System.out.println("Client initialize connections suicide ...");
-                    out.writeUTF("Server reply - "+entry + " - OK");
+                    out.writeUTF("Server reply - " + entry + " - OK");
                     out.flush();
                     Thread.sleep(3000);
                     break;
                 }
 
 // если условие окончания работы не верно - продолжаем работу - отправляем эхо-ответ  обратно клиенту
-                out.writeUTF("Server reply - "+entry + " - OK");
+                out.writeUTF("Server reply - " + entry + " - OK");
                 System.out.println("Server Wrote message to client.");
 
 // освобождаем буфер сетевых сообщений (по умолчанию сообщение не сразу отправляется в сеть, а сначала накапливается в специальном буфере сообщений, размер которого определяется конкретными настройками в системе, а метод  - flush() отправляет сообщение не дожидаясь наполнения буфера согласно настройкам системы

@@ -16,24 +16,26 @@ public class TaskImpl implements Task, Entity {
     private String subtask;
 
 
+    public TaskImpl(String t_name, String description, String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour, String priority, String status, String subtask) {
+        this.t_name = t_name;
+        this.description = description;
+        this.deadlineYear = deadlineYear;
+        this.deadlineMonth = deadlineMonth;
+        this.deadlineDay = deadlineDay;
+        this.deadlineHour = deadlineHour;
+        this.priority = priority;
+        this.status = status;
+        this.subtask = subtask;
+    }
 
-    public TaskImpl(String t_name, String description, String deadlineYear, String deadlineMonth, String deadlineDay, String deadlineHour, String priority, String status, String subtask){
-        this.t_name=t_name;
-        this.description=description;
-        this.deadlineYear=deadlineYear;
-        this.deadlineMonth=deadlineMonth;
-        this.deadlineDay=deadlineDay;
-        this.deadlineHour=deadlineHour;
-        this.priority=priority;
-        this.status=status;
-        this.subtask=subtask;
+    public TaskImpl() {
+        this.id = idInc++;
     }
-    public TaskImpl(){
-        this.id=idInc++;
-    }
+
     public Integer getId() {
         return id;
     }
+
     @Override
     public String getDeadlineYear() {
         return deadlineYear;
@@ -74,13 +76,17 @@ public class TaskImpl implements Task, Entity {
         this.deadlineHour = deadlineHour;
     }
 
-    public void setId(int id) {this.id = id;}
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTaskName() {
         return t_name;
     }
 
-    public void setT_name(String t_name) {this.t_name = t_name;}
+    public void setT_name(String t_name) {
+        this.t_name = t_name;
+    }
 
     public String getDescription() {
         return description;
@@ -115,9 +121,8 @@ public class TaskImpl implements Task, Entity {
     }
 
 
-
     @Override
-    public boolean equals(Object anObject){
+    public boolean equals(Object anObject) {
         if (anObject instanceof TaskImpl) {
             TaskImpl task = (TaskImpl) anObject;
                 /*if (name == null || assignee.getName() == null)  {
@@ -154,13 +159,12 @@ public class TaskImpl implements Task, Entity {
         }
         return true;
     }
+
     @Override
     public String toString() {
-            return ( id + ";" + t_name + ";" + description + ";" + deadlineYear + ";" + deadlineMonth + ";" + deadlineDay + ";" + deadlineHour + ";" + priority + ";" + status + ";" + subtask);
+        return (id + ";" + t_name + ";" + description + ";" + deadlineYear + ";" + deadlineMonth + ";" + deadlineDay + ";" + deadlineHour + ";" + priority + ";" + status + ";" + subtask);
 
-        }
-
-
+    }
 
 
 }

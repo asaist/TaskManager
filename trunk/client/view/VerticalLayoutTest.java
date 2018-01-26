@@ -3,8 +3,7 @@ package client.view;
 import javax.swing.*;
 
 public class VerticalLayoutTest {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Создаем окно
         JFrame frame = new JFrame("VerticalLayoutTest");
         // Определяем размеры
@@ -13,7 +12,7 @@ public class VerticalLayoutTest {
         // Создаем панель с менеджером вертикального расположения компонентов
         JPanel contents = new JPanel(new VerticalLayout());
         // Добавим кнопки и текстовое поле в панель
-        contents.add(new JButton("Продукты"  ));
+        contents.add(new JButton("Продукты"));
         contents.add(new JButton("Галантерея"));
         contents.add(new JTextField(20));
         // Размещаем панель в контейнере

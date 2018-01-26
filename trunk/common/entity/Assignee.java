@@ -24,7 +24,7 @@ public interface Assignee {
     String getPost();
 
 
-    }
+}
 
 
 

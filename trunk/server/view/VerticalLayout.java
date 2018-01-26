@@ -13,8 +13,11 @@ public class VerticalLayout implements LayoutManager {
 
     private Dimension size = new Dimension();
 
-    public void addLayoutComponent   (String name, Component comp) {}
-    public void removeLayoutComponent(Component comp) {}
+    public void addLayoutComponent(String name, Component comp) {
+    }
+
+    public void removeLayoutComponent(Component comp) {
+    }
 
     @Override
     public Dimension preferredLayoutSize(Container parent) {
@@ -42,16 +45,16 @@ public class VerticalLayout implements LayoutManager {
             currentY += pref.height;
         }
     }
+
     // Метод вычисления оптимального размера контейнера
-    private Dimension calculateBestSize(Container c)
-    {
+    private Dimension calculateBestSize(Container c) {
         // Вычисление длины контейнера
         Component[] list = c.getComponents();
         int maxWidth = 0;
         for (int i = 0; i < list.length; i++) {
             int width = list[i].getWidth();
             // Поиск компонента с максимальной длиной
-            if ( width > maxWidth )
+            if (width > maxWidth)
                 maxWidth = width;
         }
         // Размер контейнера в длину с учетом левого отступа
