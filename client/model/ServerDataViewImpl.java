@@ -54,7 +54,7 @@ public class ServerDataViewImpl implements GenericDao {
                     oos.writeUTF(clientCommand);
                     oos.flush();
                     System.out.println("Clien sent message " + clientCommand + " to server.");
-                   // Thread.sleep(1000);
+                    Thread.sleep(1000);
 // ждём чтобы сервер успел прочесть сообщение из сокета и ответить
 
 // проверяем условие выхода из соединения
@@ -62,7 +62,7 @@ public class ServerDataViewImpl implements GenericDao {
 
 // если условие выхода достигнуто разъединяемся
                         System.out.println("Client kill connections");
-                        //Thread.sleep(2000);
+                        Thread.sleep(2000);
 
 // смотрим что нам ответил сервер на последок перед закрытием ресурсов
                         if(ois.read() > -1)     {
@@ -77,7 +77,7 @@ public class ServerDataViewImpl implements GenericDao {
 
 // если условие разъединения не достигнуто продолжаем работу
                     System.out.println("Client sent message & start waiting for data from server...");
-                    //Thread.sleep(2000);
+                    Thread.sleep(20000);
 
 // проверяем, что нам ответит сервер на сообщение(за предоставленное ему время в паузе он должен был успеть ответить)
                     if(ois.read() > -1)     {
@@ -94,6 +94,8 @@ public class ServerDataViewImpl implements GenericDao {
 
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
