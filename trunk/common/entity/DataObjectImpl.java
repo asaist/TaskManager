@@ -4,9 +4,9 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
 
-public class DataObjectImpl implements DataObject {
-    Object entity;
-    Action action;
+public class DataObjectImpl /*implements DataObject*/ {
+    Object entity;}
+    /*Action action;
 
 
     public DataObjectImpl(Action action, Object entity) {
@@ -35,4 +35,4 @@ public class DataObjectImpl implements DataObject {
     public Action getAction() {
         return action;
     }
-}
+}*/

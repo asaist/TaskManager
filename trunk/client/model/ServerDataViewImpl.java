@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Observable;
 
 public class ServerDataViewImpl implements GenericDao {
-    ObjectInputStream in;
-    ObjectOutputStream out;
+    DataInputStream in;
+    DataOutputStream out;
     Entity response;
 
 
@@ -31,12 +31,12 @@ public class ServerDataViewImpl implements GenericDao {
             System.out.println("Client writing channel = oos & reading channel = ois initialized.");
 
 
-            /*InputStream sin = socket.getInputStream();
+            InputStream sin = socket.getInputStream();
             OutputStream sout = socket.getOutputStream();
 
 
-            in = new ObjectInputStream(sin);
-            out = new ObjectOutputStream(sout);*/
+            in = new DataInputStream(sin);
+            out = new DataOutputStream(sout);
 
 
             while (!socket.isOutputShutdown()) {
@@ -108,13 +108,7 @@ public class ServerDataViewImpl implements GenericDao {
             e.printStackTrace();
         }
         while (response == null) {
-            try {
-                response = (Entity) in.readObject();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            // response = in.readUTF();
         }
         return response.getId();
     }
@@ -143,13 +137,7 @@ public class ServerDataViewImpl implements GenericDao {
         }
         List<Entity> response1 = (List<Entity>) response;
         while (response1 == null) {
-            try {
-                response1 = (List<Entity>) in.readObject();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            // response1 = (List<Entity>) in.readUTF();
         }
         return response1;
 
