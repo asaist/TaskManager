@@ -18,7 +18,7 @@ public class client {
     public static void main(String[] args) throws InterruptedException {
 
 // запускаем подключение сокета по известным координатам и нициализируем приём сообщений с консоли клиента
-        try(Socket socket = new Socket("localhost", 3345);
+        try(Socket socket = new Socket("localhost", 1234);
             BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
             DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
             DataInputStream ois = new DataInputStream(socket.getInputStream()); )

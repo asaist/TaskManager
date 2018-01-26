@@ -49,10 +49,10 @@ public class ClientTaskManagerModelImpl extends Observable implements ClientTask
         if (task != null) {
             checkTasks(task);
             tasks.add(task);
+            dao.create((Entity) task);
+            System.out.println("Запись добавлена  в модель " + task.getTaskName());
             setChanged();
             notifyObservers();
-            System.out.println("Запись добавлена  в модель " + task.getTaskName());
-            dao.create((Entity) task);
         }
     }
 

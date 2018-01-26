@@ -12,7 +12,7 @@ import java.util.Observable;
 
 public class ServerDataViewImpl implements GenericDao {
     ObjectInputStream in ;
-    ObjectOutputStream out ;
+    DataOutputStream out ;
     Entity response;
 
 
@@ -105,7 +105,7 @@ public class ServerDataViewImpl implements GenericDao {
     @Override
     public Integer create(Entity newInstance) {
         try {
-            out.writeObject(newInstance);//
+            out.writeUTF(newInstance.toString());//
         } catch (IOException e) {
             e.printStackTrace();
         }

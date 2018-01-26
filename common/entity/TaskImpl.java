@@ -1,6 +1,6 @@
 package common.entity;
 
-import static client.model.Task.deadline;
+
 
 public class TaskImpl implements Task, Entity {
     private int id;
