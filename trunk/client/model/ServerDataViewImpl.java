@@ -76,17 +76,17 @@ public class ServerDataViewImpl implements GenericDao {
                     }
 
 // если условие разъединения не достигнуто продолжаем работу
-                    System.out.println("Client sent message & start waiting for data from server...");
-                    Thread.sleep(20000);
+                   /* System.out.println("Client sent message & start waiting for data from server...");
+                    Thread.sleep(2000);*/
 
 // проверяем, что нам ответит сервер на сообщение(за предоставленное ему время в паузе он должен был успеть ответить)
-                    if(ois.read() > -1)     {
+                  /*  if(ois.read() > -1)     {
 
 // если успел забираем ответ из канала сервера в сокете и сохраняем её в ois переменную,  печатаем на свою клиентскую консоль
                         System.out.println("reading...");
                         String in = ois.readUTF();
                         System.out.println(in);
-                    }
+                    }*/
                 }
             }
 // на выходе из цикла общения закрываем свои ресурсы
