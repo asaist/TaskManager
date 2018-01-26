@@ -77,7 +77,9 @@ public class ClientDataViewImpl implements TaskManagerView {
                 entity= dto.getEntity();
                 switch(action){
                     case DELETE:controller.deleteTask((Task)entity);
+                        client.close();
                     break;
+
                     case CREATE:
                         if (entity instanceof Task){
                             Task task = (Task)entity;
@@ -87,6 +89,7 @@ public class ClientDataViewImpl implements TaskManagerView {
                             Assignee assignee=(Assignee) entity;
                             controller.addAssignee(assignee.getName(),assignee.getLastname(),assignee.getLastname());
                         }
+                        client.close();
                         break;
                     case UPDATE:
                         Task task = (Task)entity;
@@ -104,7 +107,7 @@ public class ClientDataViewImpl implements TaskManagerView {
                     break;
                 }
 
-                out.writeUTF("Server reply - "+ dto + " - OK");
+                //out.writeUTF("Server reply - "+ dto.toString() + " - OK");
                 System.out.println("Server Wrote message to client.");
                 out.flush();
             }
