@@ -2,6 +2,7 @@ package server.view;
 
 import common.entity.*;
 import common.service.Parser;
+import common.service.TextDao;
 import server.controller.TaskManagerController;
 import server.controller.TaskManagerControllerImpl;
 import server.model.TaskManagerModel;
@@ -10,17 +11,19 @@ import server.model.TaskManagerModelImpl;
 import java.io.IOException;
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
-import static common.entity.DataObject.Action.DELETE;
 
 
 public class ClientDataViewImpl implements TaskManagerView {
     boolean flag = false;
-    ObjectInputStream in;
-    ObjectOutputStream out;
+    DataInputStream in;
+    DataOutputStream out;
     TaskManagerController controller;
     TaskManagerModel model;
+    List <Entity> entities = new ArrayList<>();
 
 
     public ClientDataViewImpl(TaskManagerController controller, TaskManagerModel model) {
@@ -55,11 +58,11 @@ public class ClientDataViewImpl implements TaskManagerView {
             Socket client = ss.accept(); //сокет общения с клиентом
             System.out.println("Got a client :) ... Finally,someone saw me through all the cover");
 
-            /*InputStream sin = client.getInputStream();
+            InputStream sin = client.getInputStream();
             OutputStream sout = client.getOutputStream();
 
-            in = new ObjectInputStream(sin);
-            out = new ObjectOutputStream(sout);*/
+            in = new DataInputStream(sin);
+            out = new DataOutputStream(sout);
 
             // канал записи в сокет
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
@@ -69,7 +72,7 @@ public class ClientDataViewImpl implements TaskManagerView {
             DataInputStream input = new DataInputStream(client.getInputStream());
             System.out.println("DataInputStream created");
             Parser parser = new Parser();
-            while (!client.isClosed()) {
+            /*while (!client.isClosed()) {
                 System.out.println("Server reading from channel");
                 String entry = input.readUTF();
                 String[] entrys = entry.split(";");
@@ -78,23 +81,27 @@ public class ClientDataViewImpl implements TaskManagerView {
             }
 
             input.close();
-            client.close();
+            client.close();*/
 
 
-           /* DataObject.Action action=null;
+            //DataObject.Action action=null;
             Object entity;
 
             while (!client.isClosed()) {
                 //DataObject полностью
-                DataObject dto = new DataObjectImpl(in);//заменить на чтение из потока когда найдем
+                //DataObject dto = new DataObjectImpl(input);//заменить на чтение из потока когда найдем
 
-                action = dto.getAction();
-                entity= dto.getEntity();
+                /*action = dto.getAction();
+                entity= dto.getEntity();*/
+
+                String entry = input.readUTF();
+                String[] entrys = entry.split(";");
+                String action = entrys[0];
                 switch(action){
-                    case DELETE:controller.deleteTask((Task)entity);
+                   /* case "DELETE":controller.deleteTask((Task)entity);
                     break;
-                    case CREATE:
-                        if (entity instanceof Task){
+                    case "CREATE":
+                       /* if (entity instanceof Task){
                             Task task = (Task)entity;
                             controller.addTask(task.getTaskName(),task.getDescription(),task.getDeadlineYear(),task.getDeadlineMonth(),task.getDeadlineDay(),task.getDeadlineHour(),task.getPriority(),task.getStatus(),task.getSubtask());
 
@@ -102,26 +109,35 @@ public class ClientDataViewImpl implements TaskManagerView {
                             Assignee assignee=(Assignee) entity;
                             controller.addAssignee(assignee.getName(),assignee.getLastname(),assignee.getLastname());
                         }
+                        break;*/
+                    case "UPDATE":
+                       // Task task = (Task)entity;
+                        //controller.updateTask(task);
                         break;
-                    case UPDATE:
-                        Task task = (Task)entity;
-                        controller.updateTask(task);
+                    case "UPLOAD":
+                        TextDao textDao = new TextDao();
+                        entities = textDao.readAll();
+                        for (Entity entity1 : entities) {
+                            out.writeUTF(entity1.toString());
+                            System.out.println("Server Wrote message to client.");
+                        }
+                        break;
                 }
 
                 System.out.println("The dumb client just sent me this action: " + action);
                 System.out.println("I'm sendng it back...");
 
-                if(dto.equals("quit")){
+               /* if(dto.equals("quit")){
                     System.out.println("Client initialize connections suicide ...");
-                    out.writeObject("Server reply - "+ dto + " - OK");
+                    out.writeUTF("Server reply - "+ dto + " - OK");
                     out.flush();
                     Thread.sleep(3000);
                     break;
                 }
 
-                out.writeObject("Server reply - "+ dto + " - OK");
+                out.writeUTF("Server reply - "+ dto + " - OK");
                 System.out.println("Server Wrote message to client.");
-                out.flush();
+                out.flush();*/
             }
             // если условие выхода - верно выключаем соединения
             System.out.println("Client disconnected");
@@ -138,7 +154,7 @@ public class ClientDataViewImpl implements TaskManagerView {
             // хотя при многопоточном применении его закрывать не нужно
             // для возможности поставить этот серверный сокет обратно в ожидание нового подключения
 
-            System.out.println("Closing connections & channels - DONE.");*/
+            System.out.println("Closing connections & channels - DONE.");
 
 
         } catch (Exception e) {

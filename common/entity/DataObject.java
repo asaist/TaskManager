@@ -3,14 +3,14 @@ package common.entity;
 
 
 public interface DataObject {
-    enum Action {CREATE, UPDATE, DELETE, GET_LIST_ENTITY}
+    enum String {CREATE, UPDATE, DELETE, UPLOAD}
 
 
     void setEntity(Object entity);
 
     Object getEntity();
 
-    void setAction(Action action);
+    void setAction(String action);
 
-    Action getAction();
+    String getAction();
 }
