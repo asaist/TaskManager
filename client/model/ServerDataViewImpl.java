@@ -11,18 +11,18 @@ import java.util.List;
 import java.util.Observable;
 
 public class ServerDataViewImpl implements GenericDao {
-    ObjectInputStream in ;
-    DataOutputStream out ;
+    ObjectInputStream in;
+    ObjectOutputStream out;
     Entity response;
 
 
     public ServerDataViewImpl() {
 
 
-        try(Socket socket = new Socket("localhost", 1234);
-            BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
-            DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
-            DataInputStream ois = new DataInputStream(socket.getInputStream()); )
+        try (Socket socket = new Socket("localhost", 1234);
+             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             DataOutputStream oos = new DataOutputStream(socket.getOutputStream());
+             DataInputStream ois = new DataInputStream(socket.getInputStream());)
 
         {
 
@@ -39,15 +39,14 @@ public class ServerDataViewImpl implements GenericDao {
             out = new ObjectOutputStream(sout);*/
 
 
-
-            while(!socket.isOutputShutdown()){
+            while (!socket.isOutputShutdown()) {
 
 // ждём консоли клиента на предмет появления в ней данных
-                if(br.ready()){
+                if (br.ready()) {
 
 // данные появились - работаем
                     System.out.println("Client start writing in channel...");
-                    //Thread.sleep(1000);
+                    Thread.sleep(1000);
                     String clientCommand = br.readLine();
 
 // пишем данные с консоли в канал сокета для сервера
@@ -58,14 +57,14 @@ public class ServerDataViewImpl implements GenericDao {
 // ждём чтобы сервер успел прочесть сообщение из сокета и ответить
 
 // проверяем условие выхода из соединения
-                    if(clientCommand.equalsIgnoreCase("quit")){
+                    if (clientCommand.equalsIgnoreCase("quit")) {
 
 // если условие выхода достигнуто разъединяемся
                         System.out.println("Client kill connections");
                         Thread.sleep(2000);
 
 // смотрим что нам ответил сервер на последок перед закрытием ресурсов
-                        if(ois.read() > -1)     {
+                        if (ois.read() > -1) {
                             System.out.println("reading...");
                             String in = ois.readUTF();
                             System.out.println(in);
@@ -76,30 +75,29 @@ public class ServerDataViewImpl implements GenericDao {
                     }
 
 // если условие разъединения не достигнуто продолжаем работу
-                   /* System.out.println("Client sent message & start waiting for data from server...");
-                    Thread.sleep(2000);*/
+                    System.out.println("Client sent message & start waiting for data from server...");
+                    Thread.sleep(2000);
 
 // проверяем, что нам ответит сервер на сообщение(за предоставленное ему время в паузе он должен был успеть ответить)
-                  /*  if(ois.read() > -1)     {
+                    if (ois.read() > -1) {
 
 // если успел забираем ответ из канала сервера в сокете и сохраняем её в ois переменную,  печатаем на свою клиентскую консоль
                         System.out.println("reading...");
                         String in = ois.readUTF();
                         System.out.println(in);
-                    }*/
+                    }
                 }
             }
 // на выходе из цикла общения закрываем свои ресурсы
             System.out.println("Closing connections & channels on clentSide - DONE.");
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 
     @Override
@@ -109,9 +107,9 @@ public class ServerDataViewImpl implements GenericDao {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        while(response==null){
+        while (response == null) {
             try {
-                response= (Entity)in.readObject();
+                response = (Entity) in.readObject();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -143,15 +141,15 @@ public class ServerDataViewImpl implements GenericDao {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<Entity> response1= (List<Entity>)response;
-        while (response1==null){
-                try {
-                    response1= (List<Entity>)in.readObject();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+        List<Entity> response1 = (List<Entity>) response;
+        while (response1 == null) {
+            try {
+                response1 = (List<Entity>) in.readObject();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         return response1;
 

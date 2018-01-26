@@ -12,21 +12,20 @@ import java.net.*;
 import java.io.*;
 import java.util.Observable;
 
-import static common.entity.DataObject.Action.CREATE;
 import static common.entity.DataObject.Action.DELETE;
 
 
 public class ClientDataViewImpl implements TaskManagerView {
     boolean flag = false;
-    DataInputStream in ;
-    DataOutputStream out ;
+    ObjectInputStream in;
+    ObjectOutputStream out;
     TaskManagerController controller;
     TaskManagerModel model;
 
 
     public ClientDataViewImpl(TaskManagerController controller, TaskManagerModel model) {
-        this.controller=controller;
-        this.model=model;
+        this.controller = controller;
+        this.model = model;
 
     }
 
@@ -38,7 +37,7 @@ public class ClientDataViewImpl implements TaskManagerView {
     @Override
     public void displayModels(TaskManagerModel model) {
         try {
-            out.write(Integer.valueOf(1) );
+            out.write(Integer.valueOf(1));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,39 +46,53 @@ public class ClientDataViewImpl implements TaskManagerView {
     @Override
     public void createView() {
 
-        int port =1234;
+        int port = 1234;
 
-        try (ServerSocket ss= new ServerSocket(port)) {
+        try (ServerSocket ss = new ServerSocket(port)) {
 
             System.out.println("Waiting for a client...");
 
-            Socket client=ss.accept(); //сокет общения с клиентом
+            Socket client = ss.accept(); //сокет общения с клиентом
             System.out.println("Got a client :) ... Finally,someone saw me through all the cover");
 
-            InputStream sin = client.getInputStream();
+            /*InputStream sin = client.getInputStream();
             OutputStream sout = client.getOutputStream();
 
-            in=new DataInputStream(sin);
-            out=new DataOutputStream(sout);
+            in = new ObjectInputStream(sin);
+            out = new ObjectOutputStream(sout);*/
 
+            // канал записи в сокет
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
+            System.out.println("DataOutputStream  created");
+
+            // канал чтения из сокета
             DataInputStream input = new DataInputStream(client.getInputStream());
+            System.out.println("DataInputStream created");
+            Parser parser = new Parser();
+            while (!client.isClosed()) {
+                System.out.println("Server reading from channel");
+                String entry = input.readUTF();
+                String[] entrys = entry.split(";");
+                model.addTask((Task) parser.parse(entry));
+                controller.addTask(entrys[0],entrys[1], entrys[2], entrys[3], entrys[4], entrys[5], entrys[6], entrys[7], entrys[8]);
+            }
+
+            input.close();
+            client.close();
 
 
-            DataObject.Action action=CREATE;
+           /* DataObject.Action action=null;
             Object entity;
 
             while (!client.isClosed()) {
                 //DataObject полностью
-                DataObject dto = new DataObjectImpl(action,in);//заменить на чтение из потока когда найдем
+                DataObject dto = new DataObjectImpl(in);//заменить на чтение из потока когда найдем
 
-                action = CREATE;//dto.getAction();
+                action = dto.getAction();
                 entity= dto.getEntity();
                 switch(action){
                     case DELETE:controller.deleteTask((Task)entity);
-                        client.close();
                     break;
-
                     case CREATE:
                         if (entity instanceof Task){
                             Task task = (Task)entity;
@@ -89,7 +102,6 @@ public class ClientDataViewImpl implements TaskManagerView {
                             Assignee assignee=(Assignee) entity;
                             controller.addAssignee(assignee.getName(),assignee.getLastname(),assignee.getLastname());
                         }
-                        client.close();
                         break;
                     case UPDATE:
                         Task task = (Task)entity;
@@ -101,13 +113,13 @@ public class ClientDataViewImpl implements TaskManagerView {
 
                 if(dto.equals("quit")){
                     System.out.println("Client initialize connections suicide ...");
-                    out.writeUTF("Server reply - "+ dto + " - OK");
+                    out.writeObject("Server reply - "+ dto + " - OK");
                     out.flush();
                     Thread.sleep(3000);
                     break;
                 }
 
-                //out.writeUTF("Server reply - "+ dto.toString() + " - OK");
+                out.writeObject("Server reply - "+ dto + " - OK");
                 System.out.println("Server Wrote message to client.");
                 out.flush();
             }
@@ -126,14 +138,15 @@ public class ClientDataViewImpl implements TaskManagerView {
             // хотя при многопоточном применении его закрывать не нужно
             // для возможности поставить этот серверный сокет обратно в ожидание нового подключения
 
-            System.out.println("Closing connections & channels - DONE.");
+            System.out.println("Closing connections & channels - DONE.");*/
 
 
-
-        } catch (Exception e) {e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
+
     @Override
     public void update(Observable o, Object arg) {
         TaskManagerModel model = (TaskManagerModel) o;
