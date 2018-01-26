@@ -12,6 +12,7 @@ import java.net.*;
 import java.io.*;
 import java.util.Observable;
 
+import static common.entity.DataObject.Action.CREATE;
 import static common.entity.DataObject.Action.DELETE;
 
 
@@ -55,57 +56,24 @@ public class ClientDataViewImpl implements TaskManagerView {
             Socket client=ss.accept(); //сокет общения с клиентом
             System.out.println("Got a client :) ... Finally,someone saw me through all the cover");
 
-            /*InputStream sin = client.getInputStream();
+            InputStream sin = client.getInputStream();
             OutputStream sout = client.getOutputStream();
 
-            in=new ObjectInputStream(sin);
-            out=new ObjectOutputStream(sout);*/
+            in=new DataInputStream(sin);
+            out=new DataOutputStream(sout);
 
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
             DataInputStream input = new DataInputStream(client.getInputStream());
 
-            while(!client.isClosed()){
-                String entry = input.readUTF();
 
-                if(entry.equalsIgnoreCase("quit")){
-                    System.out.println("Client initialize connections suicide ...");
-                    out.writeUTF("Server reply - "+entry + " - OK");
-                    out.flush();
-                    Thread.sleep(3000);
-                    break;
-                }
-
-                out.writeUTF("Server reply - "+entry + " - OK");
-                System.out.println("Server Wrote message to client." + entry);
-
-                out.flush();
-
-                Parser parser = new Parser();
-
-                model.addTask((Task) parser.parse(entry));
-
-                System.out.println("Client disconnected");
-                System.out.println("Closing connections & channels.");
-                //String [] entrys = entry.split(";");
-                //controller.addTask(entrys[1],entrys[2],entrys[3],entrys[4],entrys[5],entrys[6],entrys[7],entrys[8],entrys[9]);
-            }
-
-            input.close();
-            client.close();
-
-            in.close();
-            out.close();
-
-            client.close();
-
-           /* DataObject.Action action=null;
+            DataObject.Action action=CREATE;
             Object entity;
 
             while (!client.isClosed()) {
                 //DataObject полностью
-                DataObject dto = new DataObjectImpl(in);//заменить на чтение из потока когда найдем
+                DataObject dto = new DataObjectImpl(action,in);//заменить на чтение из потока когда найдем
 
-                action = dto.getAction();
+                action = CREATE;//dto.getAction();
                 entity= dto.getEntity();
                 switch(action){
                     case DELETE:controller.deleteTask((Task)entity);
@@ -130,13 +98,13 @@ public class ClientDataViewImpl implements TaskManagerView {
 
                 if(dto.equals("quit")){
                     System.out.println("Client initialize connections suicide ...");
-                    out.writeObject("Server reply - "+ dto + " - OK");
+                    out.writeUTF("Server reply - "+ dto + " - OK");
                     out.flush();
                     Thread.sleep(3000);
                     break;
                 }
 
-                out.writeObject("Server reply - "+ dto + " - OK");
+                out.writeUTF("Server reply - "+ dto + " - OK");
                 System.out.println("Server Wrote message to client.");
                 out.flush();
             }
@@ -155,7 +123,7 @@ public class ClientDataViewImpl implements TaskManagerView {
             // хотя при многопоточном применении его закрывать не нужно
             // для возможности поставить этот серверный сокет обратно в ожидание нового подключения
 
-            System.out.println("Closing connections & channels - DONE.");*/
+            System.out.println("Closing connections & channels - DONE.");
 
 
 
