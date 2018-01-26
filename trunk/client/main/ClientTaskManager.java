@@ -17,19 +17,19 @@ import server.model.TaskManagerModelImpl;
 //import server.view.ClientDataViewImpl;
 import server.view.TaskManagerView;
 import server.view.TaskManagerViewImpl;
+
 import java.io.IOException;
 import java.util.List;
 
 
 public class ClientTaskManager {
-    public static void main (String[]args) throws IOException {
-
+    public static void main(String[] args) throws IOException {
         ServerDataViewImpl ServerDadaTransaction = new ServerDataViewImpl();
         ClientTaskManagerModel model = new ClientTaskManagerModelImpl(ServerDadaTransaction);
         ClientTaskManagerController controller = new ClientTaskManagerControllerImpl(model);
-        ClientTaskManagerView view = new ClientTaskManagerViewImpl(controller,model);
-        view.createView();
         //model.addAllTask(controller.isCorrectDate(ServerDadaTransaction.readAll()));
+        ClientTaskManagerView view = new ClientTaskManagerViewImpl(controller, model);
+        view.createView();
         model.addWatcher(view);
 
     }

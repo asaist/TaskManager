@@ -16,55 +16,54 @@ import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observer{
+public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observer {
 
-    private  final ClientTaskManagerController controller;
-    private  final ClientTaskManagerModel model;
+    private final ClientTaskManagerController controller;
+    private final ClientTaskManagerModel model;
 
-    private  final JPanel assaigneeControlPanel;
-    private  final JPanel taskControlPanel;
-    private  final JPanel globalPanel;
-    private  final JPanel tasksViewPanel;
-    private  final TaskPresenter taskPresenter = new TaskPresenter();
+    private final JPanel assaigneeControlPanel;
+    private final JPanel taskControlPanel;
+    private final JPanel globalPanel;
+    private final JPanel tasksViewPanel;
+    private final TaskPresenter taskPresenter = new TaskPresenter();
 
     //    private   JPanel TaskPanelButton;
-    private  final JFrame viewFrame;
-    private  final JTextField viewTextName;
-    private  final JTextField viewTextLastName;
-    private  final JTextField viewTextPost;
-    private  final JTextField viewTextConsole;
-    private  final JTextField viewTextTName;
-    private  final JTextField viewTextDescription;
-    private  final JTextField viewTextDeadlineYear;
-    private  final JTextField viewTextDeadlineMonth;
-    private  final JTextField viewTextDeadlineDay;
-    private  final JTextField viewTextDeadlineHour;
-    private  final JTextField viewTextPriority;
-    private  final JTextField viewTextStatus;
-    private  final JTextField viewTextSubTask;
-    private  final JButton addAssaigneeButton;
-    private  final JButton addTaskButton;
-    private  final JButton deleteAssigneeButton;
-    private  final JButton deleteTaskButton;
-    private  final String textViewFrame = "viewClient";
-    private  final String addAssaigneeButtonLable = "Add Assaignee";
-    private  final String addTaskButtonLable = "Add Task";
-    private  final String deleteAssigneeButtonLable = "Delete Assignee";
-    private  final String deleteTaskButtonLable = "Delete Task";
-    private  final String textName = "Name";
-    private  final String textLastName = "Last Name";
-    private  final String textConsole = "Console";
-    private  final String textPost = "Post";
-    private  final String texTName = "TaskName";
-    private  final String textDescription = "Description";
-    private  final String textDeadlineYear = "2017";
-    private  final String textDeadlineMonth = "12";
-    private  final String textDeadlineDay = "31";
-    private  final String textDeadlineHour = "23";
-    private  final String textPriority = "Priority";
-    private  final String textStatus = "Status";
-    private  final String textSubtasks = "Subtasks";
-
+    private final JFrame viewFrame;
+    private final JTextField viewTextName;
+    private final JTextField viewTextLastName;
+    private final JTextField viewTextPost;
+    private final JTextField viewTextConsole;
+    private final JTextField viewTextTName;
+    private final JTextField viewTextDescription;
+    private final JTextField viewTextDeadlineYear;
+    private final JTextField viewTextDeadlineMonth;
+    private final JTextField viewTextDeadlineDay;
+    private final JTextField viewTextDeadlineHour;
+    private final JTextField viewTextPriority;
+    private final JTextField viewTextStatus;
+    private final JTextField viewTextSubTask;
+    private final JButton addAssaigneeButton;
+    private final JButton addTaskButton;
+    private final JButton deleteAssigneeButton;
+    private final JButton deleteTaskButton;
+    private final String textViewFrame = "viewClient";
+    private final String addAssaigneeButtonLable = "Add Assaignee";
+    private final String addTaskButtonLable = "Add Task";
+    private final String deleteAssigneeButtonLable = "Delete Assignee";
+    private final String deleteTaskButtonLable = "Delete Task";
+    private final String textName = "Name";
+    private final String textLastName = "Last Name";
+    private final String textConsole = "Console";
+    private final String textPost = "Post";
+    private final String texTName = "TaskName";
+    private final String textDescription = "Description";
+    private final String textDeadlineYear = "2017";
+    private final String textDeadlineMonth = "12";
+    private final String textDeadlineDay = "31";
+    private final String textDeadlineHour = "23";
+    private final String textPriority = "Priority";
+    private final String textStatus = "Status";
+    private final String textSubtasks = "Subtasks";
 
 
     public ClientTaskManagerViewImpl(ClientTaskManagerController controller, ClientTaskManagerModel model) {
@@ -73,7 +72,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
 
         viewFrame = new JFrame(textViewFrame);
         tasksViewPanel = new JPanel();
-        globalPanel= new JPanel();
+        globalPanel = new JPanel();
         assaigneeControlPanel = new JPanel();
         taskControlPanel = new JPanel();
 
@@ -98,7 +97,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
         viewTextSubTask = new JTextField(textSubtasks);
     }
 
-    public void createView (){
+    public void createView() {
 
 
         viewFrame.pack();
@@ -177,7 +176,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
                                             public void actionPerformed(ActionEvent e) {
 
                                                 try {
-                                                    controller.addTask(String.valueOf(viewTextTName.getText()),String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadlineYear.getText()), String.valueOf(viewTextDeadlineMonth.getText()), String.valueOf(viewTextDeadlineDay.getText()), String.valueOf(viewTextDeadlineHour.getText()), String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
+                                                    controller.addTask(String.valueOf(viewTextTName.getText()), String.valueOf(viewTextDescription.getText()), String.valueOf(viewTextDeadlineYear.getText()), String.valueOf(viewTextDeadlineMonth.getText()), String.valueOf(viewTextDeadlineDay.getText()), String.valueOf(viewTextDeadlineHour.getText()), String.valueOf(viewTextPriority.getText()), String.valueOf(viewTextStatus.getText()), String.valueOf(viewTextSubTask.getText()));
                                                 } catch (RuntimeException e1) {
                                                     updateViewTextConsole(e1.toString());
 
@@ -211,10 +210,9 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     }
 
 
-
     public class TaskPresenter {
 
-        public void displayTask(Task task){
+        public void displayTask(Task task) {
             Border border = BorderFactory.createLineBorder(Color.black);
             JTextField taskName = new JTextField(task.getTaskName());
             JTextField description = new JTextField(task.getDescription());
@@ -229,7 +227,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
             JPanel certainTaskPanel = new JPanel();
             certainTaskPanel.setBorder(border);
 
-            certainTaskPanel.setLayout(new GridLayout(3,3));
+            certainTaskPanel.setLayout(new GridLayout(3, 3));
             JButton removeButton = new JButton("Delete");
             JButton updateButton = new JButton("Update");//toString = имя кнопки /вызывать task.getId
             certainTaskPanel.add(taskName);
@@ -246,13 +244,13 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
 
             removeButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    try{
+                    try {
                         try {
                             controller.deleteTask(task);
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
-                    }catch (RuntimeException e1) {
+                    } catch (RuntimeException e1) {
                         updateViewTextConsole(e1.toString());
 
                     }
@@ -261,7 +259,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
 
             updateButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    try{
+                    try {
                         try {
                             Task taskToUpdate = new TaskImpl(String.valueOf(taskName.getText()), String.valueOf(description.getText()), String.valueOf(deadlineYear.getText()), String.valueOf(deadlineMonth.getText()), String.valueOf(deadlineDay.getText()), String.valueOf(deadlineHour.getText()), String.valueOf(priority.getText()), String.valueOf(status.getText()), String.valueOf(subtask.getText()));
                             controller.updateTask(taskToUpdate);
@@ -269,14 +267,14 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
-                    }catch (RuntimeException e1) {
+                    } catch (RuntimeException e1) {
                         updateViewTextConsole(e1.toString());
 
                     }
                 }
             });
             certainParentTaskPanel.add(certainTaskPanel);
-            certainParentTaskPanel.setLayout(new GridLayout(1,3));
+            certainParentTaskPanel.setLayout(new GridLayout(1, 3));
 
             tasksViewPanel.add(certainParentTaskPanel);
 
@@ -300,22 +298,22 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     public void displayModels(ClientTaskManagerModel model) {
 
         tasksViewPanel.removeAll();
-        for (Assignee assignee: model.getAssignees()){
-            updateViewTextConsole(assignee.getName()+" "+
-                    assignee.getLastname()+" "+
+        for (Assignee assignee : model.getAssignees()) {
+            updateViewTextConsole(assignee.getName() + " " +
+                    assignee.getLastname() + " " +
                     assignee.getPost()
             );
 
         }
-        for (Task task: model.getTasks()){
-            updateViewTextConsole(task.getTaskName()+" "+
-                    task.getDescription()+" "+
-                    task.getDeadlineYear()+" "+
-                    task.getDeadlineMonth()+" "+
-                    task.getDeadlineDay()+" "+
-                    task.getDeadlineHour()+" "+
-                    task.getPriority()+" "+
-                    task.getStatus()+" "+
+        for (Task task : model.getTasks()) {
+            updateViewTextConsole(task.getTaskName() + " " +
+                    task.getDescription() + " " +
+                    task.getDeadlineYear() + " " +
+                    task.getDeadlineMonth() + " " +
+                    task.getDeadlineDay() + " " +
+                    task.getDeadlineHour() + " " +
+                    task.getPriority() + " " +
+                    task.getStatus() + " " +
                     task.getSubtask()
             );
             taskPresenter.displayTask(task);
