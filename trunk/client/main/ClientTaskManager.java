@@ -26,9 +26,8 @@ public class ClientTaskManager {
         ServerDataViewImpl ServerDadaTransaction = new ServerDataViewImpl();
         ClientTaskManagerModel model = new ClientTaskManagerModelImpl(ServerDadaTransaction);
         ClientTaskManagerController controller = new ClientTaskManagerControllerImpl(model);
-        model.addAllTask(controller.isCorrectDate(ServerDadaTransaction.readAll()));
+        //model.addAllTask(controller.isCorrectDate(ServerDadaTransaction.readAll()));
         ClientTaskManagerView view = new ClientTaskManagerViewImpl(controller,model);
-
         view.createView();
 
         model.addWatcher(view);

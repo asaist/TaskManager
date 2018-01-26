@@ -45,7 +45,7 @@ public class TaskManagerViewImpl implements TaskManagerView, Observer{
     private  final JButton addTaskButton;
     private  final JButton deleteAssigneeButton;
     private  final JButton deleteTaskButton;
-    private  final String textViewFrame = "view";
+    private  final String textViewFrame = "viewServer";
     private  final String addAssaigneeButtonLable = "Add Assaignee";
     private  final String addTaskButtonLable = "Add Task";
     private  final String deleteAssigneeButtonLable = "Delete Assignee";

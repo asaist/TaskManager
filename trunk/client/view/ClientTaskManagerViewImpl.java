@@ -46,7 +46,7 @@ public class ClientTaskManagerViewImpl implements ClientTaskManagerView, Observe
     private  final JButton addTaskButton;
     private  final JButton deleteAssigneeButton;
     private  final JButton deleteTaskButton;
-    private  final String textViewFrame = "view";
+    private  final String textViewFrame = "viewClient";
     private  final String addAssaigneeButtonLable = "Add Assaignee";
     private  final String addTaskButtonLable = "Add Task";
     private  final String deleteAssigneeButtonLable = "Delete Assignee";
