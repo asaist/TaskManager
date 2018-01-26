@@ -80,6 +80,10 @@ public class ClientDataViewImpl implements TaskManagerView {
 
                 out.flush();
 
+                Parser parser = new Parser();
+
+                model.addTask((Task) parser.parse(entry));
+
                 System.out.println("Client disconnected");
                 System.out.println("Closing connections & channels.");
                 //String [] entrys = entry.split(";");
